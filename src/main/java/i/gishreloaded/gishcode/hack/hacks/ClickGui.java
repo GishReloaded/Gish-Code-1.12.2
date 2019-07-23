@@ -4,7 +4,7 @@ import java.awt.Color;
 
 import org.lwjgl.input.Keyboard;
 
-import i.gishreloaded.gishcode.GishCode;
+import i.gishreloaded.gishcode.Main;
 import i.gishreloaded.gishcode.Wrapper;
 import i.gishreloaded.gishcode.hack.Hack;
 import i.gishreloaded.gishcode.hack.HackCategory;
@@ -60,7 +60,7 @@ public class ClickGui extends Hack{
 	
 	@Override
 	public void onEnable() {
-		Wrapper.INSTANCE.mc().displayGuiScreen(GishCode.hackManager.getGui());
+		Wrapper.INSTANCE.mc().displayGuiScreen(Main.hackManager.getGui());
 		super.onEnable();
 	}
 	

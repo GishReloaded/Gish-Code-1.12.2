@@ -1,17 +1,17 @@
 package i.gishreloaded.gishcode.hack.hacks;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.LinkedList;
 
 import i.gishreloaded.gishcode.Wrapper;
 import i.gishreloaded.gishcode.hack.Hack;
 import i.gishreloaded.gishcode.hack.HackCategory;
 import i.gishreloaded.gishcode.managers.XRayManager;
-import i.gishreloaded.gishcode.utils.*;
+import i.gishreloaded.gishcode.utils.BlockUtils;
+import i.gishreloaded.gishcode.utils.RenderUtils;
+import i.gishreloaded.gishcode.utils.TimerUtils;
 import i.gishreloaded.gishcode.value.NumberValue;
-import i.gishreloaded.gishcode.value.BooleanValue;
-import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
+import i.gishreloaded.gishcode.xray.XRayBlock;
+import i.gishreloaded.gishcode.xray.XRayData;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
@@ -30,7 +30,7 @@ public class XRay extends Hack{
 		timer = new TimerUtils();
 		this.addValue(distance, delay);
 	}
-	ArrayList<XRayBlock> blocksForRender = new ArrayList<XRayBlock>();
+	LinkedList<XRayBlock> blocksForRender = new LinkedList<XRayBlock>();
 
 	@Override
 	public void onEnable() {
@@ -45,7 +45,7 @@ public class XRay extends Hack{
 		}
 		blocksForRender.clear();
 		for(XRayData data : XRayManager.xrayList) {
-			for (BlockPos blockPos : BlockUtils.findBlocksNearEntity(Wrapper.INSTANCE.player(), Block.getBlockById(data.getId()), distance)) {
+			for (BlockPos blockPos : BlockUtils.findBlocksNearEntity(Wrapper.INSTANCE.player(), data.getId(), data.getMeta(), distance)) {
 				XRayBlock xRayBlock = new XRayBlock(blockPos, data);
 	        	blocksForRender.add(xRayBlock);
 			}

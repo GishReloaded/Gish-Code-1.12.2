@@ -76,8 +76,8 @@ public class HackManager {
 		addHack(new PluginsGetter());
 		addHack(new AttackPacketCW());
 		addHack(new AttackPacketCIA());
-		addHack(new DisableAtDeath());
 		addHack(new Teleport());
+		//addHack(new DisableAtDeath());
 		//addHack(new TestHack());
 	}
 	

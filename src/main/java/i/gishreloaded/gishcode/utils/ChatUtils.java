@@ -1,6 +1,6 @@
 package i.gishreloaded.gishcode.utils;
 
-import i.gishreloaded.gishcode.GishCode;
+import i.gishreloaded.gishcode.Main;
 import i.gishreloaded.gishcode.Wrapper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.text.ITextComponent;
@@ -19,7 +19,7 @@ public class ChatUtils{
 	
 	public static void message(String message)
 	{
-		component(new TextComponentTranslation("\u00a78" + GishCode.NAME + "\u00a77 " + message));
+		component(new TextComponentTranslation("\u00a78" + Main.NAME + "\u00a77 " + message));
 	}
 	
 	public static void warning(String message)

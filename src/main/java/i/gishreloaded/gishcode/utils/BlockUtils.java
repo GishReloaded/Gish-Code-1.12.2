@@ -8,6 +8,7 @@
 package i.gishreloaded.gishcode.utils;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 import i.gishreloaded.gishcode.Wrapper;
 import net.minecraft.block.Block;
@@ -220,20 +221,50 @@ public final class BlockUtils
 			(xDiff - 0.5F) * (xDiff - 0.5F) + (zDiff - 0.5F) * (zDiff - 0.5F));
 	}
 	
-	public static ArrayList<BlockPos> findBlocksNearEntity(EntityLivingBase entity, Block blockType, int distance) {
-		ArrayList<BlockPos> blocks = new ArrayList<BlockPos>();
-		for (int i = (int) Wrapper.INSTANCE.player().posX - distance; i <= (int) Wrapper.INSTANCE.player().posX + distance; ++i) {
-            for (int j = (int) Wrapper.INSTANCE.player().posZ - distance; j <= (int) Wrapper.INSTANCE.player().posZ + distance; ++j) {
-                int height = Wrapper.INSTANCE.world().getHeight(i, j);
-                block: for (int k = 0; k <= height; ++k) {
-                		BlockPos blockPos = new BlockPos(i, k, j);
-                		if(Wrapper.INSTANCE.world().getBlockState(blockPos).getBlock() == blockType) {
+	public static LinkedList<BlockPos> findBlocksNearEntity(EntityLivingBase entity, int blockId, int blockMeta, int distance) {
+		
+		LinkedList<BlockPos> blocks = new LinkedList<BlockPos>();
+		Material blockMaterial = Block.getStateById(blockId).getMaterial();
+		
+		for (int x = (int) Wrapper.INSTANCE.player().posX - distance; x <= (int) Wrapper.INSTANCE.player().posX + distance; ++x) {
+            for (int z = (int) Wrapper.INSTANCE.player().posZ - distance; z <= (int) Wrapper.INSTANCE.player().posZ + distance; ++z) {
+            	
+                int height = Wrapper.INSTANCE.world().getHeight(x, z); 
+                block: for (int y = 0; y <= height; ++y) {
+                	
+                	BlockPos blockPos = new BlockPos(x, y, z);
+                	IBlockState blockState = Wrapper.INSTANCE.world().getBlockState(blockPos);
+                	
+                		Material outBlockMaterial = blockState.getMaterial();
+                		int outBlockMeta =  blockState.getBlock().getMetaFromState(blockState);
+                		
+                		if(outBlockMaterial == blockMaterial 
+                			&& outBlockMeta == blockMeta) {
+                			
                 			blocks.add(blockPos);
                 			continue block;
                 		}
+                		
                 	}
                 }
             }
 		return blocks;
 	}
+	
+//	public static ArrayList<BlockPos> findBlocksNearEntity(EntityLivingBase entity, Block blockType, int distance) {
+//		ArrayList<BlockPos> blocks = new ArrayList<BlockPos>();
+//		for (int i = (int) Wrapper.INSTANCE.player().posX - distance; i <= (int) Wrapper.INSTANCE.player().posX + distance; ++i) {
+//            for (int j = (int) Wrapper.INSTANCE.player().posZ - distance; j <= (int) Wrapper.INSTANCE.player().posZ + distance; ++j) {
+//                int height = Wrapper.INSTANCE.world().getHeight(i, j);
+//                block: for (int k = 0; k <= height; ++k) {
+//                		BlockPos blockPos = new BlockPos(i, k, j);
+//                		if(Wrapper.INSTANCE.world().getBlockState(blockPos).getBlock() == blockType) {
+//                			blocks.add(blockPos);
+//                			continue block;
+//                		}
+//                	}
+//                }
+//            }
+//		return blocks;
+//	}
 }

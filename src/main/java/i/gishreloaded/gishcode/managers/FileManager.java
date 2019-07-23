@@ -3,7 +3,6 @@ package i.gishreloaded.gishcode.managers;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -18,14 +17,15 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import i.gishreloaded.gishcode.Main;
 import i.gishreloaded.gishcode.Wrapper;
 import i.gishreloaded.gishcode.hack.Hack;
-import i.gishreloaded.gishcode.utils.XRayData;
 import i.gishreloaded.gishcode.value.BooleanValue;
 import i.gishreloaded.gishcode.value.Mode;
 import i.gishreloaded.gishcode.value.ModeValue;
 import i.gishreloaded.gishcode.value.NumberValue;
 import i.gishreloaded.gishcode.value.Value;
+import i.gishreloaded.gishcode.xray.XRayData;
 
 public class FileManager {
 
@@ -33,11 +33,11 @@ public class FileManager {
 
     private static JsonParser jsonParser = new JsonParser();
 
-    public static final File GISHCODE_DIR = new File(String.format("%s%sGishCode-1.12.2%s", Wrapper.INSTANCE.mc().mcDataDir, File.separator, File.separator));
+    public static final File GISHCODE_DIR = new File(String.format("%s%s%s-%s%s", Wrapper.INSTANCE.mc().mcDataDir, File.separator, Main.NAME, Main.MCVERSION, File.separator));
 
     private static final File HACKS = new File(GISHCODE_DIR, "hacks.json");
     private static final File XRAYDATA = new File(GISHCODE_DIR, "xraydata.json");
-    private static final File PFILTER = new File(GISHCODE_DIR, "pickupfilter.json");
+    //private static final File PFILTER = new File(GISHCODE_DIR, "pickupfilter.json");
     private static final File FRIENDS = new File(GISHCODE_DIR, "friends.json");
     private static final File ENEMYS = new File(GISHCODE_DIR, "enemys.json");
     
@@ -142,12 +142,12 @@ public class FileManager {
     	}
     }
     
-    public static void loadPFilter() {
-    	final List<String> items = read(PFILTER);
-    	for(String id : items) {
-    		PickupFilterManager.add(id);
-    	}
-    }
+//    public static void loadPFilter() {
+//    	final List<String> items = read(PFILTER);
+//    	for(String id : items) {
+//    		PickupFilterManager.add(id);
+//    	}
+//    }
     
     public static void loadXRayData() {
         try {
@@ -158,13 +158,16 @@ public class FileManager {
             for (Map.Entry<String, JsonElement> entry : json.entrySet()) {
             	JsonObject jsonData = (JsonObject) entry.getValue();
             	
-            	int id = Integer.parseInt(entry.getKey());
+            	String[] split = entry.getKey().split(":");
+            	
+            	int id = Integer.parseInt(split[0]);
+				int meta = Integer.parseInt(split[1]);
             	
             	int red = jsonData.get("red").getAsInt();
             	int green = jsonData.get("green").getAsInt();
             	int blue = jsonData.get("blue").getAsInt();
             	
-            	XRayManager.addData(new XRayData(id, red, green, blue));
+            	XRayManager.addData(new XRayData(id, meta, red, green, blue));
             }
             
         } catch (IOException e) {
@@ -183,7 +186,7 @@ public class FileManager {
             	jsonData.addProperty("green", data.getGreen());
             	jsonData.addProperty("blue", data.getBlue());
             	
-            	json.add("" + data.getId(), jsonData);
+            	json.add("" + data.getId() + ":" + data.getMeta(), jsonData);
             }
             
             PrintWriter saveJson = new PrintWriter(new FileWriter(XRAYDATA));
@@ -202,9 +205,9 @@ public class FileManager {
     	write(ENEMYS, EnemyManager.enemysList, true, true);
     }
     
-    public static void savePFilter() {
-        write(PFILTER, PickupFilterManager.itemList, true, true);
-     }
+//    public static void savePFilter() {
+//        write(PFILTER, PickupFilterManager.itemList, true, true);
+//     }
 
     public static void saveHacks() {
         try {

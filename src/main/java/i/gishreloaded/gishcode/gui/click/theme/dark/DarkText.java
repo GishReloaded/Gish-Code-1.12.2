@@ -10,13 +10,11 @@ import i.gishreloaded.gishcode.gui.click.theme.Theme;
 public class DarkText extends ComponentRenderer {
 
     public DarkText(Theme theme) {
-
         super(ComponentType.TEXT, theme);
     }
 
     @Override
     public void drawComponent(Component component, int mouseX, int mouseY) {
-
         Text text = (Text) component;
         String[] message = text.getMessage();
 
@@ -29,7 +27,5 @@ public class DarkText extends ComponentRenderer {
     }
 
     @Override
-    public void doInteractions(Component component, int mouseX, int mouseY) {
-
-    }
+    public void doInteractions(Component component, int mouseX, int mouseY) {}
 }

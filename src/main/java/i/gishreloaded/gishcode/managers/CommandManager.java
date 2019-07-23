@@ -27,10 +27,10 @@ public class CommandManager
 		commands.add(new Say());
 		commands.add(new Effect());
 		commands.add(new PlayerFinder());
-		//commands.add(new PickupFilter());
 		commands.add(new Friend());
 		commands.add(new Enemy());
 		commands.add(new XRay());
+		//commands.add(new PickupFilter());
 	}
 
 	public void runCommands(String s)

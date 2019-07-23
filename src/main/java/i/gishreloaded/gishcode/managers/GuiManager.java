@@ -19,6 +19,7 @@
 package i.gishreloaded.gishcode.managers;
 
 import i.gishreloaded.gishcode.gui.click.ClickGui;
+import i.gishreloaded.gishcode.gui.click.base.Component;
 import i.gishreloaded.gishcode.gui.click.elements.CheckButton;
 import i.gishreloaded.gishcode.gui.click.elements.ComboBox;
 import i.gishreloaded.gishcode.gui.click.elements.Dropdown;
@@ -28,6 +29,8 @@ import i.gishreloaded.gishcode.gui.click.elements.KeybindMods;
 import i.gishreloaded.gishcode.gui.click.elements.Slider;
 import i.gishreloaded.gishcode.gui.click.listener.CheckButtonClickListener;
 import i.gishreloaded.gishcode.gui.click.listener.ComboBoxListener;
+import i.gishreloaded.gishcode.gui.click.listener.ComponentClickListener;
+import i.gishreloaded.gishcode.gui.click.listener.SliderChangeListener;
 import i.gishreloaded.gishcode.gui.click.theme.dark.DarkTheme;
 import i.gishreloaded.gishcode.hack.Hack;
 import i.gishreloaded.gishcode.hack.HackCategory;
@@ -65,7 +68,14 @@ public class GuiManager extends ClickGui {
                                 setEnabled(mod.isToggled());
                             }
                         };
-                        expandingButton.addListner((component, button) -> mod.toggle());
+                        expandingButton.addListner(new ComponentClickListener() {
+
+							@Override
+							public void onComponenetClick(Component component, int button) {
+								mod.toggle();	
+							}
+                        });
+                        //expandingButton.addListner((component, button) -> mod.toggle());
                         expandingButton.setEnabled(mod.isToggled());
                         
                         if (!mod.getValues().isEmpty()) {
@@ -73,27 +83,50 @@ public class GuiManager extends ClickGui {
                                 if (value instanceof BooleanValue) {
                                     final BooleanValue booleanValue = (BooleanValue) value;
                                     CheckButton button = new CheckButton(0, 0, expandingButton.getDimension().width, 14, expandingButton, booleanValue.getName(), booleanValue.getValue(), null);
-                                    button.addListeners(checkButton -> {
+                                    button.addListeners(new CheckButtonClickListener() {
 
-                                        for (Value value1 : mod.getValues()) {
-                                            if (value1.getName().equals(booleanValue.getName())) {
-                                                value1.setValue(checkButton.isEnabled());
-                                            }
-                                        }
+										@Override
+										public void onCheckButtonClick(CheckButton checkButton) {
+											for (Value value1 : mod.getValues()) {
+	                                            if (value1.getName().equals(booleanValue.getName())) {
+	                                                value1.setValue(checkButton.isEnabled());
+	                                            }
+	                                        }
+										}
+                                    	
                                     });
+//                                    button.addListeners(checkButton -> {
+//
+//                                        for (Value value1 : mod.getValues()) {
+//                                            if (value1.getName().equals(booleanValue.getName())) {
+//                                                value1.setValue(checkButton.isEnabled());
+//                                            }
+//                                        }
+//                                    });
                                     expandingButton.addComponent(button);
                                 
                                 } else if (value instanceof NumberValue) {
                                     final NumberValue doubleValue = (NumberValue) value;
                                     Slider slider = new Slider(doubleValue.getMin(), doubleValue.getMax(), doubleValue.getValue(), expandingButton, doubleValue.getName());
-                                    slider.addListener(slider12 -> {
-
-                                        for (Value value1 : mod.getValues()) {
-                                            if (value1.getName().equals(value.getName())) {
-                                                value1.setValue(slider12.getValue());
-                                            }
-                                        }
+                                    slider.addListener(new SliderChangeListener() {
+										@Override
+										public void onSliderChange(Slider slider) {
+											for (Value value1 : mod.getValues()) {
+	                                            if (value1.getName().equals(value.getName())) {
+	                                                value1.setValue(slider.getValue());
+	                                            }
+	                                        }
+										}
+                                    	
                                     });
+//                                    slider.addListener(slider12 -> {
+//
+//                                        for (Value value1 : mod.getValues()) {
+//                                            if (value1.getName().equals(value.getName())) {
+//                                                value1.setValue(slider12.getValue());
+//                                            }
+//                                        }
+//                                    });
 
                                     expandingButton.addComponent(slider);
                                 

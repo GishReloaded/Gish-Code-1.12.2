@@ -10,7 +10,6 @@ import i.gishreloaded.gishcode.managers.FriendManager;
 import i.gishreloaded.gishcode.managers.HackManager;
 import i.gishreloaded.gishcode.managers.XRayManager;
 import i.gishreloaded.gishcode.utils.Utils;
-import i.gishreloaded.gishcode.utils.XRayData;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityArmorStand;
@@ -51,19 +50,6 @@ public class InteractClick extends Hack{
 				}
 			}
     	}
-		else if(object.typeOfHit == RayTraceResult.Type.BLOCK) {
-				BlockPos block = object.getBlockPos();
-				int id = Block.getIdFromBlock(Wrapper.INSTANCE.world().getBlockState(block).getBlock());
-				if(Mouse.isButtonDown(1) && Wrapper.INSTANCE.mc().currentScreen == null) 
-				{
-					XRayData data = new XRayData(id, Utils.random(0, 255), Utils.random(0, 255), Utils.random(0, 255));
-					XRayManager.addData(data);
-				}
-				else if(Mouse.isButtonDown(0) && Wrapper.INSTANCE.mc().currentScreen == null) 
-				{
-					XRayManager.removeData(id);
-				}
-			}
 		super.onClientTick(event);
 	}
 

@@ -28,7 +28,7 @@ public class Hack {
 	private boolean toggled;
 	private boolean show;
 	private int key;
-	private ArrayList<Value> values = new ArrayList<>();
+	private ArrayList<Value> values = new ArrayList<Value>();
 
 	public Hack(String name, HackCategory category) {
 		this.name = name;

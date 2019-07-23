@@ -6,7 +6,7 @@ import java.util.Locale;
 
 import org.lwjgl.opengl.GL11;
 
-import i.gishreloaded.gishcode.GishCode;
+import i.gishreloaded.gishcode.Main;
 import i.gishreloaded.gishcode.Wrapper;
 import i.gishreloaded.gishcode.hack.Hack;
 import i.gishreloaded.gishcode.hack.HackCategory;
@@ -32,25 +32,14 @@ public class HUD extends Hack{
 	
 	@Override
 	public void onRenderGameOverlay(Text event) {
-		if(Wrapper.INSTANCE.mc().getLanguageManager().getCurrentLanguage() == Wrapper.INSTANCE.mc().getLanguageManager().getLanguage("ru_ru")) {
-			GL11.glPushMatrix();
-			GL11.glScalef(1.8f, 1.8f, 1.8f);
-			Wrapper.INSTANCE.fontRenderer().drawStringWithShadow(GishCode.NAME, 2, 2, ClickGui.color());
-			GL11.glScalef(0.6f, 0.6f, 0.6f);
-			Wrapper.INSTANCE.fontRenderer().drawStringWithShadow("1.12.2", 58, 2, ClickGui.color());
-			Wrapper.INSTANCE.fontRenderer().drawStringWithShadow("v" + GishCode.VERSION, 58, 10, ClickGui.color());
-			GL11.glPopMatrix();
-		} 
-		else
-		{
-			GL11.glPushMatrix();
-			GL11.glScalef(1.5f, 1.5f, 1.5f);
-			Wrapper.INSTANCE.fontRenderer().drawStringWithShadow(GishCode.NAME, 4, 4, ClickGui.color());
-			GL11.glScalef(0.6f, 0.6f, 0.6f);
-			Wrapper.INSTANCE.fontRenderer().drawStringWithShadow("1.12.2", 84, 4, ClickGui.color());
-			Wrapper.INSTANCE.fontRenderer().drawStringWithShadow("v" + GishCode.VERSION, 84, 14, ClickGui.color());
-			GL11.glPopMatrix();
-		}
+		//if(Wrapper.INSTANCE.mc().getLanguageManager().getCurrentLanguage() == Wrapper.INSTANCE.mc().getLanguageManager().getLanguage("ru_ru")) {}
+		GL11.glPushMatrix();
+		GL11.glScalef(1.5f, 1.5f, 1.5f);
+		Wrapper.INSTANCE.fontRenderer().drawStringWithShadow(Main.NAME, 4, 4, ClickGui.color());
+		GL11.glScalef(0.6f, 0.6f, 0.6f);
+		Wrapper.INSTANCE.fontRenderer().drawStringWithShadow("1.12.2", 84, 4, ClickGui.color());
+		Wrapper.INSTANCE.fontRenderer().drawStringWithShadow("v" + Main.VERSION, 84, 14, ClickGui.color());
+		GL11.glPopMatrix();
 		
 		double x = Wrapper.INSTANCE.player().posX;
 		double y = Wrapper.INSTANCE.player().posY;

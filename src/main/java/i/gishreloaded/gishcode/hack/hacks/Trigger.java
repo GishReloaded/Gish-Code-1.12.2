@@ -146,7 +146,7 @@ public class Trigger extends Hack{
  	}
     
     public boolean isInAttackFOV(EntityLivingBase entity) {
-        return Utils.getDistanceFromMouse(entity) <= 51.0F;
+        return Utils.getDistanceFromMouse(entity) <= 50.0F;
     }
     
     public boolean isInAttackRange(EntityLivingBase entity) {

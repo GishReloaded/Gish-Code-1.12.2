@@ -1,4 +1,4 @@
-package i.gishreloaded.gishcode.utils;
+package i.gishreloaded.gishcode.xray;
 
 import net.minecraft.util.math.BlockPos;
 

@@ -25,36 +25,36 @@ public class PickupFilter extends Hack{
 		this.addValue(allItems);
 	}
 	
-	@Override
-	public void onEnable() {
-		super.onEnable();
-	}
-	
-	@Override
-	public void onDisable() {
-		super.onDisable();
-	}
-    
-	@Override
-	public void onItemPickup(EntityItemPickupEvent event) {
-		if(Utils.isPlayer(event.getEntity())) {
-			if(allItems.getValue()) {
-				Wrapper.INSTANCE.player().dropItem(true);
-				return;
-			}
-			ItemStack stack = event.getItem().getItem();
-			if(stack == null) {
-				return;
-			}
-			Item item = stack.getItem();
-			if(item == null) {
-				return;
-			}
-			if(PickupFilterManager.isInList(Item.getIdFromItem(item))){
-				Wrapper.INSTANCE.player().dropItem(item, stack.getMaxStackSize());
-			}
-		}
-		super.onItemPickup(event);
-	}
+//	@Override
+//	public void onEnable() {
+//		super.onEnable();
+//	}
+//	
+//	@Override
+//	public void onDisable() {
+//		super.onDisable();
+//	}
+//    
+//	@Override
+//	public void onItemPickup(EntityItemPickupEvent event) {
+//		if(Utils.isPlayer(event.getEntity())) {
+//			if(allItems.getValue()) {
+//				Wrapper.INSTANCE.player().dropItem(true);
+//				return;
+//			}
+//			ItemStack stack = event.getItem().getItem();
+//			if(stack == null) {
+//				return;
+//			}
+//			Item item = stack.getItem();
+//			if(item == null) {
+//				return;
+//			}
+//			if(PickupFilterManager.isInList(Item.getIdFromItem(item))){
+//				Wrapper.INSTANCE.player().dropItem(item, stack.getMaxStackSize());
+//			}
+//		}
+//		super.onItemPickup(event);
+//	}
 	
 }

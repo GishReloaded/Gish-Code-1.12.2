@@ -22,8 +22,8 @@ public class ChestESP extends Hack{
 	private int maxChests = 1000;
 	public boolean shouldInform = true;
 	private TileEntityChest openChest;
-	private ArrayDeque<TileEntityChest> emptyChests = new ArrayDeque<>();
-	private ArrayDeque<TileEntityChest> nonEmptyChests = new ArrayDeque<>();
+	private ArrayDeque<TileEntityChest> emptyChests = new ArrayDeque<TileEntityChest>();
+	private ArrayDeque<TileEntityChest> nonEmptyChests = new ArrayDeque<TileEntityChest>();
 	
 	public ChestESP() {
 		super("ChestESP", HackCategory.VISUAL);

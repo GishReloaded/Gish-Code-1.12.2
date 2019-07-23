@@ -7,7 +7,7 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
 
-import i.gishreloaded.gishcode.GishCode;
+import i.gishreloaded.gishcode.Main;
 import i.gishreloaded.gishcode.Wrapper;
 import i.gishreloaded.gishcode.command.Command;
 import i.gishreloaded.gishcode.gui.GuiTextField;

@@ -36,7 +36,7 @@ public class PluginsGetter extends Hack{
 		 if(packet instanceof SPacketTabComplete) {
 	            SPacketTabComplete s3APacketTabComplete = (SPacketTabComplete) packet;
 	 
-	            List<String> plugins = new ArrayList<>();
+	            List<String> plugins = new ArrayList<String>();
 	            String[] commands = s3APacketTabComplete.getMatches();
 	 
 	            for(int i = 0; i < commands.length; i++) {

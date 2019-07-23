@@ -1,10 +1,31 @@
 package i.gishreloaded.gishcode.utils;
 
+import static org.lwjgl.opengl.GL11.GL_BLEND;
+import static org.lwjgl.opengl.GL11.GL_CULL_FACE;
+import static org.lwjgl.opengl.GL11.GL_DEPTH_TEST;
+import static org.lwjgl.opengl.GL11.GL_LINES;
+import static org.lwjgl.opengl.GL11.GL_LINE_SMOOTH;
+import static org.lwjgl.opengl.GL11.GL_ONE_MINUS_SRC_ALPHA;
+import static org.lwjgl.opengl.GL11.GL_QUADS;
+import static org.lwjgl.opengl.GL11.GL_SRC_ALPHA;
+import static org.lwjgl.opengl.GL11.GL_TEXTURE_2D;
+import static org.lwjgl.opengl.GL11.glBegin;
+import static org.lwjgl.opengl.GL11.glBlendFunc;
+import static org.lwjgl.opengl.GL11.glColor4f;
+import static org.lwjgl.opengl.GL11.glDisable;
+import static org.lwjgl.opengl.GL11.glEnable;
+import static org.lwjgl.opengl.GL11.glEnd;
+import static org.lwjgl.opengl.GL11.glLineWidth;
+import static org.lwjgl.opengl.GL11.glPopMatrix;
+import static org.lwjgl.opengl.GL11.glPushMatrix;
+import static org.lwjgl.opengl.GL11.glTranslated;
+import static org.lwjgl.opengl.GL11.glVertex3d;
+
 import java.awt.Color;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.LinkedList;
 import java.util.Locale;
 
 import org.lwjgl.opengl.GL11;
@@ -13,29 +34,20 @@ import i.gishreloaded.gishcode.Wrapper;
 import i.gishreloaded.gishcode.hack.hacks.ClickGui;
 import i.gishreloaded.gishcode.hack.hacks.KillAura;
 import i.gishreloaded.gishcode.hack.hacks.Scaffold;
-import i.gishreloaded.gishcode.utils.*;
-import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
+import i.gishreloaded.gishcode.xray.XRayBlock;
+import i.gishreloaded.gishcode.xray.XRayData;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.Entity;
-import net.minecraft.client.multiplayer.WorldClient;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.client.entity.EntityPlayerSP;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
-
-import static org.lwjgl.opengl.GL11.*;
 
 public class RenderUtils {
 	
@@ -253,7 +265,7 @@ public class RenderUtils {
     }
 	*/
 	
-	public static void drawXRayBlocks(ArrayList<XRayBlock> blocks, float ticks) {
+	public static void drawXRayBlocks(LinkedList<XRayBlock> blocks, float ticks) {
 		glPushMatrix();
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);

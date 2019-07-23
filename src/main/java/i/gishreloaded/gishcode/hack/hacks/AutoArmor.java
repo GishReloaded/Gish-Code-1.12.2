@@ -106,7 +106,7 @@ public class AutoArmor extends Hack{
 				}
 				
 				
-				ArrayList<Integer> types = new ArrayList<>(Arrays.asList(0, 1, 2, 3));
+				ArrayList<Integer> types = new ArrayList<Integer>(Arrays.asList(0, 1, 2, 3));
 				Collections.shuffle(types);
 				for(int type : types)
 				{

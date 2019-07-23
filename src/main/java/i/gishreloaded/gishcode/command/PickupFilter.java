@@ -20,27 +20,27 @@ public class PickupFilter extends Command
 	{
 		try
 		{
-			if(args[0].equalsIgnoreCase("add")) {
-				int id = Integer.parseInt(args[1]);
-				Item item = Item.getItemById(id);
-				if(PickupFilterManager.isItemNull(item)) {
-					return;
-				}
-				PickupFilterManager.addItem(id);
-			}
-			else
-			if(args[0].equalsIgnoreCase("remove")) {
-				int id = Integer.parseInt(args[1]);
-				Item item = Item.getItemById(id);
-				if(PickupFilterManager.isItemNull(item)) {
-					return;
-				}
-				PickupFilterManager.removeItem(id);
-			}
-			else
-			if(args[0].equalsIgnoreCase("clear")) {
-				PickupFilterManager.clear();
-			}
+//			if(args[0].equalsIgnoreCase("add")) {
+//				int id = Integer.parseInt(args[1]);
+//				Item item = Item.getItemById(id);
+//				if(PickupFilterManager.isItemNull(item)) {
+//					return;
+//				}
+//				PickupFilterManager.addItem(id);
+//			}
+//			else
+//			if(args[0].equalsIgnoreCase("remove")) {
+//				int id = Integer.parseInt(args[1]);
+//				Item item = Item.getItemById(id);
+//				if(PickupFilterManager.isItemNull(item)) {
+//					return;
+//				}
+//				PickupFilterManager.removeItem(id);
+//			}
+//			else
+//			if(args[0].equalsIgnoreCase("clear")) {
+//				PickupFilterManager.clear();
+//			}
 		}
 		catch(Exception e)
 		{

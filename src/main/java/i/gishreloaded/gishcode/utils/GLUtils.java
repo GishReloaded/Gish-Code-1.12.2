@@ -49,7 +49,7 @@ public final class GLUtils {
 
     private static final Tessellator tessellator = Tessellator.getInstance();
 
-    public static List<Integer> vbos = new ArrayList<>(), textures = new ArrayList<>();
+    public static List<Integer> vbos = new ArrayList<Integer>(), textures = new ArrayList<>();
 
     public static void glScissor(int[] rect) {
 
