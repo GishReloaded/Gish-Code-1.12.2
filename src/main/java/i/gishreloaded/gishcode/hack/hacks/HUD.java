@@ -37,7 +37,7 @@ public class HUD extends Hack{
 		GL11.glScalef(1.5f, 1.5f, 1.5f);
 		Wrapper.INSTANCE.fontRenderer().drawStringWithShadow(Main.NAME, 4, 4, ClickGui.color());
 		GL11.glScalef(0.6f, 0.6f, 0.6f);
-		Wrapper.INSTANCE.fontRenderer().drawStringWithShadow("1.12.2", 84, 4, ClickGui.color());
+		Wrapper.INSTANCE.fontRenderer().drawStringWithShadow(Main.MCVERSION, 84, 4, ClickGui.color());
 		Wrapper.INSTANCE.fontRenderer().drawStringWithShadow("v" + Main.VERSION, 84, 14, ClickGui.color());
 		GL11.glPopMatrix();
 		
