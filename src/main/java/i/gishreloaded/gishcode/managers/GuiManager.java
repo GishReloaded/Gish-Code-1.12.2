@@ -1,21 +1,3 @@
-/*******************************************************************************
- *     DarkForge a Forge Hacked Client
- *     Copyright (C) 2017  Hexeption (Keir Davis)
- *
- *     This program is free software: you can redistribute it and/or modify
- *     it under the terms of the GNU General Public License as published by
- *     the Free Software Foundation, either version 3 of the License, or
- *     (at your option) any later version.
- *
- *     This program is distributed in the hope that it will be useful,
- *     but WITHOUT ANY WARRANTY; without even the implied warranty of
- *     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *     GNU General Public License for more details.
- *
- *     You should have received a copy of the GNU General Public License
- *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
- ******************************************************************************/
-
 package i.gishreloaded.gishcode.managers;
 
 import i.gishreloaded.gishcode.gui.click.ClickGui;
@@ -75,7 +57,6 @@ public class GuiManager extends ClickGui {
 								mod.toggle();	
 							}
                         });
-                        //expandingButton.addListner((component, button) -> mod.toggle());
                         expandingButton.setEnabled(mod.isToggled());
                         
                         if (!mod.getValues().isEmpty()) {
@@ -95,14 +76,6 @@ public class GuiManager extends ClickGui {
 										}
                                     	
                                     });
-//                                    button.addListeners(checkButton -> {
-//
-//                                        for (Value value1 : mod.getValues()) {
-//                                            if (value1.getName().equals(booleanValue.getName())) {
-//                                                value1.setValue(checkButton.isEnabled());
-//                                            }
-//                                        }
-//                                    });
                                     expandingButton.addComponent(button);
                                 
                                 } else if (value instanceof NumberValue) {
@@ -119,14 +92,6 @@ public class GuiManager extends ClickGui {
 										}
                                     	
                                     });
-//                                    slider.addListener(slider12 -> {
-//
-//                                        for (Value value1 : mod.getValues()) {
-//                                            if (value1.getName().equals(value.getName())) {
-//                                                value1.setValue(slider12.getValue());
-//                                            }
-//                                        }
-//                                    });
 
                                     expandingButton.addComponent(slider);
                                 
@@ -173,27 +138,4 @@ public class GuiManager extends ClickGui {
                 this.addFrame(frame);
         }
     }
-    
-//  private void categorys(){
-//  Frame frame = new Frame(10, 10,100, 50, "Gui Manager");
-//  for (Mod.Category category : Mod.Category.values()) {
-//      if(category != Mod.Category.GUI){
-//          String name = Character.toString(category.toString().toLowerCase().charAt(0)).toUpperCase() + category.toString().toLowerCase().substring(1);
-//          Button button = new Button(0,0,100,18, frame, name);
-//          button.addListeners(new ComponentClickListener() {
-//
-//              @Override
-//              public void onComponenetClick(Component component, int button) {
-//
-//              }
-//          });
-//          frame.addComponent(button);
-//      }
-//  }
-//
-//  frame.setMaximizible(true);
-//  frame.setPinnable(false);
-//  this.addFrame(frame);
-//}
-
 }
