@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import i.gishreloaded.gishcode.hack.Hack;
-import i.gishreloaded.gishcode.utils.ChatUtils;
+import i.gishreloaded.gishcode.utils.visual.ChatUtils;
 
 public class FriendManager {
 	

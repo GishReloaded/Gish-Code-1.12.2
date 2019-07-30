@@ -1,12 +1,12 @@
 package i.gishreloaded.gishcode.hack.hacks;
 
-import i.gishreloaded.gishcode.Wrapper;
-import i.gishreloaded.gishcode.Connection.Side;
 import i.gishreloaded.gishcode.hack.Hack;
 import i.gishreloaded.gishcode.hack.HackCategory;
 import i.gishreloaded.gishcode.managers.HackManager;
-import i.gishreloaded.gishcode.utils.ChatUtils;
 import i.gishreloaded.gishcode.utils.Utils;
+import i.gishreloaded.gishcode.utils.system.Wrapper;
+import i.gishreloaded.gishcode.utils.system.Connection.Side;
+import i.gishreloaded.gishcode.utils.visual.ChatUtils;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.init.Blocks;

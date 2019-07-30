@@ -3,13 +3,13 @@ package i.gishreloaded.gishcode.hack.hacks;
 import java.lang.reflect.Field;
 import java.util.Random;
 
-import i.gishreloaded.gishcode.Wrapper;
-import i.gishreloaded.gishcode.Connection.Side;
 import i.gishreloaded.gishcode.hack.Hack;
 import i.gishreloaded.gishcode.hack.HackCategory;
-import i.gishreloaded.gishcode.utils.ChatUtils;
 import i.gishreloaded.gishcode.utils.Utils;
-import i.gishreloaded.gishcode.utils.MappUtils;
+import i.gishreloaded.gishcode.utils.system.Mapping;
+import i.gishreloaded.gishcode.utils.system.Wrapper;
+import i.gishreloaded.gishcode.utils.system.Connection.Side;
+import i.gishreloaded.gishcode.utils.visual.ChatUtils;
 import i.gishreloaded.gishcode.utils.TimerUtils;
 import i.gishreloaded.gishcode.value.BooleanValue;
 import i.gishreloaded.gishcode.value.Mode;

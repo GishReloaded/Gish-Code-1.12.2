@@ -3,7 +3,7 @@ package i.gishreloaded.gishcode.command;
 import i.gishreloaded.gishcode.hack.Hack;
 import i.gishreloaded.gishcode.managers.CommandManager;
 import i.gishreloaded.gishcode.managers.HackManager;
-import i.gishreloaded.gishcode.utils.ChatUtils;
+import i.gishreloaded.gishcode.utils.visual.ChatUtils;
 
 public class Hacks extends Command
 {

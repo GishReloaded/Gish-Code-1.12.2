@@ -8,14 +8,14 @@ import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
 
 import i.gishreloaded.gishcode.Main;
-import i.gishreloaded.gishcode.Wrapper;
 import i.gishreloaded.gishcode.command.Command;
 import i.gishreloaded.gishcode.gui.GuiTextField;
 import i.gishreloaded.gishcode.hack.Hack;
 import i.gishreloaded.gishcode.managers.CommandManager;
 import i.gishreloaded.gishcode.managers.FileManager;
 import i.gishreloaded.gishcode.managers.HackManager;
-import i.gishreloaded.gishcode.utils.ColorUtils;
+import i.gishreloaded.gishcode.utils.system.Wrapper;
+import i.gishreloaded.gishcode.utils.visual.ColorUtils;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.ScaledResolution;
@@ -38,14 +38,14 @@ public class ClickGuiScreen extends GuiScreen {
    @Override
 	protected void mouseClicked(int x, int y, int button) throws IOException {
 		super.mouseClicked(x, y, button);
-		 this.console.mouseClicked(x, y, button);
+		this.console.mouseClicked(x, y, button);
    }
    
    @Override
    public void drawScreen(int mouseX, int mouseY, float partialTicks) {
        	clickGui.render();
-		this.console.drawTextBox(i.gishreloaded.gishcode.hack.hacks.ClickGui.color.getRGB(), ColorUtils.colorRGB(0.0F, 0.0F, 0.0F, 1.0F));
-		this.console.setTextColor(i.gishreloaded.gishcode.hack.hacks.ClickGui.color.getRGB());
+		this.console.drawTextBox(i.gishreloaded.gishcode.hack.hacks.ClickGui.color, ColorUtils.color(0.0F, 0.0F, 0.0F, 1.0F));
+		this.console.setTextColor(i.gishreloaded.gishcode.hack.hacks.ClickGui.color);
 	super.drawScreen(mouseX, mouseY, partialTicks);
    }
    

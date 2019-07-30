@@ -1,9 +1,9 @@
 package i.gishreloaded.gishcode.hack.hacks;
 
-import i.gishreloaded.gishcode.Wrapper;
 import i.gishreloaded.gishcode.hack.Hack;
 import i.gishreloaded.gishcode.hack.HackCategory;
-import i.gishreloaded.gishcode.utils.ChatUtils;
+import i.gishreloaded.gishcode.utils.system.Wrapper;
+import i.gishreloaded.gishcode.utils.visual.ChatUtils;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.ClickType;
 import net.minecraft.item.ItemStack;
@@ -20,6 +20,7 @@ public class AttackPacketCIA extends Hack{
 		super("AttackPacketCIA", HackCategory.EXPLOIT);
 	}
 	
+	//By Dark Light Neron
 	@Override
 	public void onEnable() {
 		new Thread() {

@@ -47,7 +47,6 @@ public class Frame extends Container {
                 if (c.isMouseOver(x, y) && maximized) {
                     c.onMousePress(x, y, buttonID);
                     ClickGui.getTheme().getRenderer().get(getComponentType()).doInteractions(this, x, y);
-
                 }
             }
         }

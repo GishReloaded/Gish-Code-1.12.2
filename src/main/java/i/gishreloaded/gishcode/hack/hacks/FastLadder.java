@@ -2,9 +2,9 @@ package i.gishreloaded.gishcode.hack.hacks;
 
 import java.util.Random;
 
-import i.gishreloaded.gishcode.Wrapper;
 import i.gishreloaded.gishcode.hack.Hack;
 import i.gishreloaded.gishcode.hack.HackCategory;
+import i.gishreloaded.gishcode.utils.system.Wrapper;
 import net.minecraft.network.play.client.CPacketEntityAction;
 import net.minecraft.network.play.client.CPacketEntityAction.Action;
 import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;

@@ -2,8 +2,8 @@ package i.gishreloaded.gishcode.command;
 
 import java.math.BigInteger;
 
-import i.gishreloaded.gishcode.Wrapper;
-import i.gishreloaded.gishcode.utils.ChatUtils;
+import i.gishreloaded.gishcode.utils.system.Wrapper;
+import i.gishreloaded.gishcode.utils.visual.ChatUtils;
 import net.minecraft.item.ItemStack;
 
 public class VClip extends Command

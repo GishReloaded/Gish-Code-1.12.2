@@ -2,10 +2,10 @@ package i.gishreloaded.gishcode.gui.click.elements;
 
 import org.lwjgl.input.Keyboard;
 
-import i.gishreloaded.gishcode.Wrapper;
 import i.gishreloaded.gishcode.gui.click.base.Component;
 import i.gishreloaded.gishcode.gui.click.base.ComponentType;
 import i.gishreloaded.gishcode.hack.Hack;
+import i.gishreloaded.gishcode.utils.system.Wrapper;
 
 public class KeybindMods extends Component {
 

@@ -5,14 +5,14 @@ import java.util.UUID;
 
 import com.mojang.authlib.GameProfile;
 
-import i.gishreloaded.gishcode.Connection.Side;
-import i.gishreloaded.gishcode.Wrapper;
 import i.gishreloaded.gishcode.hack.Hack;
 import i.gishreloaded.gishcode.hack.HackCategory;
 import i.gishreloaded.gishcode.managers.HackManager;
-import i.gishreloaded.gishcode.utils.ChatUtils;
 import i.gishreloaded.gishcode.utils.EntityBot;
 import i.gishreloaded.gishcode.utils.Utils;
+import i.gishreloaded.gishcode.utils.system.Wrapper;
+import i.gishreloaded.gishcode.utils.system.Connection.Side;
+import i.gishreloaded.gishcode.utils.visual.ChatUtils;
 import i.gishreloaded.gishcode.value.BooleanValue;
 import i.gishreloaded.gishcode.value.NumberValue;
 import net.minecraft.client.entity.EntityPlayerSP;

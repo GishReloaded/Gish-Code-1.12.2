@@ -1,10 +1,10 @@
-package i.gishreloaded.gishcode.utils;
+package i.gishreloaded.gishcode.utils.system;
 
 import java.lang.reflect.Field;
 
 import net.minecraft.client.Minecraft;
 
-public class MappUtils {
+public class Mapping {
 	
 	public static String session = isMCP() ? "session" : "field_71449_j";
 	public static String yaw = isMCP() ? "yaw" : "field_149476_e";

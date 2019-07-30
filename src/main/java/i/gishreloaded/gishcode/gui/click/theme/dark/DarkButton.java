@@ -7,9 +7,9 @@ import i.gishreloaded.gishcode.gui.click.base.ComponentRenderer;
 import i.gishreloaded.gishcode.gui.click.base.ComponentType;
 import i.gishreloaded.gishcode.gui.click.elements.Button;
 import i.gishreloaded.gishcode.gui.click.theme.Theme;
-import i.gishreloaded.gishcode.utils.ColorUtils;
-import i.gishreloaded.gishcode.utils.GLUtils;
-import i.gishreloaded.gishcode.utils.RenderUtils;
+import i.gishreloaded.gishcode.utils.visual.ColorUtils;
+import i.gishreloaded.gishcode.utils.visual.GLUtils;
+import i.gishreloaded.gishcode.utils.visual.RenderUtils;
 
 public class DarkButton extends ComponentRenderer {
 
@@ -40,9 +40,5 @@ public class DarkButton extends ComponentRenderer {
     }
 
     @Override
-    public void doInteractions(Component component, int mouseX, int mouseY) {
-
-    }
-
-
+    public void doInteractions(Component component, int mouseX, int mouseY) {}
 }

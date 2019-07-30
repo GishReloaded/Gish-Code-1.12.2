@@ -2,7 +2,7 @@ package i.gishreloaded.gishcode.managers;
 
 import java.util.LinkedList;
 
-import i.gishreloaded.gishcode.utils.ChatUtils;
+import i.gishreloaded.gishcode.utils.visual.ChatUtils;
 import i.gishreloaded.gishcode.xray.XRayData;
 import net.minecraft.block.Block;
 

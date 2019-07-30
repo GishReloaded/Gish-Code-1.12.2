@@ -6,17 +6,17 @@ import java.awt.Dimension;
 import org.lwjgl.opengl.GL11;
 
 import i.gishreloaded.gishcode.Main;
-import i.gishreloaded.gishcode.Wrapper;
 import i.gishreloaded.gishcode.gui.click.base.Component;
 import i.gishreloaded.gishcode.gui.click.base.ComponentRenderer;
 import i.gishreloaded.gishcode.gui.click.base.ComponentType;
 import i.gishreloaded.gishcode.gui.click.elements.Frame;
 import i.gishreloaded.gishcode.gui.click.theme.Theme;
 import i.gishreloaded.gishcode.hack.hacks.ClickGui;
-import i.gishreloaded.gishcode.utils.ColorUtils;
-import i.gishreloaded.gishcode.utils.GLUtils;
 import i.gishreloaded.gishcode.utils.MathUtils;
-import i.gishreloaded.gishcode.utils.RenderUtils;
+import i.gishreloaded.gishcode.utils.system.Wrapper;
+import i.gishreloaded.gishcode.utils.visual.ColorUtils;
+import i.gishreloaded.gishcode.utils.visual.GLUtils;
+import i.gishreloaded.gishcode.utils.visual.RenderUtils;
 
 public class DarkFrame extends ComponentRenderer {
 
@@ -27,7 +27,7 @@ public class DarkFrame extends ComponentRenderer {
 
     @Override
     public void drawComponent(Component component, int mouseX, int mouseY) {
-
+    	
         Frame frame = (Frame) component;
         Dimension dimension = frame.getDimension();
         GLUtils.glColor(new Color(0, 0, 0));
@@ -49,7 +49,7 @@ public class DarkFrame extends ComponentRenderer {
             isPinnable(frame, dimension, mouseX, mouseY);
         }
         GLUtils.glColor(new Color(0, 0, 0));
-        theme.fontRenderer.drawStringWithShadow(frame.getText(), frame.getX() + 4, MathUtils.getMiddle(frame.getY(), frame.getY() + 10) - (theme.fontRenderer.FONT_HEIGHT / 10) - 1, ColorUtils.colorRGB(1.0f, 1.0f, 1.0f, 1.0f));
+        theme.fontRenderer.drawStringWithShadow(frame.getText(), frame.getX() + 4, MathUtils.getMiddle(frame.getY(), frame.getY() + 10) - (theme.fontRenderer.FONT_HEIGHT / 10) - 1, ColorUtils.color(1.0f, 1.0f, 1.0f, 1.0f));
         GLUtils.glColor(new Color(0, 0, 0));
 
     }

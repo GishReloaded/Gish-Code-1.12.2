@@ -13,7 +13,7 @@ import java.awt.Point;
 import org.lwjgl.opengl.GL11;
 
 import i.gishreloaded.gishcode.gui.click.theme.Theme;
-import i.gishreloaded.gishcode.utils.GLUtils;
+import i.gishreloaded.gishcode.utils.visual.GLUtils;
 
 public abstract class ComponentRenderer {
 
@@ -37,25 +37,16 @@ public abstract class ComponentRenderer {
     public void drawExpanded(int x, int y, int size, boolean expanded, int color) {
 
         GLUtils.glColor(color);
-        //theme.icons.render(x, y, size, size, expanded ? 64F / 256F : 0F, 0F, expanded ? 128F / 256F : 64F / 256F, 64F / 256F);
-
     }
 
     public void drawPin(int x, int y, int size, boolean expanded, int color) {
 
         GLUtils.glColor(color);
-//        theme.icons.render(x, y, size, size, 64F / 256F, 128F / 256F, 128F / 256F, 64F / 256F);
-        //if (!expanded)
-            //theme.icons.render(x, y, 16, 16, 192f / 256f, 128F / 256F, 128F / 256F, 64F / 256F);
-        //else
-            //theme.icons.render(x, y, 16, 16, 192f / 256f, 0, 128F / 256F, 64F / 256F);
-
     }
 
     public void drawArrow(int x, int y, int size, boolean right, int color) {
 
         GLUtils.glColor(color);
-       //theme.icons.render(x, y, size, size, 0, right ? 0 : 64F / 256F, 64F / 256F, right ? 64F / 256F : 128F / 256F);
     }
 
     public void drawArrow(int x, int y, int size, boolean right) {

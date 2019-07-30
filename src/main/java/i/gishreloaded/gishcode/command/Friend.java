@@ -1,13 +1,13 @@
 package i.gishreloaded.gishcode.command;
 
-import i.gishreloaded.gishcode.Wrapper;
 import i.gishreloaded.gishcode.hack.hacks.AntiBot;
 import i.gishreloaded.gishcode.managers.EnemyManager;
 import i.gishreloaded.gishcode.managers.FriendManager;
-import i.gishreloaded.gishcode.utils.ChatUtils;
 import i.gishreloaded.gishcode.utils.EntityBot;
 import i.gishreloaded.gishcode.utils.LoginUtils;
 import i.gishreloaded.gishcode.utils.Utils;
+import i.gishreloaded.gishcode.utils.system.Wrapper;
+import i.gishreloaded.gishcode.utils.visual.ChatUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 

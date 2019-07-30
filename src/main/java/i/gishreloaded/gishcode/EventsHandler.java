@@ -7,9 +7,12 @@ import org.lwjgl.opengl.Display;
 import i.gishreloaded.gishcode.gui.click.ClickGuiScreen;
 import i.gishreloaded.gishcode.hack.Hack;
 import i.gishreloaded.gishcode.hack.hacks.AntiBot;
+import i.gishreloaded.gishcode.hack.hacks.ClickGui;
 import i.gishreloaded.gishcode.managers.HackManager;
-import i.gishreloaded.gishcode.utils.ChatUtils;
 import i.gishreloaded.gishcode.utils.Utils;
+import i.gishreloaded.gishcode.utils.system.Connection;
+import i.gishreloaded.gishcode.utils.system.Wrapper;
+import i.gishreloaded.gishcode.utils.visual.ChatUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.entity.player.EntityPlayer;
@@ -29,8 +32,8 @@ import net.minecraftforge.fml.common.gameevent.InputEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.PlayerTickEvent;
 
-public class Events {
-	boolean ready = false;
+public class EventsHandler {
+	private boolean isInit = false;
 	
 	public boolean onPacket(Object packet, Connection.Side side) {
         boolean suc = true;
@@ -142,13 +145,14 @@ public class Events {
     public void onClientTick(TickEvent.ClientTickEvent event) {
     	if(Wrapper.INSTANCE.player() == null || Wrapper.INSTANCE.world() == null) {
     		AntiBot.bots.clear();
-    		ready = false;
+    		isInit = false;
     		return;
     	}
     	try {
-    		if (!ready) {
+    		if (!isInit) {
                 new Connection(this);
-                ready = true;
+                ClickGui.setColor();
+                isInit = true;
             }
     		if(!(Wrapper.INSTANCE.mc().currentScreen instanceof ClickGuiScreen)) {
     			HackManager.getHack("ClickGui").setToggled(false);

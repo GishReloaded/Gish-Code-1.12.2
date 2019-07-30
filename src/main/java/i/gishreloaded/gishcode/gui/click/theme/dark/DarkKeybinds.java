@@ -9,9 +9,9 @@ import i.gishreloaded.gishcode.gui.click.base.ComponentRenderer;
 import i.gishreloaded.gishcode.gui.click.base.ComponentType;
 import i.gishreloaded.gishcode.gui.click.elements.KeybindMods;
 import i.gishreloaded.gishcode.gui.click.theme.Theme;
-import i.gishreloaded.gishcode.utils.ColorUtils;
-import i.gishreloaded.gishcode.utils.GLUtils;
-import i.gishreloaded.gishcode.utils.RenderUtils;
+import i.gishreloaded.gishcode.utils.visual.ColorUtils;
+import i.gishreloaded.gishcode.utils.visual.GLUtils;
+import i.gishreloaded.gishcode.utils.visual.RenderUtils;
 
 public class DarkKeybinds extends ComponentRenderer {
 
@@ -26,13 +26,13 @@ public class DarkKeybinds extends ComponentRenderer {
         KeybindMods keybind = (KeybindMods) component;
         Color colorButton = new Color(0, 0, 0, 200); 
         
-        int colorString = ColorUtils.colorRGB(1.0f, 1.0f, 1.0f, 1.0f);
+        int colorString = ColorUtils.color(1.0f, 1.0f, 1.0f, 1.0f);
         
-        int colorString1IsEdit = ColorUtils.colorRGB(1.0f, 1.0f, 1.0f, 1.0f);
-        int colorString1IsStatic = ColorUtils.colorRGB(0.6f, 0.6f, 0.6f, 1.0f);
+        int colorString1IsEdit = ColorUtils.color(1.0f, 1.0f, 1.0f, 1.0f);
+        int colorString1IsStatic = ColorUtils.color(0.6f, 0.6f, 0.6f, 1.0f);
         
-        int colorString2IsEdit = ColorUtils.colorRGB(1.0f, 1.0f, 1.0f, 1.0f);
-        int colorString2IsStatic = ColorUtils.colorRGB(1.0f, 1.0f, 1.0f, 1.0f);
+        int colorString2IsEdit = ColorUtils.color(1.0f, 1.0f, 1.0f, 1.0f);
+        int colorString2IsStatic = ColorUtils.color(1.0f, 1.0f, 1.0f, 1.0f);
         
         theme.fontRenderer.drawString("Key", keybind.getX() + 4, keybind.getY() + 2, 
         		colorString);

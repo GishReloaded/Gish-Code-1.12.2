@@ -1,4 +1,4 @@
-package i.gishreloaded.gishcode;
+package i.gishreloaded.gishcode.utils.system;
 
 import java.awt.Font;
 import java.awt.Toolkit;

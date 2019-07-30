@@ -2,9 +2,9 @@ package i.gishreloaded.gishcode.command;
 
 import java.util.ArrayList;
 
-import i.gishreloaded.gishcode.Wrapper;
-import i.gishreloaded.gishcode.utils.ChatUtils;
 import i.gishreloaded.gishcode.utils.Utils;
+import i.gishreloaded.gishcode.utils.system.Wrapper;
+import i.gishreloaded.gishcode.utils.visual.ChatUtils;
 import net.minecraft.client.network.NetworkPlayerInfo;
 
 public class PlayerFinder extends Command

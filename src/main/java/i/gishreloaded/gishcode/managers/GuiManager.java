@@ -1,5 +1,7 @@
 package i.gishreloaded.gishcode.managers;
 
+import java.awt.Dimension;
+
 import i.gishreloaded.gishcode.gui.click.ClickGui;
 import i.gishreloaded.gishcode.gui.click.base.Component;
 import i.gishreloaded.gishcode.gui.click.elements.CheckButton;
@@ -16,16 +18,14 @@ import i.gishreloaded.gishcode.gui.click.listener.SliderChangeListener;
 import i.gishreloaded.gishcode.gui.click.theme.dark.DarkTheme;
 import i.gishreloaded.gishcode.hack.Hack;
 import i.gishreloaded.gishcode.hack.HackCategory;
-import i.gishreloaded.gishcode.utils.GLUtils;
+import i.gishreloaded.gishcode.utils.visual.ChatUtils;
+import i.gishreloaded.gishcode.utils.visual.GLUtils;
 import i.gishreloaded.gishcode.value.BooleanValue;
 import i.gishreloaded.gishcode.value.Mode;
 import i.gishreloaded.gishcode.value.ModeValue;
 import i.gishreloaded.gishcode.value.NumberValue;
 import i.gishreloaded.gishcode.value.Value;
 
-/**
- * Created by Hexeption on 27/02/2017.
- */
 public class GuiManager extends ClickGui {
 
     public void Initialization() {
@@ -33,13 +33,16 @@ public class GuiManager extends ClickGui {
     }
 
     private void addCategoryPanels() {
-        int x = 20;
-        int y = 20;
         int right = GLUtils.getScreenWidth();
+        int framePosX = 20;
+        int framePosY = 20;
 
         for (HackCategory category : HackCategory.values()) {
+        	int frameHeight = 150;
+        	int frameWidth = 95;
+        	int hacksCount = 0;
                 String name = Character.toString(category.toString().toLowerCase().charAt(0)).toUpperCase() + category.toString().toLowerCase().substring(1);
-                Frame frame = new Frame(x, y, 95, 150, name);
+                Frame frame = new Frame(framePosX, framePosY, frameWidth, frameHeight, name);
 
                 for (final Hack mod : HackManager.getHacks()) {
                     if (mod.getCategory() == category) {
@@ -123,14 +126,21 @@ public class GuiManager extends ClickGui {
                         KeybindMods keybind = new KeybindMods(0, 0, 8, 14, expandingButton, mod);
                         expandingButton.addComponent(keybind);
                         frame.addComponent(expandingButton);
+                        hacksCount++;
                     }
                 }
-
-                if (x + 100 < right) {
-                    x += 100;
+                
+                if(hacksCount < 6) {
+                	frameHeight = hacksCount * 20;
+                }
+                
+                frame.setDimension(new Dimension(frameWidth, frameHeight));
+                
+                if (framePosX + 100 < right) {
+                    framePosX += 100;
                 } else {
-                    x = 20;
-                    y += 60;
+                    framePosX = 20;
+                    framePosY += 60;
                 }
 
                 frame.setMaximizible(true);

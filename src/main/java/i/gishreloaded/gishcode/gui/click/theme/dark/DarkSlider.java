@@ -8,9 +8,9 @@ import i.gishreloaded.gishcode.gui.click.base.ComponentType;
 import i.gishreloaded.gishcode.gui.click.elements.Slider;
 import i.gishreloaded.gishcode.gui.click.theme.Theme;
 import i.gishreloaded.gishcode.hack.hacks.ClickGui;
-import i.gishreloaded.gishcode.utils.ColorUtils;
-import i.gishreloaded.gishcode.utils.GLUtils;
-import i.gishreloaded.gishcode.utils.RenderUtils;
+import i.gishreloaded.gishcode.utils.visual.ColorUtils;
+import i.gishreloaded.gishcode.utils.visual.GLUtils;
+import i.gishreloaded.gishcode.utils.visual.RenderUtils;
 
 public class DarkSlider extends ComponentRenderer {
 
@@ -25,13 +25,13 @@ public class DarkSlider extends ComponentRenderer {
         Slider slider = (Slider) component;
         int width = (int) ((slider.getDimension().getWidth()) * slider.getPercent());
         
-        int colorStringValueName = ColorUtils.colorRGB(0.5f, 0.5f, 0.5f, 1.0f);
-        int colorStringValue = ColorUtils.colorRGB(1.0f, 1.0f, 1.0f, 1.0f);
+        int colorStringValueName = ColorUtils.color(0.5f, 0.5f, 0.5f, 1.0f);
+        int colorStringValue = ColorUtils.color(1.0f, 1.0f, 1.0f, 1.0f);
         
-        int colorSliderRect = ColorUtils.colorRGB(1.0f, 1.0f, 1.0f, 1.0f);   
-        int colorSlider = ClickGui.color.getRGB();
+        int colorSliderRect = ColorUtils.color(1.0f, 1.0f, 1.0f, 1.0f);   
+        int colorSlider = ClickGui.color;
 
-        GLUtils.glColor(ColorUtils.colorRGB(1.0f, 1.0f, 1.0f, 1.0f));
+        GLUtils.glColor(ColorUtils.color(1.0f, 1.0f, 1.0f, 1.0f));
         
         theme.fontRenderer.drawString(slider.getText(), slider.getX() + 4, slider.getY() + 2, 
         		colorStringValueName);

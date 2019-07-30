@@ -1,6 +1,6 @@
 package i.gishreloaded.gishcode.utils;
 
-import i.gishreloaded.gishcode.Wrapper;
+import i.gishreloaded.gishcode.utils.system.Wrapper;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;

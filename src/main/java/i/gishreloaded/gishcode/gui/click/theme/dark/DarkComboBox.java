@@ -27,7 +27,7 @@ import i.gishreloaded.gishcode.gui.click.base.ComponentRenderer;
 import i.gishreloaded.gishcode.gui.click.base.ComponentType;
 import i.gishreloaded.gishcode.gui.click.elements.ComboBox;
 import i.gishreloaded.gishcode.gui.click.theme.Theme;
-import i.gishreloaded.gishcode.utils.GLUtils;
+import i.gishreloaded.gishcode.utils.visual.GLUtils;
 
 public class DarkComboBox extends ComponentRenderer {
 

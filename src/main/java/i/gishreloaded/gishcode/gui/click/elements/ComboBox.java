@@ -2,11 +2,11 @@ package i.gishreloaded.gishcode.gui.click.elements;
 
 import java.util.ArrayList;
 
-import i.gishreloaded.gishcode.Wrapper;
 import i.gishreloaded.gishcode.gui.click.base.Component;
 import i.gishreloaded.gishcode.gui.click.base.ComponentType;
 import i.gishreloaded.gishcode.gui.click.base.Container;
 import i.gishreloaded.gishcode.gui.click.listener.ComboBoxListener;
+import i.gishreloaded.gishcode.utils.system.Wrapper;
 
 public class ComboBox extends Container {
 

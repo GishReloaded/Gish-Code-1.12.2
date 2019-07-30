@@ -1,6 +1,7 @@
-package i.gishreloaded.gishcode;
+package i.gishreloaded.gishcode.utils.system;
 
-import i.gishreloaded.gishcode.utils.ChatUtils;
+import i.gishreloaded.gishcode.EventsHandler;
+import i.gishreloaded.gishcode.utils.visual.ChatUtils;
 import io.netty.channel.ChannelDuplexHandler;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
@@ -9,14 +10,14 @@ import io.netty.channel.ChannelPromise;
 
 public class Connection extends ChannelDuplexHandler {
 
-    private Events eventHandler;
+    private EventsHandler eventHandler;
 
-    public Connection(Events eventHandler) {
+    public Connection(EventsHandler eventHandler) {
         this.eventHandler = eventHandler;
         try {
             ChannelPipeline pipeline = Wrapper.INSTANCE.mc().getConnection().getNetworkManager().channel().pipeline();
             pipeline.addBefore("packet_handler", "PacketHandler", (ChannelHandler) this);
-            ChatUtils.warning("Connection: Attached");
+            ChatUtils.message("Connection: Attached");
         } catch (Exception exception) {
         	ChatUtils.error("Connection: Error on attaching");
             exception.printStackTrace();

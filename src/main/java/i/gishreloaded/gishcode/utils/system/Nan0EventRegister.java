@@ -1,4 +1,4 @@
-package i.gishreloaded.gishcode.utils;
+package i.gishreloaded.gishcode.utils.system;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;

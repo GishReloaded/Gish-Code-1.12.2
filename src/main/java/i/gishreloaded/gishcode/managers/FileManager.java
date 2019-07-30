@@ -18,8 +18,8 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import i.gishreloaded.gishcode.Main;
-import i.gishreloaded.gishcode.Wrapper;
 import i.gishreloaded.gishcode.hack.Hack;
+import i.gishreloaded.gishcode.utils.system.Wrapper;
 import i.gishreloaded.gishcode.value.BooleanValue;
 import i.gishreloaded.gishcode.value.Mode;
 import i.gishreloaded.gishcode.value.ModeValue;
@@ -33,11 +33,10 @@ public class FileManager {
 
     private static JsonParser jsonParser = new JsonParser();
 
-    public static final File GISHCODE_DIR = new File(String.format("%s%s%s-%s%s", Wrapper.INSTANCE.mc().mcDataDir, File.separator, Main.NAME, Main.MCVERSION, File.separator));
+    public static final File GISHCODE_DIR = new File(String.format("%s%s%s-%s-%s%s", Wrapper.INSTANCE.mc().mcDataDir, File.separator, Main.NAME, Main.MCVERSION, Main.VERSION, File.separator));
 
     private static final File HACKS = new File(GISHCODE_DIR, "hacks.json");
     private static final File XRAYDATA = new File(GISHCODE_DIR, "xraydata.json");
-    //private static final File PFILTER = new File(GISHCODE_DIR, "pickupfilter.json");
     private static final File FRIENDS = new File(GISHCODE_DIR, "friends.json");
     private static final File ENEMYS = new File(GISHCODE_DIR, "enemys.json");
     
@@ -66,13 +65,6 @@ public class FileManager {
         {
         	loadFriends();
         }
-//        if (!PFILTER.exists()) {
-//        	savePFilter();
-//        }
-//        else
-//        {
-//        	loadPFilter();
-//        }
         if (!ENEMYS.exists()) {
         	saveEnemys();
         }
@@ -142,13 +134,6 @@ public class FileManager {
     	}
     }
     
-//    public static void loadPFilter() {
-//    	final List<String> items = read(PFILTER);
-//    	for(String id : items) {
-//    		PickupFilterManager.add(id);
-//    	}
-//    }
-    
     public static void loadXRayData() {
         try {
         	BufferedReader loadJson = new BufferedReader(new FileReader(XRAYDATA));
@@ -204,10 +189,6 @@ public class FileManager {
     public static void saveEnemys() {
     	write(ENEMYS, EnemyManager.enemysList, true, true);
     }
-    
-//    public static void savePFilter() {
-//        write(PFILTER, PickupFilterManager.itemList, true, true);
-//     }
 
     public static void saveHacks() {
         try {

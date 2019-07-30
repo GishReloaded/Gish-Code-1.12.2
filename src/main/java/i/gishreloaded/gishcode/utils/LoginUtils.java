@@ -6,7 +6,8 @@ import com.mojang.authlib.exceptions.AuthenticationUnavailableException;
 import com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService;
 import com.mojang.authlib.yggdrasil.YggdrasilUserAuthentication;
 
-import i.gishreloaded.gishcode.Wrapper;
+import i.gishreloaded.gishcode.utils.system.Mapping;
+import i.gishreloaded.gishcode.utils.system.Wrapper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.Session;
 import org.apache.logging.log4j.LogManager;
@@ -27,7 +28,7 @@ public class LoginUtils{
         try {
             authentication.logIn();   
             try {
-            	Field f = Minecraft.class.getDeclaredField(MappUtils.session);
+            	Field f = Minecraft.class.getDeclaredField(Mapping.session);
             	f.setAccessible(true);
 				f.set(Wrapper.INSTANCE.mc(), new Session(authentication.getSelectedProfile().getName(), authentication.getSelectedProfile().getId().toString(), authentication.getAuthenticatedToken(), "mojang"));
 				displayText = "Logged [License]: " + Wrapper.INSTANCE.mc().getSession().getUsername();
@@ -67,7 +68,7 @@ public class LoginUtils{
 
     public static void changeCrackedName(String name) {
         try {
-        	Field f = Minecraft.class.getDeclaredField(MappUtils.session);
+        	Field f = Minecraft.class.getDeclaredField(Mapping.session);
         	f.setAccessible(true);
 			f.set(Wrapper.INSTANCE.mc(), new Session(name, "", "", "mojang"));
 		} catch (Exception e) {

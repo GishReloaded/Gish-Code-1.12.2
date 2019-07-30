@@ -3,7 +3,7 @@ package i.gishreloaded.gishcode.utils;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
-import i.gishreloaded.gishcode.Wrapper;
+import i.gishreloaded.gishcode.utils.system.Wrapper;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;

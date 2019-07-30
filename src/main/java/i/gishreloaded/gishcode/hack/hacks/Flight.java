@@ -2,10 +2,10 @@ package i.gishreloaded.gishcode.hack.hacks;
 
 import org.lwjgl.input.Keyboard;
 
-import i.gishreloaded.gishcode.Wrapper;
 import i.gishreloaded.gishcode.hack.Hack;
 import i.gishreloaded.gishcode.hack.HackCategory;
 import i.gishreloaded.gishcode.utils.Utils;
+import i.gishreloaded.gishcode.utils.system.Wrapper;
 import i.gishreloaded.gishcode.value.BooleanValue;
 import i.gishreloaded.gishcode.value.Mode;
 import i.gishreloaded.gishcode.value.ModeValue;
@@ -20,7 +20,7 @@ public class Flight extends Hack{
 	public Flight() {
 		super("Flight", HackCategory.PLAYER);
 		
-		this.mode = new ModeValue("Mode", new Mode("Simple", true), new Mode("Hypixel", false));
+		this.mode = new ModeValue("Mode", new Mode("Simple", true), new Mode("Dynamic", false), new Mode("Hypixel", false));
 		
 		this.addValue(mode);
 	}
@@ -48,6 +48,21 @@ public class Flight extends Hack{
 		else if(mode.getMode("Simple").isToggled())
 		{
 			player.capabilities.isFlying = true;
+		}
+		else if(mode.getMode("Dynamic").isToggled())
+		{
+			float flyspeed = 1.0f;
+			Wrapper.INSTANCE.player().jumpMovementFactor = 0.4f;
+	        Wrapper.INSTANCE.player().motionX = 0.0;
+	        Wrapper.INSTANCE.player().motionY = 0.0;
+	        Wrapper.INSTANCE.player().motionZ = 0.0;
+	        Wrapper.INSTANCE.player().jumpMovementFactor *= (float) flyspeed * 3f;
+	        if (Wrapper.INSTANCE.mcSettings().keyBindJump.isKeyDown()) {
+	            Wrapper.INSTANCE.player().motionY += flyspeed;
+	        }
+	        if (Wrapper.INSTANCE.mcSettings().keyBindSneak.isKeyDown()) {
+	            Wrapper.INSTANCE.player().motionY -= flyspeed;
+	        }
 		}
 		super.onClientTick(event);
 	}

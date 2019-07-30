@@ -8,9 +8,9 @@ import i.gishreloaded.gishcode.gui.click.base.ComponentType;
 import i.gishreloaded.gishcode.gui.click.elements.ExpandingButton;
 import i.gishreloaded.gishcode.gui.click.theme.Theme;
 import i.gishreloaded.gishcode.hack.hacks.ClickGui;
-import i.gishreloaded.gishcode.utils.ColorUtils;
-import i.gishreloaded.gishcode.utils.GLUtils;
-import i.gishreloaded.gishcode.utils.RenderUtils;
+import i.gishreloaded.gishcode.utils.visual.ColorUtils;
+import i.gishreloaded.gishcode.utils.visual.GLUtils;
+import i.gishreloaded.gishcode.utils.visual.RenderUtils;
 
 public class DarkExpandingButton extends ComponentRenderer {
 
@@ -27,8 +27,8 @@ public class DarkExpandingButton extends ComponentRenderer {
         Color colorButtonIsDisabled = new Color(0, 0, 0, 150);
         Color colorButtonIsEnabled = new Color(0, 0, 0, 150);
         
-        int colorStringIsEnabled = ClickGui.color.getRGB();
-        int colorStringIsDisabled = ColorUtils.colorRGB(1.0f, 1.0f, 1.0f, 1.0f);
+        int colorStringIsEnabled = ClickGui.color;
+        int colorStringIsDisabled = ColorUtils.color(1.0f, 1.0f, 1.0f, 1.0f);
         
         if (GLUtils.isHovered(button.getX(), button.getY(), button.getDimension().width, 14, mouseX, mouseY)) {
             RenderUtils.drawRect(button.getX(), button.getY() + button.getButtonHeight() - 1, button.getX() + button.getDimension().width, button.getY() + button.getButtonHeight(), ClickGui.color);

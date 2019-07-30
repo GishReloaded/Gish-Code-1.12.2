@@ -1,9 +1,9 @@
 package i.gishreloaded.gishcode.hack.hacks;
 
-import i.gishreloaded.gishcode.Wrapper;
 import i.gishreloaded.gishcode.hack.Hack;
 import i.gishreloaded.gishcode.hack.HackCategory;
 import i.gishreloaded.gishcode.utils.BlockData;
+import i.gishreloaded.gishcode.utils.system.Wrapper;
 import net.minecraft.init.Blocks;
 import net.minecraft.network.play.client.CPacketPlayer;
 import net.minecraft.util.math.BlockPos;

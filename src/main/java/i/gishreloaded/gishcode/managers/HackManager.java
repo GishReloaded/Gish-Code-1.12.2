@@ -6,11 +6,13 @@ import java.util.List;
 
 import org.lwjgl.input.Keyboard;
 
-import i.gishreloaded.gishcode.Wrapper;
+import i.gishreloaded.gishcode.Main;
 import i.gishreloaded.gishcode.gui.click.ClickGuiScreen;
 import i.gishreloaded.gishcode.gui.click.theme.dark.DarkTheme;
 import i.gishreloaded.gishcode.hack.Hack;
 import i.gishreloaded.gishcode.hack.hacks.*;
+import i.gishreloaded.gishcode.utils.system.Wrapper;
+import i.gishreloaded.gishcode.utils.visual.ChatUtils;
 import i.gishreloaded.gishcode.value.Mode;
 import i.gishreloaded.gishcode.value.ModeValue;
 import i.gishreloaded.gishcode.value.Value;
@@ -33,8 +35,6 @@ public class HackManager {
 
 	public HackManager() {
 		hacks = new ArrayList<Hack>();
-		addHack(new ClickGui());
-		addHack(new HUD());
 		addHack(new Targets());
 		addHack(new Enemys());
 		addHack(new Teams());
@@ -44,7 +44,7 @@ public class HackManager {
 		addHack(new XRay());
 		addHack(new ESP());
 		addHack(new ItemESP());
-		addHack(new ChestESP());
+		addHack(new StorageESP());
 		addHack(new Tracers());
 		addHack(new WallHack());
 		addHack(new Flight());
@@ -59,7 +59,6 @@ public class HackManager {
 		addHack(new Velocity());
 		addHack(new AutoSprint());
 		addHack(new AutoArmor());
-		addHack(new FakeFace());
 		addHack(new InteractClick());
 		addHack(new ChestStealer());
 		addHack(new Glide());
@@ -77,8 +76,17 @@ public class HackManager {
 		addHack(new AttackPacketCW());
 		addHack(new AttackPacketCIA());
 		addHack(new Teleport());
-		//addHack(new DisableAtDeath());
+		addHack(new FireballReturn());
+		addHack(new PlayerRadar());
+		addHack(new NoRain());
+		//addHack(new FakeFace());
 		//addHack(new TestHack());
+		addHack(new HUD());
+		addHack(new ClickGui());
+	}
+	
+	public void setGuiManager(GuiManager guiManager) {
+		this.guiManager = guiManager;
 	}
 	
 	public ClickGuiScreen getGui() {
@@ -87,7 +95,7 @@ public class HackManager {
             this.guiScreen = new ClickGuiScreen();
             ClickGuiScreen.clickGui = this.guiManager;
             this.guiManager.Initialization();
-            this.guiManager.setTheme(new DarkTheme());
+    		this.guiManager.setTheme(new DarkTheme());
         }
         return this.guiManager;
     }

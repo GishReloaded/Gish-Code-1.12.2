@@ -2,12 +2,12 @@ package i.gishreloaded.gishcode.hack;
 
 import java.util.ArrayList;
 
-import i.gishreloaded.gishcode.Connection;
-import i.gishreloaded.gishcode.Wrapper;
 import i.gishreloaded.gishcode.gui.click.ClickGuiScreen;
 import i.gishreloaded.gishcode.hack.hacks.HUD;
-import i.gishreloaded.gishcode.utils.ChatUtils;
-import i.gishreloaded.gishcode.utils.RenderUtils;
+import i.gishreloaded.gishcode.utils.system.Connection;
+import i.gishreloaded.gishcode.utils.system.Wrapper;
+import i.gishreloaded.gishcode.utils.visual.ChatUtils;
+import i.gishreloaded.gishcode.utils.visual.RenderUtils;
 import i.gishreloaded.gishcode.value.BooleanValue;
 import i.gishreloaded.gishcode.value.Mode;
 import i.gishreloaded.gishcode.value.ModeValue;

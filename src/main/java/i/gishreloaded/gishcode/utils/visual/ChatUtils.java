@@ -1,7 +1,7 @@
-package i.gishreloaded.gishcode.utils;
+package i.gishreloaded.gishcode.utils.visual;
 
 import i.gishreloaded.gishcode.Main;
-import i.gishreloaded.gishcode.Wrapper;
+import i.gishreloaded.gishcode.utils.system.Wrapper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentTranslation;

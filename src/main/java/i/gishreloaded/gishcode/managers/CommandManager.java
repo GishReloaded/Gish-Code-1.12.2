@@ -3,7 +3,7 @@ package i.gishreloaded.gishcode.managers;
 import java.util.ArrayList;
 
 import i.gishreloaded.gishcode.command.*;
-import i.gishreloaded.gishcode.utils.ChatUtils;
+import i.gishreloaded.gishcode.utils.visual.ChatUtils;
 
 public class CommandManager
 {
@@ -30,7 +30,6 @@ public class CommandManager
 		commands.add(new Friend());
 		commands.add(new Enemy());
 		commands.add(new XRay());
-		//commands.add(new PickupFilter());
 	}
 
 	public void runCommands(String s)

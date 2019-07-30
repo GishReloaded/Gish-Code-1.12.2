@@ -2,10 +2,10 @@ package i.gishreloaded.gishcode.command;
 
 import org.lwjgl.input.Mouse;
 
-import i.gishreloaded.gishcode.Wrapper;
 import i.gishreloaded.gishcode.managers.XRayManager;
-import i.gishreloaded.gishcode.utils.ChatUtils;
 import i.gishreloaded.gishcode.utils.Utils;
+import i.gishreloaded.gishcode.utils.system.Wrapper;
+import i.gishreloaded.gishcode.utils.visual.ChatUtils;
 import i.gishreloaded.gishcode.xray.XRayData;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;

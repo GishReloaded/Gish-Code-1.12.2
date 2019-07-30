@@ -7,13 +7,13 @@ import java.util.Locale;
 import org.lwjgl.opengl.GL11;
 
 import i.gishreloaded.gishcode.Main;
-import i.gishreloaded.gishcode.Wrapper;
 import i.gishreloaded.gishcode.hack.Hack;
 import i.gishreloaded.gishcode.hack.HackCategory;
 import i.gishreloaded.gishcode.managers.HackManager;
-import i.gishreloaded.gishcode.utils.ChatUtils;
-import i.gishreloaded.gishcode.utils.ColorUtils;
-import i.gishreloaded.gishcode.utils.RenderUtils;
+import i.gishreloaded.gishcode.utils.system.Wrapper;
+import i.gishreloaded.gishcode.utils.visual.ChatUtils;
+import i.gishreloaded.gishcode.utils.visual.ColorUtils;
+import i.gishreloaded.gishcode.utils.visual.RenderUtils;
 import i.gishreloaded.gishcode.value.BooleanValue;
 import i.gishreloaded.gishcode.value.Mode;
 import i.gishreloaded.gishcode.value.ModeValue;
@@ -35,10 +35,10 @@ public class HUD extends Hack{
 		//if(Wrapper.INSTANCE.mc().getLanguageManager().getCurrentLanguage() == Wrapper.INSTANCE.mc().getLanguageManager().getLanguage("ru_ru")) {}
 		GL11.glPushMatrix();
 		GL11.glScalef(1.5f, 1.5f, 1.5f);
-		Wrapper.INSTANCE.fontRenderer().drawStringWithShadow(Main.NAME, 4, 4, ClickGui.color());
+		Wrapper.INSTANCE.fontRenderer().drawStringWithShadow(Main.NAME, 4, 4, ClickGui.getColor());
 		GL11.glScalef(0.6f, 0.6f, 0.6f);
-		Wrapper.INSTANCE.fontRenderer().drawStringWithShadow(Main.MCVERSION, 84, 4, ClickGui.color());
-		Wrapper.INSTANCE.fontRenderer().drawStringWithShadow("v" + Main.VERSION, 84, 14, ClickGui.color());
+		Wrapper.INSTANCE.fontRenderer().drawStringWithShadow(Main.MCVERSION, 84, 4, ClickGui.getColor());
+		Wrapper.INSTANCE.fontRenderer().drawStringWithShadow("v" + Main.VERSION, 84, 14, ClickGui.getColor());
 		GL11.glPopMatrix();
 		
 		double x = Wrapper.INSTANCE.player().posX;
@@ -52,13 +52,13 @@ public class HUD extends Hack{
 		int heightFPS = isChatOpen ? sr.getScaledHeight() - 37 : sr.getScaledHeight() - 22;
 		int heightCoords = isChatOpen ? sr.getScaledHeight() - 25 : sr.getScaledHeight() - 10;
 		
-		int colorRect = ColorUtils.colorRGB(0.0F, 0.0F, 0.0F, 0.0F);
-		int colorRect2 = ColorUtils.colorRGB(0.0F, 0.0F, 0.0F, 0.5F);
+		int colorRect = ColorUtils.color(0.0F, 0.0F, 0.0F, 0.0F);
+		int colorRect2 = ColorUtils.color(0.0F, 0.0F, 0.0F, 0.5F);
 		
-		RenderUtils.drawStringWithRect(coords, 4, heightCoords, ClickGui.color(), 
+		RenderUtils.drawStringWithRect(coords, 4, heightCoords, ClickGui.getColor(), 
 				colorRect, colorRect2);
 		
-		RenderUtils.drawStringWithRect("\u00a77FPS: \u00a7f" + Wrapper.INSTANCE.mc().getDebugFPS(), 4, heightFPS, ClickGui.color(), 
+		RenderUtils.drawStringWithRect("\u00a77FPS: \u00a7f" + Wrapper.INSTANCE.mc().getDebugFPS(), 4, heightFPS, ClickGui.getColor(), 
 				colorRect, colorRect2);
 		
 		int yPos = 24;
@@ -77,7 +77,7 @@ public class HUD extends Hack{
 					}
 				}
 			}
-			RenderUtils.drawStringWithRect(hack.getName() + modeName, xPos, yPos, ClickGui.color(), 
+			RenderUtils.drawStringWithRect(hack.getName() + modeName, xPos, yPos, ClickGui.getColor(), 
 					colorRect, colorRect2);
 			yPos += 12;
 		}

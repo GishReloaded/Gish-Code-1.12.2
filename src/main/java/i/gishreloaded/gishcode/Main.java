@@ -6,7 +6,7 @@ package i.gishreloaded.gishcode;
 
 import i.gishreloaded.gishcode.managers.FileManager;
 import i.gishreloaded.gishcode.managers.HackManager;
-import i.gishreloaded.gishcode.utils.Nan0EventRegister;
+import i.gishreloaded.gishcode.utils.system.Nan0EventRegister;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.Mod;
@@ -23,12 +23,12 @@ public class Main {
 	
 	public static final String MODID = "gishcode";
 	public static final String NAME = "GishCode";
-	public static final String VERSION = "0.3.0";
+	public static final String VERSION = "0.3.3";
 	public static final String MCVERSION = "1.12.2";
 	public static int initCount = 0;
 	public static HackManager hackManager;
 	public static FileManager fileManager;
-	public static Events events;
+	public static EventsHandler eventsHandler;
 
 	public Main() { init(null); }
 	
@@ -40,9 +40,9 @@ public class Main {
 		if(initCount > 0) { return; } 
 		hackManager = new HackManager();
 		fileManager = new FileManager();
-		events = new Events();
-		Nan0EventRegister.register(MinecraftForge.EVENT_BUS, events);
-		Nan0EventRegister.register(FMLCommonHandler.instance().bus(), events);
+		eventsHandler = new EventsHandler();
+		Nan0EventRegister.register(MinecraftForge.EVENT_BUS, eventsHandler);
+		Nan0EventRegister.register(FMLCommonHandler.instance().bus(), eventsHandler);
 		initCount++; 
 	}
 

@@ -1,7 +1,7 @@
 package i.gishreloaded.gishcode.command;
 
 import i.gishreloaded.gishcode.managers.CommandManager;
-import i.gishreloaded.gishcode.utils.ChatUtils;
+import i.gishreloaded.gishcode.utils.visual.ChatUtils;
 
 public class Help extends Command
 {

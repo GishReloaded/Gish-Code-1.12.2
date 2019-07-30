@@ -1,14 +1,14 @@
 package i.gishreloaded.gishcode.gui.click.theme.dark;
 
-import i.gishreloaded.gishcode.Wrapper;
 import i.gishreloaded.gishcode.gui.click.base.ComponentType;
 import i.gishreloaded.gishcode.gui.click.theme.Theme;
+import i.gishreloaded.gishcode.utils.system.Wrapper;
 import net.minecraftforge.client.model.obj.OBJModel.Texture;
 
 public class DarkTheme extends Theme {
 
     public DarkTheme() {
-        super("GishCode");
+        super("GishCodeDark");
         this.fontRenderer = Wrapper.INSTANCE.fontRenderer();
         addRenderer(ComponentType.FRAME, new DarkFrame(this));
         addRenderer(ComponentType.BUTTON, new DarkButton(this));

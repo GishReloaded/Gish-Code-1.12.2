@@ -9,10 +9,11 @@ import java.util.UUID;
 
 import com.mojang.authlib.GameProfile;
 
-import i.gishreloaded.gishcode.Wrapper;
 import i.gishreloaded.gishcode.hack.Hack;
 import i.gishreloaded.gishcode.managers.EnemyManager;
 import i.gishreloaded.gishcode.managers.HackManager;
+import i.gishreloaded.gishcode.utils.system.Mapping;
+import i.gishreloaded.gishcode.utils.system.Wrapper;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockAir;
 import net.minecraft.block.material.Material;
@@ -180,8 +181,8 @@ public class Utils {
 		EntityPlayer player = Wrapper.INSTANCE.player();
 		if (player == entity){
 			if (!(mc.playerController instanceof RangePlayerController)){
-				GameType gameType = ReflectionHelper.getPrivateValue(PlayerControllerMP.class, mc.playerController, MappUtils.currentGameType);
-	            NetHandlerPlayClient netClient = ReflectionHelper.getPrivateValue(PlayerControllerMP.class, mc.playerController, MappUtils.connection);
+				GameType gameType = ReflectionHelper.getPrivateValue(PlayerControllerMP.class, mc.playerController, Mapping.currentGameType);
+	            NetHandlerPlayClient netClient = ReflectionHelper.getPrivateValue(PlayerControllerMP.class, mc.playerController, Mapping.connection);
 	            RangePlayerController controller = new RangePlayerController(mc, netClient);
 	            boolean isFlying = player.capabilities.isFlying;
 	            boolean allowFlying = player.capabilities.allowFlying;
@@ -583,8 +584,9 @@ public class Utils {
         Wrapper.INSTANCE.player().rotationYaw = f;
         Wrapper.INSTANCE.player().rotationPitch = f1;
     }
+
 	
-	public static void assistFaceEntity(EntityLivingBase entity, float yaw, float pitch) {
+	public static void assistFaceEntity(Entity entity, float yaw, float pitch) {
 	    if (entity == null) {
 	    	return;
 	    }
@@ -654,7 +656,7 @@ public class Utils {
 	    };
 	}
 	
-	public static float[] getRotationsNeeded(EntityLivingBase entity) {
+	public static float[] getRotationsNeeded(Entity entity) {
 	    if (entity == null) {
 	    	return null;
 	    }

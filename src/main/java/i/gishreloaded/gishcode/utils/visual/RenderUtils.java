@@ -1,4 +1,4 @@
-package i.gishreloaded.gishcode.utils;
+package i.gishreloaded.gishcode.utils.visual;
 
 import static org.lwjgl.opengl.GL11.GL_BLEND;
 import static org.lwjgl.opengl.GL11.GL_CULL_FACE;
@@ -30,10 +30,11 @@ import java.util.Locale;
 
 import org.lwjgl.opengl.GL11;
 
-import i.gishreloaded.gishcode.Wrapper;
 import i.gishreloaded.gishcode.hack.hacks.ClickGui;
 import i.gishreloaded.gishcode.hack.hacks.KillAura;
 import i.gishreloaded.gishcode.hack.hacks.Scaffold;
+import i.gishreloaded.gishcode.utils.TimerUtils;
+import i.gishreloaded.gishcode.utils.system.Wrapper;
 import i.gishreloaded.gishcode.xray.XRayBlock;
 import i.gishreloaded.gishcode.xray.XRayData;
 import net.minecraft.block.state.IBlockState;
@@ -69,8 +70,8 @@ public class RenderUtils {
 	
 	public static void drawSplash(String text) {
 		ScaledResolution sr = new ScaledResolution(Wrapper.INSTANCE.mc());
-		drawStringWithRect(text, sr.getScaledWidth() + 2 - splashTickPos, sr.getScaledHeight() - 10, ClickGui.color(), 
-				ColorUtils.colorRGB(0.0F, 0.0F, 0.0F, 0.0F), ColorUtils.colorRGB(0.0F, 0.0F, 0.0F, 0.5F));
+		drawStringWithRect(text, sr.getScaledWidth() + 2 - splashTickPos, sr.getScaledHeight() - 10, ClickGui.getColor(), 
+				ColorUtils.color(0.0F, 0.0F, 0.0F, 0.0F), ColorUtils.color(0.0F, 0.0F, 0.0F, 0.5F));
 		if(splashTimer.isDelay(10)) {
 			splashTimer.setLastMS();
 			if(isSplash) {
