@@ -11,11 +11,11 @@ import net.minecraft.client.settings.GameSettings;
 import net.minecraft.network.play.client.CPacketEntityAction;
 import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
 
-public class NoSneak extends Hack{
+public class AntiSneak extends Hack{
 	
 	public BooleanValue fullSprint;
-	public NoSneak() {
-		super("NoSneak", HackCategory.PLAYER);
+	public AntiSneak() {
+		super("AntiSneak", HackCategory.PLAYER);
 		fullSprint = new BooleanValue("FullSprint", true);
 		this.addValue(fullSprint);
 	}

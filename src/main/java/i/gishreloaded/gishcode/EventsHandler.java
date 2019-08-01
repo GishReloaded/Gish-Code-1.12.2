@@ -1,36 +1,26 @@
 package i.gishreloaded.gishcode;
 
 import org.lwjgl.input.Keyboard;
-import org.lwjgl.input.Mouse;
-import org.lwjgl.opengl.Display;
 
 import i.gishreloaded.gishcode.gui.click.ClickGuiScreen;
 import i.gishreloaded.gishcode.hack.Hack;
 import i.gishreloaded.gishcode.hack.hacks.AntiBot;
 import i.gishreloaded.gishcode.hack.hacks.ClickGui;
 import i.gishreloaded.gishcode.managers.HackManager;
-import i.gishreloaded.gishcode.utils.Utils;
 import i.gishreloaded.gishcode.utils.system.Connection;
 import i.gishreloaded.gishcode.utils.system.Wrapper;
 import i.gishreloaded.gishcode.utils.visual.ChatUtils;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.ScaledResolution;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.client.event.EntityViewRenderEvent;
-import net.minecraftforge.client.event.FOVUpdateEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
-import net.minecraftforge.client.event.RenderHandEvent;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
+import net.minecraftforge.event.entity.ProjectileImpactEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
-import net.minecraftforge.event.entity.ProjectileImpactEvent;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.InputEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
-import net.minecraftforge.fml.common.gameevent.TickEvent.PlayerTickEvent;
 
 public class EventsHandler {
 	private boolean isInit = false;
@@ -206,6 +196,21 @@ public class EventsHandler {
     	} catch (RuntimeException ex) {
     		ex.printStackTrace();
     		ChatUtils.error("RuntimeException: onRenderGameOverlay");
+    		ChatUtils.error(ex.toString());
+    		Wrapper.INSTANCE.copy(ex.toString());
+    	}
+	}
+	
+	@SubscribeEvent
+	public void onLeftClickBlock(PlayerInteractEvent.LeftClickBlock event){
+		if(Wrapper.INSTANCE.player() == null || Wrapper.INSTANCE.world() == null) {
+    		return;
+    	}
+    	try {
+    		HackManager.onLeftClickBlock(event);
+    	} catch (RuntimeException ex) {
+    		ex.printStackTrace();
+    		ChatUtils.error("RuntimeException: onPlayerDamageBlock");
     		ChatUtils.error(ex.toString());
     		Wrapper.INSTANCE.copy(ex.toString());
     	}

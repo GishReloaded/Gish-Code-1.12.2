@@ -266,6 +266,42 @@ public class RenderUtils {
     }
 	*/
 	
+	public static void drawNukerBlocks(Iterable<BlockPos> blocks, float r, float g, float b, float ticks) {
+		glPushMatrix();
+        glEnable(GL_BLEND);
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+        glEnable(GL_LINE_SMOOTH);
+        glLineWidth(1);
+        glDisable(GL_TEXTURE_2D);
+        glEnable(GL_CULL_FACE);
+        glDisable(GL_DEPTH_TEST);
+        glDisable(GL11.GL_LIGHTING);
+
+        WorldClient world = Wrapper.INSTANCE.world();
+        EntityPlayerSP player = Wrapper.INSTANCE.player();
+
+        for(BlockPos pos : blocks) {
+
+            IBlockState iblockstate = world.getBlockState(pos);
+
+            double x = player.lastTickPosX + (player.posX - player.lastTickPosX) * (double)ticks;
+            double y = player.lastTickPosY + (player.posY - player.lastTickPosY) * (double)ticks;
+            double z = player.lastTickPosZ + (player.posZ - player.lastTickPosZ) * (double)ticks;
+
+            GLUtils.glColor(new Color(r, g, b, 1.0f));
+            
+            AxisAlignedBB boundingBox = iblockstate.getSelectedBoundingBox(world, pos).grow(0.0020000000949949026D).offset(-x, -y, -z);
+            drawSelectionBoundingBox(boundingBox);
+        }
+
+        glEnable(GL11.GL_LIGHTING);
+        glEnable(GL_DEPTH_TEST);
+        glEnable(GL_TEXTURE_2D);
+        glDisable(GL_BLEND);
+        glDisable(GL_LINE_SMOOTH);
+        glPopMatrix();
+	}
+	
 	public static void drawXRayBlocks(LinkedList<XRayBlock> blocks, float ticks) {
 		glPushMatrix();
         glEnable(GL_BLEND);
@@ -701,39 +737,6 @@ public class RenderUtils {
         }
 
         drawRect(par1, par2 + 1, par1 + 1, par3, color);
-    }
-	
-	public static void drawRect(float left, float top, float right, float bottom, Color color) {
-
-        float var5;
-
-        if (left < right) {
-            var5 = left;
-            left = right;
-            right = var5;
-        }
-
-        if (top < bottom) {
-            var5 = top;
-            top = bottom;
-            bottom = var5;
-        }
-
-        GL11.glEnable(GL11.GL_BLEND);
-        GL11.glDisable(GL11.GL_TEXTURE_2D);
-        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-        GL11.glEnable(GL11.GL_LINE_SMOOTH);
-        GL11.glPushMatrix();
-        GLUtils.glColor(color);
-        GL11.glBegin(GL11.GL_QUADS);
-        GL11.glVertex2d(left, bottom);
-        GL11.glVertex2d(right, bottom);
-        GL11.glVertex2d(right, top);
-        GL11.glVertex2d(left, top);
-        GL11.glEnd();
-        GL11.glPopMatrix();
-        GL11.glEnable(GL11.GL_TEXTURE_2D);
-        GL11.glDisable(GL11.GL_LINE_SMOOTH);
     }
 
     public static void drawRect(float left, float top, float right, float bottom, int color) {

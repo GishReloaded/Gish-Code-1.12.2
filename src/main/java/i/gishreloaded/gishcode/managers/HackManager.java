@@ -24,6 +24,7 @@ import net.minecraftforge.event.entity.ProjectileImpactEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 
 public class HackManager {
@@ -62,14 +63,15 @@ public class HackManager {
 		addHack(new InteractClick());
 		addHack(new ChestStealer());
 		addHack(new Glide());
+		addHack(new Nuker());
 		addHack(new AntiFall());
 		addHack(new Ghost());
 		addHack(new Blink());
 		addHack(new Scaffold());
 		addHack(new FastLadder());
 		addHack(new Speed());
-		addHack(new Step());
-		addHack(new NoSneak());
+		addHack(new AutoStep());
+		addHack(new AntiSneak());
 		addHack(new FreeCam());
 		addHack(new BlockOverlay());
 		addHack(new PluginsGetter());
@@ -78,7 +80,13 @@ public class HackManager {
 		addHack(new Teleport());
 		addHack(new FireballReturn());
 		addHack(new PlayerRadar());
-		addHack(new NoRain());
+		addHack(new AntiRain());
+		addHack(new AntiWeb());
+		addHack(new Spider());
+		addHack(new AutoWalk());
+		addHack(new AutoSwim());
+		addHack(new FastBreak());
+		addHack(new Disconnect());
 		//addHack(new FakeFace());
 		//addHack(new TestHack());
 		addHack(new HUD());
@@ -176,6 +184,14 @@ public class HackManager {
     		if(hack.getKey() == key) {
     			hack.toggle();
     			toggleHack = hack;
+    		}
+    	}
+	}
+	
+	public static void onLeftClickBlock(PlayerInteractEvent.LeftClickBlock event){
+		for(Hack hack : getHacks()) {
+    		if(hack.isToggled()) {
+    			hack.onLeftClickBlock(event);
     		}
     	}
 	}

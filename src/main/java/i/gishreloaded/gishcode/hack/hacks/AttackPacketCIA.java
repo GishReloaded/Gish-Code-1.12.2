@@ -17,7 +17,7 @@ import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
 public class AttackPacketCIA extends Hack{
 
 	public AttackPacketCIA() {
-		super("AttackPacketCIA", HackCategory.EXPLOIT);
+		super("AttackPacketCIA", HackCategory.ANOTHER);
 	}
 	
 	//By Dark Light Neron

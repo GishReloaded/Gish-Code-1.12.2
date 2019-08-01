@@ -24,10 +24,15 @@ import net.minecraftforge.client.event.RenderGameOverlayEvent.Text;
 
 public class HUD extends Hack{
 	
+	public BooleanValue effects;
+	
 	public HUD() {
 		super("HUD", HackCategory.VISUAL);
 		this.setToggled(true);
 		this.setShow(false);
+		
+		effects = new BooleanValue("Effects", false);
+		this.addValue(effects);
 	}
 	
 	@Override
@@ -77,8 +82,17 @@ public class HUD extends Hack{
 					}
 				}
 			}
+			if(effects.getValue()) {
+				xPos = 6;
+				RenderUtils.drawBorderedRect(xPos - 2, yPos - 2, xPos + Wrapper.INSTANCE.fontRenderer().getStringWidth(hack.getName() + modeName) + 2, yPos + 10, 1, colorRect, ClickGui.getColor());
+			} else {
+				xPos = 4;
+			}
 			RenderUtils.drawStringWithRect(hack.getName() + modeName, xPos, yPos, ClickGui.getColor(), 
 					colorRect, colorRect2);
+			if(effects.getValue()) {
+				RenderUtils.drawBorderedRect(xPos - 2, yPos - 2, xPos - 6, yPos + 10, 1, ClickGui.getColor(), ClickGui.getColor());
+			}
 			yPos += 12;
 		}
 		Hack toggleHack = HackManager.getToggleHack();

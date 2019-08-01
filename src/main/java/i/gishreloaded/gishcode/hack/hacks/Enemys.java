@@ -7,6 +7,6 @@ import i.gishreloaded.gishcode.value.BooleanValue;
 public class Enemys extends Hack{
 
 	public Enemys() {
-		super("Enemys", HackCategory.OTHER);
+		super("Enemys", HackCategory.ANOTHER);
 	}
 }

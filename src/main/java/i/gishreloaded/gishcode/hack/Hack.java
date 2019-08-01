@@ -19,6 +19,7 @@ import net.minecraftforge.event.entity.ProjectileImpactEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 
 public class Hack {
@@ -113,6 +114,7 @@ public class Hack {
     public void onLivingUpdate(LivingEvent.LivingUpdateEvent event) {}
     public void onRenderWorldLast(RenderWorldLastEvent event) {}
     public void onRenderGameOverlay(RenderGameOverlayEvent.Text event) {}
+    public void onLeftClickBlock(PlayerInteractEvent.LeftClickBlock event){}
 	
     public void debug(int i) {
     	ChatUtils.message("Debug: " + i);

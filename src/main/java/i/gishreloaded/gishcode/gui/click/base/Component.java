@@ -9,6 +9,8 @@ public class Component extends Interactable {
     private Component component;
 
     private String text;
+    
+    public int height = 0;
 
     public Component(int xPos, int yPos, int width, int height, ComponentType componentType, Component component, String text) {
 

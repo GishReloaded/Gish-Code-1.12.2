@@ -20,6 +20,7 @@ import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
 
 public class ClickGui extends Hack{
 
+	public ModeValue theme;
 	public static BooleanValue rainbow;
 	public static BooleanValue shadow;
 	
@@ -28,12 +29,15 @@ public class ClickGui extends Hack{
 	public static NumberValue blue;
 	public static NumberValue alpha;
 	
-	public static int color;
+	private static int color;
+	public static boolean isLight = false;
 	
 	public ClickGui() {
 		super("ClickGui", HackCategory.VISUAL);
 		this.setKey(Keyboard.KEY_RSHIFT);
 		this.setShow(false);
+		
+		this.theme = new ModeValue("Theme", new Mode("Dark", true), new Mode("Light", false));
 		
 		this.shadow = new BooleanValue("Shadow", true);
 		this.rainbow = new BooleanValue("Rainbow", true);
@@ -42,7 +46,7 @@ public class ClickGui extends Hack{
 		this.blue = new NumberValue("Blue", 170D, 0D, 255D);
 		this.alpha = new NumberValue("Alpha", 170D, 0D, 255D);
 		
-		this.addValue(shadow, rainbow, red, green, blue, alpha);
+		this.addValue(theme, shadow, rainbow, red, green, blue, alpha);
 		this.setColor();
 	}
 	
@@ -51,16 +55,10 @@ public class ClickGui extends Hack{
 	 }
 	
 	 public static void setColor() {
-		if(rainbow.getValue()) {
-			color = ColorUtils.rainbow().getRGB();
-		}
-		else
-		{
-			color = ColorUtils.color(red.getValue().intValue(),
-					green.getValue().intValue(),
-					blue.getValue().intValue(),
-					alpha.getValue().intValue());
-		}
+		color = ColorUtils.color(red.getValue().intValue(),
+				green.getValue().intValue(),
+				blue.getValue().intValue(),
+				alpha.getValue().intValue());
 	}
 	
 	@Override
@@ -72,6 +70,7 @@ public class ClickGui extends Hack{
 	@Override
 	public void onClientTick(ClientTickEvent event) {
 		this.setColor();
+		this.isLight = theme.getMode("Light").isToggled();
 		super.onClientTick(event);
 	}
 	

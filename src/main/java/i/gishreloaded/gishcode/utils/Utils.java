@@ -1,17 +1,14 @@
 package i.gishreloaded.gishcode.utils;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.ArrayList;
 import java.util.Random;
-import java.util.UUID;
 
 import com.mojang.authlib.GameProfile;
 
-import i.gishreloaded.gishcode.hack.Hack;
 import i.gishreloaded.gishcode.managers.EnemyManager;
-import i.gishreloaded.gishcode.managers.HackManager;
 import i.gishreloaded.gishcode.utils.system.Mapping;
 import i.gishreloaded.gishcode.utils.system.Wrapper;
 import net.minecraft.block.Block;
@@ -22,11 +19,7 @@ import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.gui.GuiChat;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.inventory.GuiContainer;
-import net.minecraft.client.multiplayer.PlayerControllerMP;
-import net.minecraft.client.network.NetHandlerPlayClient;
-import net.minecraft.client.network.NetworkPlayerInfo;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityEgg;
@@ -43,8 +36,6 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.GameType;
-import net.minecraftforge.fml.relauncher.ReflectionHelper;
 
 public class Utils {
 	
@@ -163,37 +154,6 @@ public class Utils {
         return new double[]{startX, startY, startZ};
     }
     
-	public static void setReach(Entity entity, double range) {
-		class RangePlayerController extends PlayerControllerMP {
-			private float range = (float) Wrapper.INSTANCE.player().getEntityAttribute(EntityPlayer.REACH_DISTANCE).getAttributeValue();
-			public RangePlayerController(Minecraft mcIn, NetHandlerPlayClient netHandler) {
-				super(mcIn, netHandler);
-			}
-			@Override
-			public float getBlockReachDistance() {
-				return range;
-			}
-			public void setBlockReachDistance(float range) {
-				this.range = range;
-			}
-		}
-		Minecraft mc = Wrapper.INSTANCE.mc();
-		EntityPlayer player = Wrapper.INSTANCE.player();
-		if (player == entity){
-			if (!(mc.playerController instanceof RangePlayerController)){
-				GameType gameType = ReflectionHelper.getPrivateValue(PlayerControllerMP.class, mc.playerController, Mapping.currentGameType);
-	            NetHandlerPlayClient netClient = ReflectionHelper.getPrivateValue(PlayerControllerMP.class, mc.playerController, Mapping.connection);
-	            RangePlayerController controller = new RangePlayerController(mc, netClient);
-	            boolean isFlying = player.capabilities.isFlying;
-	            boolean allowFlying = player.capabilities.allowFlying;
-	            controller.setGameType(gameType);
-	            player.capabilities.isFlying = isFlying;
-	            player.capabilities.allowFlying = allowFlying;
-	            mc.playerController = controller;
-			}
-			((RangePlayerController) mc.playerController).setBlockReachDistance((float) range);
-		}
-	}
     public static boolean isBlockMaterial(BlockPos blockPos, Block block) {
     	return Wrapper.INSTANCE.world().getBlockState(blockPos).getBlock() == Blocks.AIR;
     }
@@ -519,6 +479,27 @@ public class Utils {
         var1 *= 0.017453292F;
         return var1;
     }
+    
+    public static void faceVectorPacket(Vec3d vec)
+	{
+		float[] rotations = getNeededRotations(vec);
+		EntityPlayerSP pl = Minecraft.getMinecraft().player;
+
+		float preYaw = pl.rotationYaw;
+		float prePitch = pl.rotationPitch;
+
+		pl.rotationYaw = rotations[0];
+		pl.rotationPitch = rotations[1];
+
+		try {
+			Method onUpdateWalkingPlayer = pl.getClass().getDeclaredMethod(Mapping.onUpdateWalkingPlayer);
+			onUpdateWalkingPlayer.setAccessible(true);
+			onUpdateWalkingPlayer.invoke(pl, new Object[0]);
+		} catch(Exception ex) {}
+
+		pl.rotationYaw = preYaw;
+		pl.rotationPitch = prePitch;
+	}
 	
 	public static boolean placeBlockScaffold(final BlockPos pos) {
         final Vec3d eyesPos = new Vec3d(Wrapper.INSTANCE.player().posX, Wrapper.INSTANCE.player().posY + Wrapper.INSTANCE.player().getEyeHeight(), Wrapper.INSTANCE.player().posZ);

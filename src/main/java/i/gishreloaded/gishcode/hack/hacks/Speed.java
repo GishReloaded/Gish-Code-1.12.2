@@ -20,7 +20,7 @@ public class Speed extends Hack{
 		
       if (Wrapper.INSTANCE.player().moveForward > 0 && Wrapper.INSTANCE.player().hurtTime < 5) {
           if (Wrapper.INSTANCE.player().onGround) {
-//              mc.thePlayer.jump();
+//            Wrapper.INSTANCE.player().jump();
         	  Wrapper.INSTANCE.player().motionY = 0.405;
               float f = Utils.getDirection();
               Wrapper.INSTANCE.player().motionX -= (double)(MathHelper.sin(f) * 0.2F);

@@ -23,11 +23,11 @@ public class DarkButton extends ComponentRenderer {
 
         Button button = (Button) component;
         String text = button.getText();
-        Color color = new Color(50, 50, 50, 100);
-        Color enable = new Color(255, 255, 255, 255);
+        int color = ColorUtils.color(50, 50, 50, 100);
+        int enable = ColorUtils.color(255, 255, 255, 255);
 
         if (GLUtils.isHovered(button.getX(), button.getY(), button.getDimension().width, button.getDimension().height, mouseX, mouseY)) {
-            color = new Color(70, 70, 70, 255);
+            color = ColorUtils.color(70, 70, 70, 255);
         }
 
         if (button.isEnabled()) {
@@ -36,7 +36,7 @@ public class DarkButton extends ComponentRenderer {
             RenderUtils.drawRect(button.getX(), button.getY(), button.getX() + button.getDimension().width - 1, button.getY() + button.getDimension().height, color);
         }
 
-        theme.fontRenderer.drawString(text, button.getX() + 5, button.getY() + (button.getDimension().height / 2 - theme.fontRenderer.FONT_HEIGHT / 4), Color.white.hashCode());
+        theme.fontRenderer.drawString(text, button.getX() + 5, button.getY() + (button.getDimension().height / 2 - theme.fontRenderer.FONT_HEIGHT / 4), ColorUtils.color(255, 255, 255, 255));
     }
 
     @Override

@@ -17,7 +17,6 @@ public class Connection extends ChannelDuplexHandler {
         try {
             ChannelPipeline pipeline = Wrapper.INSTANCE.mc().getConnection().getNetworkManager().channel().pipeline();
             pipeline.addBefore("packet_handler", "PacketHandler", (ChannelHandler) this);
-            ChatUtils.message("Connection: Attached");
         } catch (Exception exception) {
         	ChatUtils.error("Connection: Error on attaching");
             exception.printStackTrace();

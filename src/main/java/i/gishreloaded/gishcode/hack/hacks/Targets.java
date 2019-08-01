@@ -15,7 +15,7 @@ public class Targets extends Hack{
     //public BooleanValue noBot;
     
 	public Targets() {
-		super("Targets", HackCategory.OTHER);
+		super("Targets", HackCategory.ANOTHER);
 		this.setShow(false);
 		this.setToggled(true);
 		

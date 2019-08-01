@@ -30,11 +30,11 @@ public class XRay extends Hack{
 		timer = new TimerUtils();
 		this.addValue(distance, delay);
 	}
-	LinkedList<XRayBlock> blocksForRender = new LinkedList<XRayBlock>();
+	LinkedList<XRayBlock> blocks = new LinkedList<XRayBlock>();
 
 	@Override
 	public void onEnable() {
-		blocksForRender.clear();
+		blocks.clear();
 	}
 
 	@Override
@@ -43,11 +43,11 @@ public class XRay extends Hack{
 		if(!timer.isDelay((long) (delay.getValue().intValue() * 10))) {
 			return;
 		}
-		blocksForRender.clear();
+		blocks.clear();
 		for(XRayData data : XRayManager.xrayList) {
 			for (BlockPos blockPos : BlockUtils.findBlocksNearEntity(Wrapper.INSTANCE.player(), data.getId(), data.getMeta(), distance)) {
 				XRayBlock xRayBlock = new XRayBlock(blockPos, data);
-	        	blocksForRender.add(xRayBlock);
+				blocks.add(xRayBlock);
 			}
 		}
 		timer.setLastMS();
@@ -56,7 +56,7 @@ public class XRay extends Hack{
 
 	@Override
 	public void onRenderWorldLast(RenderWorldLastEvent event) {
-		RenderUtils.drawXRayBlocks(blocksForRender, event.getPartialTicks());
+		RenderUtils.drawXRayBlocks(blocks, event.getPartialTicks());
 		super.onRenderWorldLast(event);
 	}
 }

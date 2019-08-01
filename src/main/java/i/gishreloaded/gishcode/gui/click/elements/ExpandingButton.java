@@ -1,5 +1,6 @@
 package i.gishreloaded.gishcode.gui.click.elements;
 
+import java.awt.Dimension;
 import java.util.ArrayList;
 
 import i.gishreloaded.gishcode.gui.click.base.Component;
@@ -13,29 +14,27 @@ public class ExpandingButton extends Container {
     public ArrayList<ComponentClickListener> listeners = new ArrayList<ComponentClickListener>();
 
     private boolean enabled = false, maximized = false;
-
     private int buttonHeight;
-
+    private Component component;
     private Hack mod;
 
-    public ExpandingButton(int xPos, int yPos, int width, int buttonHeight, Component component, String text) {
 
+    public ExpandingButton(int xPos, int yPos, int width, int buttonHeight, Component component, String text) {
         super(xPos, yPos, width, 0, ComponentType.EXPANDING_BUTTON, component, text);
         this.buttonHeight = buttonHeight;
+        this.component = component;
     }
 
     public ExpandingButton(int xPos, int yPos, int width, int buttonHeight, Component component, String text, Hack mod) {
-
         super(xPos, yPos, width, 0, ComponentType.EXPANDING_BUTTON, component, text);
         this.buttonHeight = buttonHeight;
+        this.component = component;
         this.mod = mod;
     }
 
     @Override
     public void render(int x, int y) {
-
-        int height = this.buttonHeight;
-
+    	int height = this.buttonHeight;
         if (this.maximized) {
             for (Component component : this.getComponents()) {
                 component.setxPos(getX());
@@ -44,16 +43,13 @@ public class ExpandingButton extends Container {
                 component.getDimension().setSize(this.getDimension().width, component.getDimension().height);
             }
         }
-
         this.getDimension().setSize(this.getDimension().width, height);
         super.render(x, y);
     }
 
     @Override
     public void onUpdate() {
-
         int height = this.buttonHeight;
-
         if (this.maximized) {
             for (Component component : this.getComponents()) {
                 component.setyPos(getY() + height + 1);
@@ -61,18 +57,15 @@ public class ExpandingButton extends Container {
                 component.getDimension().setSize(this.getDimension().width, component.getDimension().height);
             }
         }
-
         this.getDimension().setSize(this.getDimension().width, height);
     }
 
     @Override
     public void onKeyPressed(int key, char character) {
-
         for (Component component : this.getComponents()) {
             component.onKeyPressed(key, character);
 
         }
-
     }
 
     @Override
@@ -109,16 +102,16 @@ public class ExpandingButton extends Container {
 
     @Override
     public void onMousePress(int x, int y, int buttonID) {
-
-        if (this.isMouseOverButton(x, y)) {
+        if (this.isMouseOverButton(x, y)) { 	
             if (buttonID == 0) {
                 this.enabled = !this.enabled;
 
                 for (ComponentClickListener listener : listeners) {
                     listener.onComponenetClick(this, buttonID);
                 }
+                
             } else if (buttonID == 1) {
-                maximized = !maximized;
+                maximized = !maximized;  
             }
         } else if (this.isMouseOver(x, y)) {
             for (Component component : this.getComponents()) {

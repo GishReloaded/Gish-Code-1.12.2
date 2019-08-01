@@ -5,10 +5,10 @@ import i.gishreloaded.gishcode.hack.HackCategory;
 import i.gishreloaded.gishcode.utils.system.Wrapper;
 import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
 
-public class NoRain extends Hack{
+public class AntiRain extends Hack{
 
-	public NoRain() {
-		super("NoRain", HackCategory.VISUAL);
+	public AntiRain() {
+		super("AntiRain", HackCategory.VISUAL);
 	}
 	
 	@Override

@@ -16,7 +16,7 @@ import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
 public class AttackPacketCW extends Hack{
 
 	public AttackPacketCW() {
-		super("AttackPacketCW", HackCategory.EXPLOIT);
+		super("AttackPacketCW", HackCategory.ANOTHER);
 	}
 	
 	//By Dark Light Neron

@@ -44,9 +44,10 @@ public class ClickGuiScreen extends GuiScreen {
    @Override
    public void drawScreen(int mouseX, int mouseY, float partialTicks) {
        	clickGui.render();
-		this.console.drawTextBox(i.gishreloaded.gishcode.hack.hacks.ClickGui.color, ColorUtils.color(0.0F, 0.0F, 0.0F, 1.0F));
-		this.console.setTextColor(i.gishreloaded.gishcode.hack.hacks.ClickGui.color);
-	super.drawScreen(mouseX, mouseY, partialTicks);
+       	int mainColor = i.gishreloaded.gishcode.hack.hacks.ClickGui.isLight ? ColorUtils.color(255, 255, 255, 255) : ColorUtils.color(0, 0, 0, 255);
+       	this.console.drawTextBox(i.gishreloaded.gishcode.hack.hacks.ClickGui.getColor(), mainColor);
+		this.console.setTextColor(i.gishreloaded.gishcode.hack.hacks.ClickGui.getColor());
+		super.drawScreen(mouseX, mouseY, partialTicks);
    }
    
    @Override

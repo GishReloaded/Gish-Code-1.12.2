@@ -14,6 +14,7 @@ import i.gishreloaded.gishcode.managers.HackManager;
 import i.gishreloaded.gishcode.utils.Utils;
 import i.gishreloaded.gishcode.utils.ValidUtils;
 import i.gishreloaded.gishcode.utils.system.Wrapper;
+import i.gishreloaded.gishcode.utils.visual.ColorUtils;
 import i.gishreloaded.gishcode.utils.visual.RenderUtils;
 import i.gishreloaded.gishcode.utils.MathUtils;
 import i.gishreloaded.gishcode.value.BooleanValue;
@@ -74,7 +75,7 @@ public class Profiler extends Hack{
 			return;
     	}
     	
-    	Color color = new Color(200, 200, 200, 160);
+    	int color = ColorUtils.color(200, 200, 200, 160);
     	EntityPlayerSP player = Wrapper.INSTANCE.player();
     	FontRenderer fontRenderer = Wrapper.INSTANCE.fontRenderer();
     	y += (entity.isSneaking() ? 0.5D : 0.7D);
@@ -88,15 +89,15 @@ public class Profiler extends Hack{
     		String ID = Utils.getPlayerName(entityPlayer);
     		if(EnemyManager.enemysList.contains(ID)) {
    	         	tag = "\u00a7c" + ID;
-   	         	color = new Color(179, 20, 20, 160);
+   	         	color = ColorUtils.color(179, 20, 20, 160);
     		}
     		if(FriendManager.friendsList.contains(ID)) {
     			tag = "\u00a73" + ID;
-    			color = new Color(66, 147, 179, 160);
+    			color = ColorUtils.color(66, 147, 179, 160);
     		}
     		if(ValidUtils.isBot(entityPlayer)) {
     			tag = "\u00a7e" + ID;
-   	         	color = new Color(200, 200, 0, 160);
+   	         	color = ColorUtils.color(200, 200, 0, 160);
     		}
     	}
     	

@@ -11,6 +11,7 @@ import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.init.Blocks;
 import net.minecraft.network.play.client.CPacketEntityAction;
+import net.minecraft.network.play.client.CPacketPlayer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
 
@@ -18,7 +19,7 @@ public class TestHack extends Hack{
 	
 	//int ticks = 0;
 	public TestHack() {
-		super("TestHack", HackCategory.OTHER);
+		super("TestHack", HackCategory.ANOTHER);
 	}
 	
 	@Override

@@ -27,19 +27,19 @@ public class DarkCheckButton extends ComponentRenderer {
         CheckButton button = (CheckButton) component;
         String text = button.getText();
         
-        int colorStringIsEnabled = ColorUtils.color(1.0f, 1.0f, 1.0f, 1.0f);
-        int colorStringIsDisabled = ColorUtils.color(0.5f, 0.5f, 0.5f, 1.0f);
+        int mainColor = ClickGui.isLight ? ColorUtils.color(255, 255, 255, 255) : ColorUtils.color(0, 0, 0, 255);
+        int mainColorInv = ClickGui.isLight ? ColorUtils.color(0, 0, 0, 255) : ColorUtils.color(255, 255, 255, 255);
         
         if(button.getModeValue() == null) {
         	theme.fontRenderer.drawString("> " + text, button.getX() + 5, MathUtils.getMiddle(button.getY(), button.getY() + button.getDimension().height) - theme.fontRenderer.FONT_HEIGHT / 3 - 1, 
-        			button.isEnabled() ? colorStringIsEnabled : colorStringIsDisabled);
+        			button.isEnabled() ? mainColorInv : ColorUtils.color(0.5f, 0.5f, 0.5f, 1.0f));
         	return;
         }
         
         for(Mode mode : button.getModeValue().getModes()) {
     		if(mode.getName().equals(text)) {
     			theme.fontRenderer.drawString("- " + text, button.getX() + 5, MathUtils.getMiddle(button.getY(), button.getY() + button.getDimension().height) - theme.fontRenderer.FONT_HEIGHT / 3 - 1, 
-    					mode.isToggled() ? colorStringIsEnabled : colorStringIsDisabled);
+    					mode.isToggled() ? mainColorInv : ColorUtils.color(0.5f, 0.5f, 0.5f, 1.0f));
     		}
         }
     }

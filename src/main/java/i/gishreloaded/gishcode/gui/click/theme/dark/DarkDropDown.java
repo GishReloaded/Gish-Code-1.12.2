@@ -24,7 +24,7 @@ public class DarkDropDown extends ComponentRenderer {
         String text = dropdown.getText();
 
         theme.fontRenderer.drawString(text, dropdown.getX() + 5, dropdown.getY() + (dropdown.getDropdownHeight() / 2 - theme.fontRenderer.FONT_HEIGHT / 4), 
-        		ClickGui.color);
+        		ClickGui.getColor());
 
         if (dropdown.isMaximized()) {
             dropdown.renderChildren(mouseX, mouseY);

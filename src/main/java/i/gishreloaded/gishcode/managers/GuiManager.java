@@ -38,15 +38,15 @@ public class GuiManager extends ClickGui {
         int framePosY = 20;
 
         for (HackCategory category : HackCategory.values()) {
-        	int frameHeight = 150;
-        	int frameWidth = 95;
+        	int frameHeight = 170;
+        	int frameWidth = 100;
         	int hacksCount = 0;
                 String name = Character.toString(category.toString().toLowerCase().charAt(0)).toUpperCase() + category.toString().toLowerCase().substring(1);
                 Frame frame = new Frame(framePosX, framePosY, frameWidth, frameHeight, name);
 
                 for (final Hack mod : HackManager.getHacks()) {
                     if (mod.getCategory() == category) {
-                        final ExpandingButton expandingButton = new ExpandingButton(0, 0, 95, 14, frame, mod.getName(), mod) {
+                        final ExpandingButton expandingButton = new ExpandingButton(0, 0, frameWidth, 14, frame, mod.getName(), mod) {
 
                             @Override
                             public void onUpdate() {
@@ -100,7 +100,7 @@ public class GuiManager extends ClickGui {
                                 
                                 
                             } else if (value instanceof ModeValue) {
-                            	Dropdown dropdown = new Dropdown(0, 0, 90, 14, frame, value.getName());
+                            	Dropdown dropdown = new Dropdown(0, 0, frameWidth, 14, frame, value.getName());
                             	
                             	final ModeValue modeValue = (ModeValue) value;
                             	
@@ -109,14 +109,16 @@ public class GuiManager extends ClickGui {
                             				expandingButton.getDimension().width, 14, expandingButton, 
                             				mode.getName(), mode.isToggled(), modeValue);
                             		
-                            			button.addListeners(checkButton -> {
-                            				for(Mode mode1 : modeValue.getModes()) {
+                            		button.addListeners(new CheckButtonClickListener() {
+										@Override
+										public void onCheckButtonClick(CheckButton checkButton) {
+											for(Mode mode1 : modeValue.getModes()) {
                             					if (mode1.getName().equals(mode.getName())) {
                             						mode1.setToggled(checkButton.isEnabled());
                             					}
                             				}
-                 
-                                    	});
+										}
+                            		});
                             			dropdown.addComponent(button);
                             		}
                             		expandingButton.addComponent(dropdown);
@@ -130,14 +132,8 @@ public class GuiManager extends ClickGui {
                     }
                 }
                 
-                if(hacksCount < 6) {
-                	frameHeight = hacksCount * 20;
-                }
-                
-                frame.setDimension(new Dimension(frameWidth, frameHeight));
-                
-                if (framePosX + 100 < right) {
-                    framePosX += 100;
+                if (framePosX + frameWidth + 10 < right) {
+                    framePosX += frameWidth + 10;
                 } else {
                     framePosX = 20;
                     framePosY += 60;

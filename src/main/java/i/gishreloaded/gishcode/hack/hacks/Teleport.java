@@ -4,9 +4,10 @@ import org.lwjgl.input.Mouse;
 
 import i.gishreloaded.gishcode.hack.Hack;
 import i.gishreloaded.gishcode.hack.HackCategory;
+import i.gishreloaded.gishcode.utils.PlayerControllerUtils;
 import i.gishreloaded.gishcode.utils.Utils;
-import i.gishreloaded.gishcode.utils.system.Wrapper;
 import i.gishreloaded.gishcode.utils.system.Connection.Side;
+import i.gishreloaded.gishcode.utils.system.Wrapper;
 import i.gishreloaded.gishcode.utils.visual.RenderUtils;
 import i.gishreloaded.gishcode.value.BooleanValue;
 import i.gishreloaded.gishcode.value.Mode;
@@ -84,7 +85,7 @@ public class Teleport extends Hack{
 			return;
 		}
 		canDraw = false;
-		Utils.setReach(Wrapper.INSTANCE.player(), reach);
+		PlayerControllerUtils.setReach(Wrapper.INSTANCE.player(), reach);
 		super.onDisable();
 	}
 	
@@ -145,11 +146,11 @@ public class Teleport extends Hack{
 			return;
 		}
 		 if ((!Mouse.isButtonDown(0) && Wrapper.INSTANCE.mc().inGameHasFocus || !Wrapper.INSTANCE.mc().inGameHasFocus) && Wrapper.INSTANCE.player().getItemInUseCount() == 0) {
-			 Utils.setReach(Wrapper.INSTANCE.player(), 100.0);
+			 PlayerControllerUtils.setReach(Wrapper.INSTANCE.player(), 100.0);
              canDraw = true;
          } else {
              canDraw = false;
-             Utils.setReach(Wrapper.INSTANCE.player(), reach);
+             PlayerControllerUtils.setReach(Wrapper.INSTANCE.player(), reach);
          }
 		if (teleportPosition != null && delay == 0 && Mouse.isButtonDown(1)) {
 			if(math.getValue()) {

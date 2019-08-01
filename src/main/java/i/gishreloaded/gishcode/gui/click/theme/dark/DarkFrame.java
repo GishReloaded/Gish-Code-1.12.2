@@ -30,27 +30,27 @@ public class DarkFrame extends ComponentRenderer {
     	
         Frame frame = (Frame) component;
         Dimension dimension = frame.getDimension();
-        GLUtils.glColor(new Color(0, 0, 0));
+       // GLUtils.glColor(new Color(0, 0, 0));
 
         if (frame.isMaximized()) {
             isMaximized(frame, dimension, mouseX, mouseY);
         }
 
-        RenderUtils.drawRect(frame.getX(), frame.getY(), frame.getX() + dimension.width, frame.getY() + 15, ClickGui.color);
-        GLUtils.glColor(new Color(0, 0, 0));
+        RenderUtils.drawRect(frame.getX(), frame.getY(), frame.getX() + dimension.width, frame.getY() + 15, ClickGui.getColor());
+       // GLUtils.glColor(new Color(0, 0, 0));
 
         if (frame.isMaximizible()) {
             isMaximizible(frame, dimension, mouseX, mouseY);
         }
 
-        GLUtils.glColor(new Color(0, 0, 0));
+        //GLUtils.glColor(new Color(0, 0, 0));
 
-        if (frame.isPinnable()) {
-            isPinnable(frame, dimension, mouseX, mouseY);
-        }
-        GLUtils.glColor(new Color(0, 0, 0));
+//        if (frame.isPinnable()) {
+//            isPinnable(frame, dimension, mouseX, mouseY);
+//        }
+        //GLUtils.glColor(new Color(0, 0, 0));
         theme.fontRenderer.drawStringWithShadow(frame.getText(), frame.getX() + 4, MathUtils.getMiddle(frame.getY(), frame.getY() + 10) - (theme.fontRenderer.FONT_HEIGHT / 10) - 1, ColorUtils.color(1.0f, 1.0f, 1.0f, 1.0f));
-        GLUtils.glColor(new Color(0, 0, 0));
+        //GLUtils.glColor(new Color(0, 0, 0));
 
     }
 
@@ -100,12 +100,14 @@ public class DarkFrame extends ComponentRenderer {
     }
 
     private void isMaximized(Frame frame, Dimension dimension, int mouseX, int mouseY) {
-
+        int mainColor = ClickGui.isLight ? ColorUtils.color(255, 255, 255, 255) : ColorUtils.color(0, 0, 0, 255);
+        int mainColorInv = ClickGui.isLight ? ColorUtils.color(0, 0, 0, 255) : ColorUtils.color(255, 255, 255, 255);
+        
         for (Component component : frame.getComponents()) {
             component.setxPos(frame.getX());
         }
 
-        RenderUtils.drawRect(frame.getX(), frame.getY() + 1, frame.getX() + dimension.width, frame.getY() + dimension.height, new Color(0, 0, 0, 200));
+        RenderUtils.drawRect(frame.getX(), frame.getY() + 1, frame.getX() + dimension.width, frame.getY() + dimension.height, mainColor);
         float height = 5;
         float maxHeight = 0;
         height = dimension.height - 16;
@@ -119,7 +121,7 @@ public class DarkFrame extends ComponentRenderer {
         frame.renderChildren(mouseX, mouseY);
 
         if (!(barHeight >= height)) {
-            RenderUtils.drawRect((int) (frame.getX() + dimension.getWidth() - 1), (int) y, (int) (frame.getX() + frame.getDimension().getWidth()), (int) (y + barHeight), new Color(255, 239, 239));
+            RenderUtils.drawRect((int) (frame.getX() + dimension.getWidth() - 1), (int) y, (int) (frame.getX() + frame.getDimension().getWidth()), (int) (y + barHeight), ClickGui.getColor());
         }
 
     }

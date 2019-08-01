@@ -6,6 +6,6 @@ import i.gishreloaded.gishcode.hack.HackCategory;
 public class NoScreenEvents extends Hack{
 
 	public NoScreenEvents() {
-		super("NoScreenEvents", HackCategory.OTHER);
+		super("NoScreenEvents", HackCategory.ANOTHER);
 	}
 }

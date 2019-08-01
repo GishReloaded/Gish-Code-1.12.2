@@ -18,7 +18,7 @@ import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
 public class PluginsGetter extends Hack{
     
 	public PluginsGetter() {
-		super("PluginsGetter", HackCategory.EXPLOIT);
+		super("PluginsGetter", HackCategory.ANOTHER);
 	}
 	
 	@Override

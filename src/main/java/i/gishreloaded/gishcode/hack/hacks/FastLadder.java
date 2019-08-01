@@ -10,8 +10,6 @@ import net.minecraft.network.play.client.CPacketEntityAction.Action;
 import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
 
 public class FastLadder extends Hack{
-	
-    int delay = 0;
     
 	public FastLadder() {
 		super("FastLadder", HackCategory.PLAYER);
@@ -19,9 +17,10 @@ public class FastLadder extends Hack{
     
 	@Override
 	public void onClientTick(ClientTickEvent event) {
-		if(Wrapper.INSTANCE.player().isOnLadder() && Wrapper.INSTANCE.player().moveForward > 0) {
-			Wrapper.INSTANCE.player().motionY = 0.169;
+		if(!Wrapper.INSTANCE.player().isOnLadder() || Wrapper.INSTANCE.player().moveForward == 0 && Wrapper.INSTANCE.player().moveStrafing == 0) {
+			return;
 		}
+		Wrapper.INSTANCE.player().motionY = 0.169;
 		super.onClientTick(event);
 	}
 	
