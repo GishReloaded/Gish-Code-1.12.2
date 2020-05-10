@@ -1,4 +1,41 @@
-Changelog:
+=========
+Build: 1.12.2-14.23.5.2846 - Tue Sep 03 21:22:46 GMT 2019
+	ichttt:
+		Fix CME when removing ticket managers (#5861)
+
+=========
+Build: 1.12.2-14.23.5.2844 - Thu Aug 29 02:33:00 GMT 2019
+	Barteks2x:
+		Fix client sometimes generating biomes, causing incorrect biome
+		generation on integrated server (#5720)
+
+	bs2609:
+		Add checks for tile entities in now-unloaded chunks (#5724)
+
+=========
+Build: 1.12.2-14.23.5.2843 - Thu Aug 29 02:23:04 GMT 2019
+	bs2609:
+		Fix invalid placeholder entity attributes (MC-150405) (#5718)
+
+=========
+Build: 1.12.2-14.23.5.2842 - Thu Aug 29 02:08:57 GMT 2019
+	bs2609:
+		Allow conditional loading of advancements (#5255)
+
+=========
+Build: 1.12.2-14.23.5.2841 - Thu Aug 29 01:58:50 GMT 2019
+	bs2609:
+		Improve performance of persistent chunk checks (#5706)
+
+	jensen.derik:
+		Fix lightning not triggering EntityJoinWorldEvent (#5290)
+
+=========
+Build: 1.12.2-14.23.5.2840 - Thu Aug 29 01:19:55 GMT 2019
+	lex:
+		Fix copy paste derp
+
+
 Build 2838:
 	bs2609: Fix vanilla handling of options file (MC-117449, MC-151173) (#5725)
 

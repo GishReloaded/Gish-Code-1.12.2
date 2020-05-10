@@ -111,7 +111,7 @@ public class HackManager {
 	public static Hack getHack(String name) {
 		Hack hack = null;
 		for(Hack h : getHacks()) {
-        	if(h.getName().equals(name)) {
+        	if(h.getName().equalsIgnoreCase(name)) {
         		hack = h;
         	}
         }

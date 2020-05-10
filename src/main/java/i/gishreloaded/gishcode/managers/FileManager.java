@@ -33,46 +33,34 @@ public class FileManager {
 
     private static JsonParser jsonParser = new JsonParser();
 
-    public static final File GISHCODE_DIR = new File(String.format("%s%s%s-%s-%s%s", Wrapper.INSTANCE.mc().mcDataDir, File.separator, Main.NAME, Main.MCVERSION, Main.VERSION, File.separator));
+    public static File GISHCODE_DIR = null;
 
-    private static final File HACKS = new File(GISHCODE_DIR, "hacks.json");
-    private static final File XRAYDATA = new File(GISHCODE_DIR, "xraydata.json");
-    private static final File FRIENDS = new File(GISHCODE_DIR, "friends.json");
-    private static final File ENEMYS = new File(GISHCODE_DIR, "enemys.json");
+    private static File HACKS = null;
+    private static File XRAYDATA = null;
+    private static File FRIENDS = null;
+    private static File ENEMYS = null;
     
     public FileManager() {
-        if (!GISHCODE_DIR.exists()) {
-            GISHCODE_DIR.mkdir();
-        }
-        if (!HACKS.exists()) {
-        	saveHacks();
-        }
-        else
-        {
-        	loadHacks();
-        }
-        if (!XRAYDATA.exists()) {
-        	saveXRayData();
-        }
-        else
-        {
-        	loadXRayData();
-        }
-        if (!FRIENDS.exists()) {
-        	saveFriends();
-        }
-        else
-        {
-        	loadFriends();
-        }
-        if (!ENEMYS.exists()) {
-        	saveEnemys();
-        }
-        else
-        {
-        	loadEnemys();
-        }
+    	GISHCODE_DIR = getDirectory();
+    	if(GISHCODE_DIR == null) return;
+    	
+        HACKS = new File(GISHCODE_DIR, "hacks.json");
+        XRAYDATA = new File(GISHCODE_DIR, "xraydata.json");
+        FRIENDS = new File(GISHCODE_DIR, "friends.json");
+        ENEMYS = new File(GISHCODE_DIR, "enemys.json");
+    	
+        if (!GISHCODE_DIR.exists()) GISHCODE_DIR.mkdir();
+        if (!HACKS.exists()) saveHacks(); else loadHacks();
+        if (!XRAYDATA.exists()) saveXRayData(); else loadXRayData();
+        if (!FRIENDS.exists()) saveFriends(); else loadFriends();
+        if (!ENEMYS.exists()) saveEnemys(); else loadEnemys();
 	}
+    
+    public static File getDirectory() {
+    	String var = System.getenv("GISHCODE_DIR");
+    	File dir = var == null || var == "" ? Wrapper.INSTANCE.mc().mcDataDir : new File(var);
+    	return new File(String.format("%s%s%s-%s-%s%s", dir, File.separator, Main.NAME, Main.MCVERSION, Main.VERSION, File.separator));
+    }
 
 
     public static void loadHacks() {

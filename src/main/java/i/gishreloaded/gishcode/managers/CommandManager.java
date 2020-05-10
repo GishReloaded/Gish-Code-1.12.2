@@ -29,6 +29,8 @@ public class CommandManager
 		commands.add(new PlayerFinder());
 		commands.add(new Friend());
 		commands.add(new Enemy());
+		commands.add(new Toggle());
+		commands.add(new OpenDir());
 		commands.add(new XRay());
 	}
 

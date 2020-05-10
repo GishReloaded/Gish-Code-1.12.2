@@ -15,6 +15,7 @@ import i.gishreloaded.gishcode.managers.CommandManager;
 import i.gishreloaded.gishcode.managers.FileManager;
 import i.gishreloaded.gishcode.managers.HackManager;
 import i.gishreloaded.gishcode.utils.system.Wrapper;
+import i.gishreloaded.gishcode.utils.visual.ChatUtils;
 import i.gishreloaded.gishcode.utils.visual.ColorUtils;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiScreen;
@@ -74,28 +75,29 @@ public class ClickGuiScreen extends GuiScreen {
 	}
 	
 	void setTitle() {
-		if(!console.getText().equals("Coded by Gish_Reloaded")) {
-			title = "";
-        }
+		if(!console.getText().equals("Coded by Gish_Reloaded")) title = "";
 	}
 	
-    @Override
-    public void handleInput() throws IOException {
-        int scale = mc.gameSettings.guiScale;
-        mc.gameSettings.guiScale = 2;
-        if (Keyboard.isCreated()) {
+	private boolean handleKeyScroll(int key) {
+		if (key == Keyboard.KEY_W) return clickGui.onMouseScroll(3); else 
+        if (key == Keyboard.KEY_S) return clickGui.onMouseScroll(-3);
+		return false;
+	}
+	
+	private void handleKeyboard() {
+		if (Keyboard.isCreated()) {
             Keyboard.enableRepeatEvents(true);
-
             while (Keyboard.next()) {
                 if (Keyboard.getEventKeyState()) {
-                	console.textboxKeyTyped(Keyboard.getEventCharacter(), Keyboard.getEventKey());
-                    if (Keyboard.getEventKey() == 28) {
+                	if(!this.handleKeyScroll(Keyboard.getEventKey()))
+                		console.textboxKeyTyped(Keyboard.getEventCharacter(), Keyboard.getEventKey());
+                    if (Keyboard.getEventKey() == Keyboard.KEY_RETURN) {
                         setTitle();
                         CommandManager.getInstance().runCommands("." + console.getText());
                         mc.displayGuiScreen((GuiScreen)null);
                         FileManager.saveHacks();
                     } else
-                    if (Keyboard.getEventKey() == 1) {
+                    if (Keyboard.getEventKey() == Keyboard.KEY_ESCAPE) {
                     	setTitle();
                         mc.displayGuiScreen(null);
                         FileManager.saveHacks();
@@ -105,24 +107,18 @@ public class ClickGuiScreen extends GuiScreen {
                 } else {
                     clickGui.onKeyRelease(Keyboard.getEventKey(), Keyboard.getEventCharacter());
                 }
-
-
             }
         }
-
-        if (Mouse.isCreated()) {
+	}
+	
+	private void handleMouse() {
+		if (Mouse.isCreated()) {
             while (Mouse.next()) {
                 ScaledResolution scaledResolution = new ScaledResolution(mc);
                 int mouseX = Mouse.getEventX() * scaledResolution.getScaledWidth() / mc.displayWidth;
                 int mouseY = scaledResolution.getScaledHeight() - Mouse.getEventY() * scaledResolution.getScaledHeight() / mc.displayHeight - 1;
-
                 if (Mouse.getEventButton() == -1) {
-                    if (Mouse.getEventDWheel() != 0) {
-                        int x = mouseX;
-                        int y = mouseY;
-                        clickGui.onMouseScroll((Mouse.getEventDWheel() / 100) * 3);
-                    }
-
+                    clickGui.onMouseScroll((Mouse.getEventDWheel() / 100) * 3);
                     clickGui.onMouseUpdate(mouseX, mouseY);
                     mouse[0] = mouseX;
                     mouse[1] = mouseY;
@@ -133,9 +129,22 @@ public class ClickGuiScreen extends GuiScreen {
                 }
             }
         }
-
-        mc.gameSettings.guiScale = scale;
-
-        super.handleInput();
+	}
+	
+    @Override
+    public void handleInput() throws IOException {
+    	try {
+	        int scale = mc.gameSettings.guiScale;
+	        mc.gameSettings.guiScale = 2;
+	        this.handleKeyboard();
+	        this.handleMouse();
+	        mc.gameSettings.guiScale = scale;
+	        super.handleInput();
+    	} catch(Exception ex) {
+    		ex.printStackTrace();
+    		ChatUtils.error("Exception: handleInput");
+    		ChatUtils.error(ex.toString());
+    		Wrapper.INSTANCE.copy(ex.toString());
+    	}
     }
 }

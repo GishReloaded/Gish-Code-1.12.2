@@ -17,17 +17,17 @@ public class ChatUtils{
 					.appendSibling(component));
 	}
 	
-	public static void message(String message)
+	public static void message(Object message)
 	{
 		component(new TextComponentTranslation("\u00a78" + Main.NAME + "\u00a77 " + message));
 	}
 	
-	public static void warning(String message)
+	public static void warning(Object message)
 	{
 		message("\u00a78[\u00a7eWARNING\u00a78]\u00a7e " + message);
 	}
 	
-	public static void error(String message)
+	public static void error(Object message)
 	{
 		message("\u00a78[\u00a74ERROR\u00a78]\u00a7c " + message);
 	}

@@ -101,15 +101,17 @@ public class ClickGui extends ClickGuiScreen {
         }
     }
 
-    public void onMouseScroll(int ammount) {
-
+    public boolean onMouseScroll(int ammount) {
+    	boolean overFrame = false;
         for (Frame frame : frames) {
             if (frame.isMouseOver(mouse[0], mouse[1])) {
                 frame.scrollFrame(ammount * 4);
+                overFrame = true;
             }
 
             frame.onMouseScroll(ammount * 4);
         }
+        return overFrame;
     }
 
     public void onMouseRelease(int x, int y) {
