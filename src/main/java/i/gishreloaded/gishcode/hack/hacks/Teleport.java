@@ -4,14 +4,15 @@ import org.lwjgl.input.Mouse;
 
 import i.gishreloaded.gishcode.hack.Hack;
 import i.gishreloaded.gishcode.hack.HackCategory;
+import i.gishreloaded.gishcode.utils.BlockUtils;
 import i.gishreloaded.gishcode.utils.PlayerControllerUtils;
 import i.gishreloaded.gishcode.utils.Utils;
 import i.gishreloaded.gishcode.utils.system.Connection.Side;
-import i.gishreloaded.gishcode.utils.system.Wrapper;
 import i.gishreloaded.gishcode.utils.visual.RenderUtils;
 import i.gishreloaded.gishcode.value.BooleanValue;
 import i.gishreloaded.gishcode.value.Mode;
 import i.gishreloaded.gishcode.value.ModeValue;
+import i.gishreloaded.gishcode.wrappers.Wrapper;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockAir;
 import net.minecraft.block.BlockBed;
@@ -113,7 +114,7 @@ public class Teleport extends Hack{
 			GameSettings settings = Wrapper.INSTANCE.mcSettings();
 			if(!passPacket) {
 		 		if(settings.keyBindAttack.isKeyDown() && object.typeOfHit == RayTraceResult.Type.BLOCK) {
-		 			if(Utils.isBlockMaterial(object.getBlockPos(), Blocks.AIR)) {
+		 			if(BlockUtils.isBlockMaterial(object.getBlockPos(), Blocks.AIR)) {
 		 				return;
 		 			}
 		 			teleportPosition = object.getBlockPos();
@@ -125,7 +126,7 @@ public class Teleport extends Hack{
 			if(settings.keyBindSneak.isKeyDown() && player.onGround) {
 				if(math.getValue()) {
 		            double[] playerPosition = new double[]{Wrapper.INSTANCE.player().posX, Wrapper.INSTANCE.player().posY, Wrapper.INSTANCE.player().posZ};
-		            double[] blockPosition = new double[]{teleportPosition.getX() + 0.5F, teleportPosition.getY() + getOffset(Wrapper.INSTANCE.world().getBlockState(teleportPosition).getBlock(), teleportPosition) + 1.0F, teleportPosition.getZ() + 0.5F};
+		            double[] blockPosition = new double[]{teleportPosition.getX() + 0.5F, teleportPosition.getY() + getOffset(BlockUtils.getBlock(teleportPosition), teleportPosition) + 1.0F, teleportPosition.getZ() + 0.5F};
 
 		            Utils.teleportToPosition(playerPosition, blockPosition, 0.25D, 0.0D, true, true);
 		            Wrapper.INSTANCE.player().setPosition(blockPosition[0], blockPosition[1], blockPosition[2]);
@@ -155,7 +156,7 @@ public class Teleport extends Hack{
 		if (teleportPosition != null && delay == 0 && Mouse.isButtonDown(1)) {
 			if(math.getValue()) {
 	            double[] playerPosition = new double[]{Wrapper.INSTANCE.player().posX, Wrapper.INSTANCE.player().posY, Wrapper.INSTANCE.player().posZ};
-	            double[] blockPosition = new double[]{teleportPosition.getX() + 0.5F, teleportPosition.getY() + getOffset(Wrapper.INSTANCE.world().getBlockState(teleportPosition).getBlock(), teleportPosition) + 1.0F, teleportPosition.getZ() + 0.5F};
+	            double[] blockPosition = new double[]{teleportPosition.getX() + 0.5F, teleportPosition.getY() + getOffset(BlockUtils.getBlock(teleportPosition), teleportPosition) + 1.0F, teleportPosition.getZ() + 0.5F};
 
 	            Utils.teleportToPosition(playerPosition, blockPosition, 0.25D, 0.0D, true, true);
 	            Wrapper.INSTANCE.player().setPosition(blockPosition[0], blockPosition[1], blockPosition[2]);
@@ -256,7 +257,7 @@ public class Teleport extends Hack{
                 double[] mouseOverPos = new double[]{object.getBlockPos().getX(), object.getBlockPos().getY() + offset, object.getBlockPos().getZ()};
 
                 BlockPos blockBelowPos = new BlockPos(mouseOverPos[0], mouseOverPos[1], mouseOverPos[2]);
-                Block blockBelow = Wrapper.INSTANCE.world().getBlockState(blockBelowPos).getBlock();
+                Block blockBelow = BlockUtils.getBlock(blockBelowPos);
 
                 if (canRenderBox(mouseOverPos)) {
                 	RenderUtils.drawBlockESP(new BlockPos(mouseOverPos[0], mouseOverPos[1], mouseOverPos[2]), 1F, 0F, 1F);
@@ -278,7 +279,7 @@ public class Teleport extends Hack{
                 double[] mouseOverPos = new double[]{object.entityHit.posX, object.entityHit.posY + offset,object.entityHit.posZ};
 
                 BlockPos blockBelowPos = new BlockPos(mouseOverPos[0], mouseOverPos[1], mouseOverPos[2]);
-                Block blockBelow = Wrapper.INSTANCE.world().getBlockState(blockBelowPos).getBlock();
+                Block blockBelow = BlockUtils.getBlock(blockBelowPos);
 
                 if (canRenderBox(mouseOverPos)) {
                 	RenderUtils.drawBlockESP(new BlockPos(mouseOverPos[0], mouseOverPos[1], mouseOverPos[2]), 1F, 0F, 1F);
@@ -304,11 +305,11 @@ public class Teleport extends Hack{
 	public boolean canRenderBox(double[] mouseOverPos) {
         boolean canTeleport = false;
 
-        Block blockBelowPos = Wrapper.INSTANCE.world().getBlockState(new BlockPos(mouseOverPos[0], mouseOverPos[1] - 1.0F, mouseOverPos[2])).getBlock();
-        Block blockPos = Wrapper.INSTANCE.world().getBlockState(new BlockPos(mouseOverPos[0], mouseOverPos[1], mouseOverPos[2])).getBlock();
-        Block blockAbovePos = Wrapper.INSTANCE.world().getBlockState(new BlockPos(mouseOverPos[0], mouseOverPos[1] + 1.0F, mouseOverPos[2])).getBlock();
+        Block blockBelowPos = BlockUtils.getBlock(new BlockPos(mouseOverPos[0], mouseOverPos[1] - 1.0F, mouseOverPos[2]));
+        Block blockPos = BlockUtils.getBlock(new BlockPos(mouseOverPos[0], mouseOverPos[1], mouseOverPos[2]));
+        Block blockAbovePos = BlockUtils.getBlock(new BlockPos(mouseOverPos[0], mouseOverPos[1] + 1.0F, mouseOverPos[2]));
 
-        boolean validBlockBelow = blockBelowPos.getCollisionBoundingBox(Wrapper.INSTANCE.world().getBlockState(
+        boolean validBlockBelow = blockBelowPos.getCollisionBoundingBox(BlockUtils.getState(
 				new BlockPos(mouseOverPos[0], mouseOverPos[1] - 1.0F, mouseOverPos[2])),
         		Wrapper.INSTANCE.world(), new BlockPos(mouseOverPos[0], mouseOverPos[1] - 1.0F, mouseOverPos[2])) != null;
 
@@ -324,7 +325,7 @@ public class Teleport extends Hack{
     }
 	
 	public double getOffset(Block block, BlockPos pos) {
-        IBlockState state = Wrapper.INSTANCE.world().getBlockState(pos);
+        IBlockState state = BlockUtils.getState(pos);
 
         double offset = 0;
 

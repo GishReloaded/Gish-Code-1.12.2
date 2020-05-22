@@ -4,9 +4,10 @@ import java.util.ArrayDeque;
 
 import i.gishreloaded.gishcode.hack.Hack;
 import i.gishreloaded.gishcode.hack.HackCategory;
-import i.gishreloaded.gishcode.utils.system.Wrapper;
+import i.gishreloaded.gishcode.utils.Utils;
 import i.gishreloaded.gishcode.utils.visual.ChatUtils;
 import i.gishreloaded.gishcode.utils.visual.RenderUtils;
+import i.gishreloaded.gishcode.wrappers.Wrapper;
 import net.minecraft.block.BlockChest;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityMinecartChest;
@@ -80,8 +81,8 @@ public class StorageESP extends Hack{
 			}
 		}
 		
-		for(int i = 0; i < Wrapper.INSTANCE.world().loadedEntityList.size(); i++){
-			Entity entity = Wrapper.INSTANCE.world().loadedEntityList.get(i);
+		for(int i = 0; i < Utils.getEntityList().size(); i++){
+			Entity entity = Utils.getEntityList().get(i);
 			if(chests >= maxChests) {
 				break;
 			}

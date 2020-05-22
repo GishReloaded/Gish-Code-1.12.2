@@ -1,16 +1,21 @@
-package i.gishreloaded.gishcode.utils.system;
+package i.gishreloaded.gishcode.wrappers;
 
 import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.datatransfer.StringSelection;
 
+import i.gishreloaded.gishcode.hack.hacks.GhostMode;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.multiplayer.PlayerControllerMP;
 import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.client.network.NetHandlerPlayClient;
 import net.minecraft.client.settings.GameSettings;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.network.Packet;
+import net.minecraft.util.EnumHand;
 
 public class Wrapper {
 
@@ -40,7 +45,19 @@ public class Wrapper {
         this.player().connection.sendPacket(packet);
     }
     
-    public void copy(String content) {
-        Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection(content), null);
-    }
+    public InventoryPlayer inventory() { 
+		return this.player().inventory; 
+	}
+	
+	public PlayerControllerMP controller() { 
+		return Wrapper.INSTANCE.mc().playerController; 
+	}
+	
+	public void swingArm() { 
+		this.player().swingArm(EnumHand.MAIN_HAND); 
+	}
+	
+	public void attack(Entity entity) { 
+		controller().attackEntity(player(), entity); 
+	}
 }

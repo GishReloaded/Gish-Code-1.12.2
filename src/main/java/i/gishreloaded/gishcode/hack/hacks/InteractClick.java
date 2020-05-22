@@ -8,8 +8,9 @@ import i.gishreloaded.gishcode.managers.EnemyManager;
 import i.gishreloaded.gishcode.managers.FriendManager;
 import i.gishreloaded.gishcode.managers.HackManager;
 import i.gishreloaded.gishcode.managers.XRayManager;
+
 import i.gishreloaded.gishcode.utils.Utils;
-import i.gishreloaded.gishcode.utils.system.Wrapper;
+import i.gishreloaded.gishcode.wrappers.Wrapper;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityArmorStand;

@@ -2,6 +2,7 @@ package i.gishreloaded.gishcode.utils.system;
 
 import i.gishreloaded.gishcode.EventsHandler;
 import i.gishreloaded.gishcode.utils.visual.ChatUtils;
+import i.gishreloaded.gishcode.wrappers.Wrapper;
 import io.netty.channel.ChannelDuplexHandler;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;

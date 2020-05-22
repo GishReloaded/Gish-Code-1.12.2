@@ -6,7 +6,7 @@ import i.gishreloaded.gishcode.gui.click.base.Component;
 import i.gishreloaded.gishcode.gui.click.base.ComponentType;
 import i.gishreloaded.gishcode.gui.click.base.Container;
 import i.gishreloaded.gishcode.gui.click.listener.ComboBoxListener;
-import i.gishreloaded.gishcode.utils.system.Wrapper;
+import i.gishreloaded.gishcode.wrappers.Wrapper;
 
 public class ComboBox extends Container {
 

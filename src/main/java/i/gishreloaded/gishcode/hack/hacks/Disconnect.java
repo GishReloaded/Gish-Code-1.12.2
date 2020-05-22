@@ -2,8 +2,9 @@ package i.gishreloaded.gishcode.hack.hacks;
 
 import i.gishreloaded.gishcode.hack.Hack;
 import i.gishreloaded.gishcode.hack.HackCategory;
-import i.gishreloaded.gishcode.utils.system.Wrapper;
+
 import i.gishreloaded.gishcode.value.NumberValue;
+import i.gishreloaded.gishcode.wrappers.Wrapper;
 import net.minecraft.client.gui.GuiMainMenu;
 import net.minecraft.client.gui.GuiMultiplayer;
 import net.minecraft.client.multiplayer.WorldClient;

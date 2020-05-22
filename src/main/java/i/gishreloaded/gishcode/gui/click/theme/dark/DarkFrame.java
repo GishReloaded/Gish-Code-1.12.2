@@ -13,10 +13,10 @@ import i.gishreloaded.gishcode.gui.click.elements.Frame;
 import i.gishreloaded.gishcode.gui.click.theme.Theme;
 import i.gishreloaded.gishcode.hack.hacks.ClickGui;
 import i.gishreloaded.gishcode.utils.MathUtils;
-import i.gishreloaded.gishcode.utils.system.Wrapper;
 import i.gishreloaded.gishcode.utils.visual.ColorUtils;
 import i.gishreloaded.gishcode.utils.visual.GLUtils;
 import i.gishreloaded.gishcode.utils.visual.RenderUtils;
+import i.gishreloaded.gishcode.wrappers.Wrapper;
 
 public class DarkFrame extends ComponentRenderer {
 

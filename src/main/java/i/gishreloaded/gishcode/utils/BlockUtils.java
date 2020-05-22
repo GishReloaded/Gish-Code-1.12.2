@@ -2,13 +2,14 @@ package i.gishreloaded.gishcode.utils;
 
 import java.util.LinkedList;
 
-import i.gishreloaded.gishcode.utils.system.Wrapper;
+import i.gishreloaded.gishcode.wrappers.Wrapper;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.network.NetHandlerPlayClient;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.init.Blocks;
 import net.minecraft.network.play.client.CPacketAnimation;
 import net.minecraft.network.play.client.CPacketPlayer;
 import net.minecraft.network.play.client.CPacketPlayerDigging;
@@ -23,11 +24,10 @@ import net.minecraft.util.math.Vec3i;
 
 public final class BlockUtils
 {
-	private static final Minecraft mc = Wrapper.INSTANCE.mc();
 	
 	public static IBlockState getState(BlockPos pos)
 	{
-		return mc.world.getBlockState(pos);
+		return Wrapper.INSTANCE.world().getBlockState(pos);
 	}
 	
 	public static Block getBlock(BlockPos pos)
@@ -49,10 +49,18 @@ public final class BlockUtils
 		return getState(pos).getPlayerRelativeBlockHardness(Wrapper.INSTANCE.player(), Wrapper.INSTANCE.world(), pos);
 	}
 	
+	public static boolean isBlockMaterial(BlockPos blockPos, Block block) {
+    	return BlockUtils.getBlock(blockPos) == Blocks.AIR;
+    }
+	
+    public static boolean isBlockMaterial(BlockPos blockPos, Material material) {
+    	return BlockUtils.getState(blockPos).getMaterial() == material;
+    }
+	
 	public static boolean placeBlockLegit(BlockPos pos)
 	{
-		Vec3d eyesPos = new Vec3d(mc.player.posX,
-			mc.player.posY + mc.player.getEyeHeight(), mc.player.posZ);
+		Vec3d eyesPos = new Vec3d(Wrapper.INSTANCE.player().posX,
+				Wrapper.INSTANCE.player().posY + Wrapper.INSTANCE.player().getEyeHeight(), Wrapper.INSTANCE.player().posZ);
 		
 		for(EnumFacing side : EnumFacing.values())
 		{
@@ -69,7 +77,7 @@ public final class BlockUtils
 			
 			// check if neighbor can be right clicked
 			if(!getBlock(neighbor)
-				.canCollideCheck(mc.world.getBlockState(neighbor), false))
+				.canCollideCheck(Wrapper.INSTANCE.world().getBlockState(neighbor), false))
 				continue;
 			
 			Vec3d hitVec = new Vec3d(neighbor).addVector(0.5, 0.5, 0.5)
@@ -88,15 +96,14 @@ public final class BlockUtils
 			
 		}
 		Wrapper.INSTANCE.sendPacket(new CPacketPlayerTryUseItem(EnumHand.MAIN_HAND));
-		mc.player.swingArm(EnumHand.MAIN_HAND);
-		
+		Wrapper.INSTANCE.swingArm();
 		return true;
 	}
 	
 	public static boolean placeBlockSimple(BlockPos pos)
 	{
-		Vec3d eyesPos = new Vec3d(mc.player.posX,
-			mc.player.posY + mc.player.getEyeHeight(), mc.player.posZ);
+		Vec3d eyesPos = new Vec3d(Wrapper.INSTANCE.player().posX,
+				Wrapper.INSTANCE.player().posY + Wrapper.INSTANCE.player().getEyeHeight(), Wrapper.INSTANCE.player().posZ);
 		
 		for(EnumFacing side : EnumFacing.values())
 		{
@@ -105,7 +112,7 @@ public final class BlockUtils
 			
 			// check if neighbor can be right clicked
 			if(!getBlock(neighbor)
-				.canCollideCheck(mc.world.getBlockState(neighbor), false))
+				.canCollideCheck(BlockUtils.getState(neighbor), false))
 				continue;
 			
 			Vec3d hitVec = new Vec3d(neighbor).addVector(0.5, 0.5, 0.5)
@@ -116,7 +123,7 @@ public final class BlockUtils
 				continue;
 			
 			// place block
-			mc.playerController.processRightClickBlock(mc.player, mc.world,
+			Wrapper.INSTANCE.controller().processRightClickBlock(Wrapper.INSTANCE.player(), Wrapper.INSTANCE.world(),
 				neighbor, side2, hitVec, EnumHand.MAIN_HAND);
 			
 			return true;
@@ -129,65 +136,65 @@ public final class BlockUtils
 	
 	public static void faceVectorPacket(Vec3d vec)
 	{
-		double diffX = vec.x - mc.player.posX;
-		double diffY = vec.y - (mc.player.posY + mc.player.getEyeHeight());
-		double diffZ = vec.z - mc.player.posZ;
+		double diffX = vec.x - Wrapper.INSTANCE.player().posX;
+		double diffY = vec.y - (Wrapper.INSTANCE.player().posY + Wrapper.INSTANCE.player().getEyeHeight());
+		double diffZ = vec.z - Wrapper.INSTANCE.player().posZ;
 		
 		double dist = MathHelper.sqrt(diffX * diffX + diffZ * diffZ);
 		
 		float yaw = (float)Math.toDegrees(Math.atan2(diffZ, diffX)) - 90F;
 		float pitch = (float)-Math.toDegrees(Math.atan2(diffY, dist));
 		
-		mc.player.connection.sendPacket(new CPacketPlayer.Rotation(
-			mc.player.rotationYaw
-				+ MathHelper.wrapDegrees(yaw - mc.player.rotationYaw),
-			mc.player.rotationPitch
-				+ MathHelper.wrapDegrees(pitch - mc.player.rotationPitch),
-			mc.player.onGround));
+		Wrapper.INSTANCE.player().connection.sendPacket(new CPacketPlayer.Rotation(
+				Wrapper.INSTANCE.player().rotationYaw
+				+ MathHelper.wrapDegrees(yaw - Wrapper.INSTANCE.player().rotationYaw),
+				Wrapper.INSTANCE.player().rotationPitch
+				+ MathHelper.wrapDegrees(pitch - Wrapper.INSTANCE.player().rotationPitch),
+				Wrapper.INSTANCE.player().onGround));
 	}
 	
 	public static void faceBlockClient(BlockPos blockPos)
 	{
-		double diffX = blockPos.getX() + 0.5 - mc.player.posX;
+		double diffX = blockPos.getX() + 0.5 - Wrapper.INSTANCE.player().posX;
 		double diffY =      //0.5
-			blockPos.getY() + 0.0 - (mc.player.posY + mc.player.getEyeHeight());
-		double diffZ = blockPos.getZ() + 0.5 - mc.player.posZ;
+			blockPos.getY() + 0.0 - (Wrapper.INSTANCE.player().posY + Wrapper.INSTANCE.player().getEyeHeight());
+		double diffZ = blockPos.getZ() + 0.5 - Wrapper.INSTANCE.player().posZ;
 		double dist = MathHelper.sqrt(diffX * diffX + diffZ * diffZ);
 		float yaw =
 			(float)(Math.atan2(diffZ, diffX) * 180.0D / Math.PI) - 90.0F;
 		float pitch = (float)-(Math.atan2(diffY, dist) * 180.0D / Math.PI);
-		mc.player.rotationYaw = mc.player.rotationYaw
-			+ MathHelper.wrapDegrees(yaw - mc.player.rotationYaw);
-		mc.player.rotationPitch = mc.player.rotationPitch
-			+ MathHelper.wrapDegrees(pitch - mc.player.rotationPitch);
+		Wrapper.INSTANCE.player().rotationYaw = Wrapper.INSTANCE.player().rotationYaw
+			+ MathHelper.wrapDegrees(yaw - Wrapper.INSTANCE.player().rotationYaw);
+		Wrapper.INSTANCE.player().rotationPitch = Wrapper.INSTANCE.player().rotationPitch
+			+ MathHelper.wrapDegrees(pitch -Wrapper.INSTANCE.player().rotationPitch);
 	}
 	
 	public static void faceBlockPacket(BlockPos blockPos)
 	{
-		double diffX = blockPos.getX() + 0.5 - mc.player.posX;
+		double diffX = blockPos.getX() + 0.5 - Wrapper.INSTANCE.player().posX;
 		double diffY =      //0.5
-			blockPos.getY() + 0.0 - (mc.player.posY + mc.player.getEyeHeight());
-		double diffZ = blockPos.getZ() + 0.5 - mc.player.posZ;
+			blockPos.getY() + 0.0 - (Wrapper.INSTANCE.player().posY + Wrapper.INSTANCE.player().getEyeHeight());
+		double diffZ = blockPos.getZ() + 0.5 - Wrapper.INSTANCE.player().posZ;
 		double dist = MathHelper.sqrt(diffX * diffX + diffZ * diffZ);
 		float yaw =
 			(float)(Math.atan2(diffZ, diffX) * 180.0D / Math.PI) - 90.0F;
 		float pitch = (float)-(Math.atan2(diffY, dist) * 180.0D / Math.PI);
-		mc.player.connection.sendPacket(new CPacketPlayer.Rotation(
-			mc.player.rotationYaw
-				+ MathHelper.wrapDegrees(yaw - mc.player.rotationYaw),
-			mc.player.rotationPitch
-				+ MathHelper.wrapDegrees(pitch - mc.player.rotationPitch),
-			mc.player.onGround));
+		Wrapper.INSTANCE.player().connection.sendPacket(new CPacketPlayer.Rotation(
+				Wrapper.INSTANCE.player().rotationYaw
+				+ MathHelper.wrapDegrees(yaw - Wrapper.INSTANCE.player().rotationYaw),
+				Wrapper.INSTANCE.player().rotationPitch
+				+ MathHelper.wrapDegrees(pitch - Wrapper.INSTANCE.player().rotationPitch),
+				Wrapper.INSTANCE.player().onGround));
 	}
 	
 	public static void faceBlockClientHorizontally(BlockPos blockPos)
 	{
-		double diffX = blockPos.getX() + 0.5 - mc.player.posX;
-		double diffZ = blockPos.getZ() + 0.5 - mc.player.posZ;
+		double diffX = blockPos.getX() + 0.5 - Wrapper.INSTANCE.player().posX;
+		double diffZ = blockPos.getZ() + 0.5 - Wrapper.INSTANCE.player().posZ;
 		float yaw =
 			(float)(Math.atan2(diffZ, diffX) * 180.0D / Math.PI) - 90.0F;
-		mc.player.rotationYaw = mc.player.rotationYaw
-			+ MathHelper.wrapDegrees(yaw - mc.player.rotationYaw);
+		Wrapper.INSTANCE.player().rotationYaw = Wrapper.INSTANCE.player().rotationYaw
+			+ MathHelper.wrapDegrees(yaw - Wrapper.INSTANCE.player().rotationYaw);
 	}
 	
 	public static float getPlayerBlockDistance(BlockPos blockPos)
@@ -199,9 +206,9 @@ public final class BlockUtils
 	public static float getPlayerBlockDistance(double posX, double posY,
 		double posZ)
 	{
-		float xDiff = (float)(mc.player.posX - posX);
-		float yDiff = (float)(mc.player.posY - posY);
-		float zDiff = (float)(mc.player.posZ - posZ);
+		float xDiff = (float)(Wrapper.INSTANCE.player().posX - posX);
+		float yDiff = (float)(Wrapper.INSTANCE.player().posY - posY);
+		float zDiff = (float)(Wrapper.INSTANCE.player().posZ - posZ);
 		return getBlockDistance(xDiff, yDiff, zDiff);
 	}
 	
@@ -214,8 +221,8 @@ public final class BlockUtils
 	
 	public static float getHorizontalPlayerBlockDistance(BlockPos blockPos)
 	{
-		float xDiff = (float)(mc.player.posX - blockPos.getX());
-		float zDiff = (float)(mc.player.posZ - blockPos.getZ());
+		float xDiff = (float)(Wrapper.INSTANCE.player().posX - blockPos.getX());
+		float zDiff = (float)(Wrapper.INSTANCE.player().posZ - blockPos.getZ());
 		return MathHelper.sqrt(
 			(xDiff - 0.5F) * (xDiff - 0.5F) + (zDiff - 0.5F) * (zDiff - 0.5F));
 	}
@@ -267,7 +274,7 @@ public final class BlockUtils
 		
 		Utils.faceVectorPacket(hitVecs[side.ordinal()]);
 		
-		if(!mc.playerController.onPlayerDamageBlock(pos, side))
+		if(!Wrapper.INSTANCE.controller().onPlayerDamageBlock(pos, side))
 			return false;
 		Wrapper.INSTANCE.sendPacket(new CPacketAnimation(EnumHand.MAIN_HAND));
 		

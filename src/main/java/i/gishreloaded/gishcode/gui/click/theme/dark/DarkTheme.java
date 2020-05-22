@@ -2,7 +2,7 @@ package i.gishreloaded.gishcode.gui.click.theme.dark;
 
 import i.gishreloaded.gishcode.gui.click.base.ComponentType;
 import i.gishreloaded.gishcode.gui.click.theme.Theme;
-import i.gishreloaded.gishcode.utils.system.Wrapper;
+import i.gishreloaded.gishcode.wrappers.Wrapper;
 import net.minecraftforge.client.model.obj.OBJModel.Texture;
 
 public class DarkTheme extends Theme {

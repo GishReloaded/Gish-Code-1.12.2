@@ -2,8 +2,9 @@ package i.gishreloaded.gishcode.hack.hacks;
 
 import i.gishreloaded.gishcode.hack.Hack;
 import i.gishreloaded.gishcode.hack.HackCategory;
-import i.gishreloaded.gishcode.utils.system.Wrapper;
+import i.gishreloaded.gishcode.utils.BlockUtils;
 import i.gishreloaded.gishcode.utils.visual.RenderUtils;
+import i.gishreloaded.gishcode.wrappers.Wrapper;
 import net.minecraft.block.Block;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
@@ -22,7 +23,7 @@ public class BlockOverlay extends Hack{
 		}
 		if (Wrapper.INSTANCE.mc().objectMouseOver.typeOfHit == RayTraceResult.Type.BLOCK)
         {
-            Block block = Wrapper.INSTANCE.world().getBlockState(Wrapper.INSTANCE.mc().objectMouseOver.getBlockPos()).getBlock();
+            Block block = BlockUtils.getBlock(Wrapper.INSTANCE.mc().objectMouseOver.getBlockPos());
             BlockPos blockPos = Wrapper.INSTANCE.mc().objectMouseOver.getBlockPos();
 
             if (Block.getIdFromBlock(block) == 0) {

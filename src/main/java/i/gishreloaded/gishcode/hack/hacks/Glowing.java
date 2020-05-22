@@ -7,9 +7,11 @@ import i.gishreloaded.gishcode.hack.HackCategory;
 import i.gishreloaded.gishcode.managers.EnemyManager;
 import i.gishreloaded.gishcode.managers.FriendManager;
 import i.gishreloaded.gishcode.managers.HackManager;
-import i.gishreloaded.gishcode.utils.system.Wrapper;
+
+import i.gishreloaded.gishcode.utils.Utils;
 import i.gishreloaded.gishcode.utils.visual.RenderUtils;
 import i.gishreloaded.gishcode.value.BooleanValue;
+import i.gishreloaded.gishcode.wrappers.Wrapper;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.entity.Entity;
@@ -29,7 +31,7 @@ public class Glowing extends Hack{
 	
 	@Override
 	public void onDisable() {
-		for (Object object : Wrapper.INSTANCE.world().loadedEntityList) {
+		for (Object object : Utils.getEntityList()) {
 	    	  Entity entity = (Entity)object;
 	    	  if(entity.isGlowing()) {
 	    		  entity.setGlowing(false);
@@ -40,7 +42,7 @@ public class Glowing extends Hack{
 	
 	@Override
 	public void onRenderWorldLast(RenderWorldLastEvent event) {
-		for (Object object : Wrapper.INSTANCE.world().loadedEntityList) {
+		for (Object object : Utils.getEntityList()) {
 	    	  Entity entity = (Entity)object;
 	    	  if(checkEntity(entity) != null && entity != Wrapper.INSTANCE.player()) { 
 	    		  if(!entity.isGlowing()) {

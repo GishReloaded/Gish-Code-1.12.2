@@ -7,13 +7,14 @@ import org.lwjgl.input.Keyboard;
 import i.gishreloaded.gishcode.Main;
 import i.gishreloaded.gishcode.hack.Hack;
 import i.gishreloaded.gishcode.hack.HackCategory;
-import i.gishreloaded.gishcode.utils.system.Wrapper;
+import i.gishreloaded.gishcode.utils.Utils;
 import i.gishreloaded.gishcode.utils.visual.ColorUtils;
 import i.gishreloaded.gishcode.utils.visual.RenderUtils;
 import i.gishreloaded.gishcode.value.BooleanValue;
 import i.gishreloaded.gishcode.value.Mode;
 import i.gishreloaded.gishcode.value.ModeValue;
 import i.gishreloaded.gishcode.value.NumberValue;
+import i.gishreloaded.gishcode.wrappers.Wrapper;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraftforge.client.event.RenderGameOverlayEvent.Text;
 import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
@@ -63,6 +64,8 @@ public class ClickGui extends Hack{
 	
 	@Override
 	public void onEnable() {
+		if(GhostMode.enabled) 
+			return;
 		Wrapper.INSTANCE.mc().displayGuiScreen(Main.hackManager.getGui());
 		super.onEnable();
 	}

@@ -4,11 +4,12 @@ import org.lwjgl.input.Keyboard;
 
 import i.gishreloaded.gishcode.hack.Hack;
 import i.gishreloaded.gishcode.hack.HackCategory;
+
 import i.gishreloaded.gishcode.utils.Utils;
-import i.gishreloaded.gishcode.utils.system.Wrapper;
 import i.gishreloaded.gishcode.value.BooleanValue;
 import i.gishreloaded.gishcode.value.Mode;
 import i.gishreloaded.gishcode.value.ModeValue;
+import i.gishreloaded.gishcode.wrappers.Wrapper;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.network.play.client.CPacketPlayer;
 import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
@@ -52,16 +53,16 @@ public class Flight extends Hack{
 		else if(mode.getMode("Dynamic").isToggled())
 		{
 			float flyspeed = 1.0f;
-			Wrapper.INSTANCE.player().jumpMovementFactor = 0.4f;
-	        Wrapper.INSTANCE.player().motionX = 0.0;
-	        Wrapper.INSTANCE.player().motionY = 0.0;
-	        Wrapper.INSTANCE.player().motionZ = 0.0;
-	        Wrapper.INSTANCE.player().jumpMovementFactor *= (float) flyspeed * 3f;
+			player.jumpMovementFactor = 0.4f;
+			player.motionX = 0.0;
+			player.motionY = 0.0;
+			player.motionZ = 0.0;
+			player.jumpMovementFactor *= (float) flyspeed * 3f;
 	        if (Wrapper.INSTANCE.mcSettings().keyBindJump.isKeyDown()) {
-	            Wrapper.INSTANCE.player().motionY += flyspeed;
+	        	player.motionY += flyspeed;
 	        }
 	        if (Wrapper.INSTANCE.mcSettings().keyBindSneak.isKeyDown()) {
-	            Wrapper.INSTANCE.player().motionY -= flyspeed;
+	        	player.motionY -= flyspeed;
 	        }
 		}
 		super.onClientTick(event);

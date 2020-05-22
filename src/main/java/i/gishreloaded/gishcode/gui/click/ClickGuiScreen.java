@@ -14,9 +14,10 @@ import i.gishreloaded.gishcode.hack.Hack;
 import i.gishreloaded.gishcode.managers.CommandManager;
 import i.gishreloaded.gishcode.managers.FileManager;
 import i.gishreloaded.gishcode.managers.HackManager;
-import i.gishreloaded.gishcode.utils.system.Wrapper;
+import i.gishreloaded.gishcode.utils.Utils;
 import i.gishreloaded.gishcode.utils.visual.ChatUtils;
 import i.gishreloaded.gishcode.utils.visual.ColorUtils;
+import i.gishreloaded.gishcode.wrappers.Wrapper;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.ScaledResolution;
@@ -144,7 +145,7 @@ public class ClickGuiScreen extends GuiScreen {
     		ex.printStackTrace();
     		ChatUtils.error("Exception: handleInput");
     		ChatUtils.error(ex.toString());
-    		Wrapper.INSTANCE.copy(ex.toString());
+    		Utils.copy(ex.toString());
     	}
     }
 }

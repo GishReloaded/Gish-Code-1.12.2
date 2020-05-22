@@ -3,8 +3,9 @@ package i.gishreloaded.gishcode.hack.hacks;
 import i.gishreloaded.gishcode.hack.Hack;
 import i.gishreloaded.gishcode.hack.HackCategory;
 import i.gishreloaded.gishcode.utils.Entity301;
-import i.gishreloaded.gishcode.utils.system.Wrapper;
+
 import i.gishreloaded.gishcode.utils.system.Connection.Side;
+import i.gishreloaded.gishcode.wrappers.Wrapper;
 import net.minecraft.entity.Entity;
 import net.minecraft.network.play.client.CPacketPlayer;
 
@@ -29,7 +30,7 @@ public class Blink extends Hack{
 		if (Wrapper.INSTANCE.player() != null && Wrapper.INSTANCE.world() != null) {
             this.entity301 = new Entity301(Wrapper.INSTANCE.world(), Wrapper.INSTANCE.player().getGameProfile());
             this.entity301.setPosition(Wrapper.INSTANCE.player().posX, Wrapper.INSTANCE.player().posY, Wrapper.INSTANCE.player().posZ);
-            this.entity301.inventory = Wrapper.INSTANCE.player().inventory;
+            this.entity301.inventory = Wrapper.INSTANCE.inventory();
             this.entity301.rotationPitch = Wrapper.INSTANCE.player().rotationPitch;
             this.entity301.rotationYaw = Wrapper.INSTANCE.player().rotationYaw;
             this.entity301.rotationYawHead = Wrapper.INSTANCE.player().rotationYawHead;

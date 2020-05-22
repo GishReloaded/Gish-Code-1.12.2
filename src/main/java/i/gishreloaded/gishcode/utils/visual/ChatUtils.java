@@ -1,7 +1,10 @@
 package i.gishreloaded.gishcode.utils.visual;
 
 import i.gishreloaded.gishcode.Main;
-import i.gishreloaded.gishcode.utils.system.Wrapper;
+import i.gishreloaded.gishcode.hack.hacks.GhostMode;
+
+import i.gishreloaded.gishcode.utils.Utils;
+import i.gishreloaded.gishcode.wrappers.Wrapper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentTranslation;
@@ -10,7 +13,7 @@ public class ChatUtils{
 	
 	public static void component(ITextComponent component)
 	{
-		if(Wrapper.INSTANCE.player() == null || Wrapper.INSTANCE.mc().ingameGUI.getChatGUI() == null)
+		if(Wrapper.INSTANCE.player() == null || Wrapper.INSTANCE.mc().ingameGUI.getChatGUI() == null || GhostMode.enabled)
 			return;
 			Wrapper.INSTANCE.mc().ingameGUI.getChatGUI()
 				.printChatMessage(new TextComponentTranslation("")

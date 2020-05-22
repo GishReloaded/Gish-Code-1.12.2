@@ -73,7 +73,7 @@
 //		
 //		this.target = this.getClosestEntity();
 //		
-//		if(Wrapper.INSTANCE.player().getDistance(this.target) <= Wrapper.INSTANCE.mc().playerController.getBlockReachDistance() 
+//		if(Wrapper.INSTANCE.player().getDistance(this.target) <= Wrapper.INSTANCE.controller().getBlockReachDistance() 
 //				&& Wrapper.INSTANCE.world().getBlockState(this.blockPostPlace).getMaterial() != Material.LAVA
 //				&& Wrapper.INSTANCE.player().getHealth() > 0
 //				&& this.target.onGround) {
@@ -94,7 +94,7 @@
 //		
 //		blockWest = new BlockPos(this.x, this.y, this.z).west();
 //		
-//		if(Wrapper.INSTANCE.player().getDistance(this.x, this.y, this.z) <= Wrapper.INSTANCE.mc().playerController.getBlockReachDistance()) {
+//		if(Wrapper.INSTANCE.player().getDistance(this.x, this.y, this.z) <= Wrapper.INSTANCE.controller().getBlockReachDistance()) {
 //			if(Wrapper.INSTANCE.world().getBlockState(this.blockSouth).getMaterial() == Material.LAVA 
 //					|| Wrapper.INSTANCE.world().getBlockState(this.blockNorth).getMaterial() == Material.LAVA
 //						|| Wrapper.INSTANCE.world().getBlockState(this.blockEast).getMaterial() == Material.LAVA
@@ -115,7 +115,7 @@
 //	}
 //	
 //	void put() {
-//		ItemStack currentItem = Wrapper.INSTANCE.player().inventory.getCurrentItem();
+//		ItemStack currentItem = Wrapper.INSTANCE.inventory().getCurrentItem();
 //		if(currentItem == null) {
 //			return;
 //		}
@@ -138,7 +138,7 @@
 //	}
 //	
 //	void take() {
-//		ItemStack currentItem = Wrapper.INSTANCE.player().inventory.getCurrentItem();
+//		ItemStack currentItem = Wrapper.INSTANCE.inventory().getCurrentItem();
 //		if(currentItem == null) {
 //			return;
 //		}
@@ -217,7 +217,7 @@
 //    
 //	EntityLivingBase getClosestEntity(){
 //		EntityLivingBase closestEntity = null;
-// 		for (Object o : Wrapper.INSTANCE.world().loadedEntityList) {
+// 		for (Object o : Utils.getEntityList()) {
 // 			if(o instanceof EntityLivingBase) {
 // 				EntityLivingBase entity = (EntityLivingBase)o;
 // 				if(check(entity)) {

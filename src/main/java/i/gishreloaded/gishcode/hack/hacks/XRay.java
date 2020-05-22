@@ -6,10 +6,11 @@ import i.gishreloaded.gishcode.hack.Hack;
 import i.gishreloaded.gishcode.hack.HackCategory;
 import i.gishreloaded.gishcode.managers.XRayManager;
 import i.gishreloaded.gishcode.utils.BlockUtils;
+
 import i.gishreloaded.gishcode.utils.TimerUtils;
-import i.gishreloaded.gishcode.utils.system.Wrapper;
 import i.gishreloaded.gishcode.utils.visual.RenderUtils;
 import i.gishreloaded.gishcode.value.NumberValue;
+import i.gishreloaded.gishcode.wrappers.Wrapper;
 import i.gishreloaded.gishcode.xray.XRayBlock;
 import i.gishreloaded.gishcode.xray.XRayData;
 import net.minecraft.util.math.BlockPos;

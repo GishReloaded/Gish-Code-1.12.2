@@ -2,8 +2,8 @@ package i.gishreloaded.gishcode.hack.hacks;
 
 import i.gishreloaded.gishcode.hack.Hack;
 import i.gishreloaded.gishcode.hack.HackCategory;
-import i.gishreloaded.gishcode.utils.system.Wrapper;
 import i.gishreloaded.gishcode.utils.visual.ChatUtils;
+import i.gishreloaded.gishcode.wrappers.Wrapper;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.ClickType;
 import net.minecraft.item.ItemStack;

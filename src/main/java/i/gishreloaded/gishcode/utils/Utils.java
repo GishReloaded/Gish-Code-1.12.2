@@ -1,16 +1,19 @@
 package i.gishreloaded.gishcode.utils;
 
+import java.awt.Toolkit;
+import java.awt.datatransfer.StringSelection;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.List;
 import java.util.Random;
 
 import com.mojang.authlib.GameProfile;
 
 import i.gishreloaded.gishcode.managers.EnemyManager;
 import i.gishreloaded.gishcode.utils.system.Mapping;
-import i.gishreloaded.gishcode.utils.system.Wrapper;
+import i.gishreloaded.gishcode.wrappers.Wrapper;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockAir;
 import net.minecraft.block.material.Material;
@@ -25,6 +28,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityEgg;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.inventory.ClickType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
@@ -43,6 +47,12 @@ public class Utils {
 	public static float[] rotationsToBlock = null;
 	private static final Random RANDOM = new Random();
 
+	public static boolean nullCheck() { return (Wrapper.INSTANCE.player() == null || Wrapper.INSTANCE.world() == null); }
+	
+	public static void copy(String content) {
+        Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection(content), null);
+    }
+	
     public static int random(int min, int max) {
         return RANDOM.nextInt(max - min) + min;
     }
@@ -56,7 +66,7 @@ public class Utils {
     }
 	
 	public static boolean canBeClicked(final BlockPos pos) {
-        return Wrapper.INSTANCE.world().getBlockState(pos).getBlock().canCollideCheck(Wrapper.INSTANCE.world().getBlockState(pos), false);
+        return BlockUtils.getBlock(pos).canCollideCheck(BlockUtils.getState(pos), false);
     }
 	
 	public static Vec3d getEyesPos() {
@@ -65,6 +75,18 @@ public class Utils {
 	
     public static void faceVectorPacketInstant(final Vec3d vec) {
         Utils.rotationsToBlock = getNeededRotations(vec);
+    }
+    
+    public static List<Entity> getEntityList(){
+    	return Wrapper.INSTANCE.world().getLoadedEntityList();
+    }
+    
+    public static boolean isNullOrEmptyStack(ItemStack stack) {
+		return stack == null || stack.isEmpty();
+	}
+    
+    public static void windowClick(int windowId, int slotId, int mouseButton, ClickType type) {
+    	Wrapper.INSTANCE.controller().windowClick(windowId, slotId, mouseButton, type, Wrapper.INSTANCE.player());
     }
     
     public static double[] teleportToPosition(double[] startPosition, double[] endPosition, double setOffset, double slack, boolean extendOffset, boolean onGround) {
@@ -154,12 +176,6 @@ public class Utils {
         return new double[]{startX, startY, startZ};
     }
     
-    public static boolean isBlockMaterial(BlockPos blockPos, Block block) {
-    	return Wrapper.INSTANCE.world().getBlockState(blockPos).getBlock() == Blocks.AIR;
-    }
-    public static boolean isBlockMaterial(BlockPos blockPos, Material material) {
-    	return Wrapper.INSTANCE.world().getBlockState(blockPos).getMaterial() == material;
-    }
     public static String getPlayerName(EntityPlayer player) {
     	return player.getGameProfile() != null ? 
 				player.getGameProfile().getName() : player.getName();
@@ -370,10 +386,10 @@ public class Utils {
     	int colorEnemy2 = getPlayerArmorColor(enemy, enemy.inventory.armorItemInSlot(2));
     	int colorEnemy3 = getPlayerArmorColor(enemy, enemy.inventory.armorItemInSlot(3));
     			
-    	int colorPlayer0 = getPlayerArmorColor(Wrapper.INSTANCE.player(), Wrapper.INSTANCE.player().inventory.armorItemInSlot(0));
-    	int colorPlayer1 = getPlayerArmorColor(Wrapper.INSTANCE.player(), Wrapper.INSTANCE.player().inventory.armorItemInSlot(1));
-    	int colorPlayer2 = getPlayerArmorColor(Wrapper.INSTANCE.player(), Wrapper.INSTANCE.player().inventory.armorItemInSlot(2));
-    	int colorPlayer3 = getPlayerArmorColor(Wrapper.INSTANCE.player(), Wrapper.INSTANCE.player().inventory.armorItemInSlot(3));
+    	int colorPlayer0 = getPlayerArmorColor(Wrapper.INSTANCE.player(), Wrapper.INSTANCE.inventory().armorItemInSlot(0));
+    	int colorPlayer1 = getPlayerArmorColor(Wrapper.INSTANCE.player(), Wrapper.INSTANCE.inventory().armorItemInSlot(1));
+    	int colorPlayer2 = getPlayerArmorColor(Wrapper.INSTANCE.player(), Wrapper.INSTANCE.inventory().armorItemInSlot(2));
+    	int colorPlayer3 = getPlayerArmorColor(Wrapper.INSTANCE.player(), Wrapper.INSTANCE.inventory().armorItemInSlot(3));
     			
     	if(colorEnemy0 == colorPlayer0 && colorPlayer0 != -1 && colorEnemy0 != 1
     			|| colorEnemy1 == colorPlayer1 && colorPlayer1 != -1 && colorEnemy1 != 1
@@ -384,7 +400,7 @@ public class Utils {
     	return true;
     }
 	
-	public static boolean checkScreen() {
+	public static boolean screenCheck() {
 		if(Wrapper.INSTANCE.mc().currentScreen instanceof GuiContainer
     			|| Wrapper.INSTANCE.mc().currentScreen instanceof GuiChat
     			|| Wrapper.INSTANCE.mc().currentScreen instanceof GuiScreen) 
@@ -403,7 +419,7 @@ public class Utils {
     
     public static EntityLivingBase getWorldEntityByName(String name) {
     	EntityLivingBase entity = null;
-    	for (Object object : Wrapper.INSTANCE.world().loadedEntityList) {
+    	for (Object object : Utils.getEntityList()) {
             if (object instanceof EntityLivingBase) {
             	EntityLivingBase entityForCheck = (EntityLivingBase) object;
                 if(entityForCheck.getName().contains(name)) {
@@ -512,8 +528,8 @@ public class Utils {
                 final Vec3d hitVec = new Vec3d(neighbor).addVector(0.5, 0.5, 0.5).add(new Vec3d(side2.getDirectionVec()).scale(0.5));
                 if (eyesPos.squareDistanceTo(hitVec) <= 18.0625) {
                     Utils.faceVectorPacketInstant(hitVec);
-                    Wrapper.INSTANCE.player().swingArm(EnumHand.MAIN_HAND);
-                    Wrapper.INSTANCE.mc().playerController.processRightClickBlock(Wrapper.INSTANCE.player(), Wrapper.INSTANCE.world(), neighbor, side2, hitVec, EnumHand.MAIN_HAND);
+                    Wrapper.INSTANCE.swingArm();
+                    Wrapper.INSTANCE.controller().processRightClickBlock(Wrapper.INSTANCE.player(), Wrapper.INSTANCE.world(), neighbor, side2, hitVec, EnumHand.MAIN_HAND);
                     try {
                     	Field f = Minecraft.class.getDeclaredField("rightClickDelayTimer");
                     	f.setAccessible(true);
@@ -532,11 +548,11 @@ public class Utils {
         for (int x = MathHelper.floor(entity.getEntityBoundingBox().minX); x < MathHelper.floor(entity.getEntityBoundingBox().maxX) + 1; ++x) {
             for (int y = MathHelper.floor(entity.getEntityBoundingBox().minY); y < MathHelper.floor(entity.getEntityBoundingBox().maxY) + 1; ++y) {
                 for (int z = MathHelper.floor(entity.getEntityBoundingBox().minZ); z < MathHelper.floor(entity.getEntityBoundingBox().maxZ) + 1; ++z) {
-                    final Block block = Wrapper.INSTANCE.world().getBlockState(new BlockPos(x, y, z)).getBlock();
+                    final Block block = BlockUtils.getBlock(new BlockPos(x, y, z));
                     final AxisAlignedBB boundingBox;
                     if (block != null && !(block instanceof BlockAir) && (boundingBox = 
                     		block.getCollisionBoundingBox(
-                    				Wrapper.INSTANCE.world().getBlockState(new BlockPos(x, y, z)),
+                    				BlockUtils.getState(new BlockPos(x, y, z)),
                     				Wrapper.INSTANCE.world(),
                     				new BlockPos(x, y, z)))
                     		!= null && entity.getEntityBoundingBox().intersects(boundingBox)) {

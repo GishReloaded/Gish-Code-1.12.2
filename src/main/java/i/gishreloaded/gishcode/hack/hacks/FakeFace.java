@@ -68,11 +68,11 @@
 //	
 //	
 //	void bucket() {
-//		ItemStack currentItem = Wrapper.INSTANCE.player().inventory.getCurrentItem();
+//		ItemStack currentItem = Wrapper.INSTANCE.inventory().getCurrentItem();
 //		if(currentItem == null) {
 //			return;
 //		}
-//		int dis = (int)Wrapper.INSTANCE.mc().playerController.getBlockReachDistance();
+//		int dis = (int)Wrapper.INSTANCE.controller().getBlockReachDistance();
 //		for(BlockPos block : BlockUtils.findBlocksNearEntity(Wrapper.INSTANCE.player(), Block.getIdFromBlock(Blocks.WATER), 0, dis)) {
 //			if(currentItem.getItem() == Items.BUCKET) {
 //				faceBlock = block;
@@ -87,7 +87,7 @@
 //		}
 //		
 //		if(this.faceBlock != null && currentItem.getItem() == Items.BUCKET && Wrapper.INSTANCE.mcSettings().keyBindUseItem.isKeyDown()) {
-//			if(Wrapper.INSTANCE.player().getDistanceSq(this.faceBlock) <= Wrapper.INSTANCE.mc().playerController.getBlockReachDistance()) {
+//			if(Wrapper.INSTANCE.player().getDistanceSq(this.faceBlock) <= Wrapper.INSTANCE.controller().getBlockReachDistance()) {
 //				faceBlock(this.faceBlock);
 //				RobotUtils.clickMouse(1);
 //				this.faceBlock = null;
@@ -96,7 +96,7 @@
 //		
 //		this.target = this.getClosestEntity();
 //		if(this.target != null && currentItem.getItem() == Items.LAVA_BUCKET || currentItem.getItem() == Items.WATER_BUCKET) {
-//			if(Wrapper.INSTANCE.player().getDistance(this.target) <= Wrapper.INSTANCE.mc().playerController.getBlockReachDistance()) {
+//			if(Wrapper.INSTANCE.player().getDistance(this.target) <= Wrapper.INSTANCE.controller().getBlockReachDistance()) {
 //				this.faceBlock = new BlockPos(this.target);
 //				if(Wrapper.INSTANCE.mcSettings().keyBindUseItem.isKeyDown()) {
 //					faceBlock(this.faceBlock);
@@ -151,7 +151,7 @@
 //	
 //	EntityLivingBase getClosestEntity(){
 //		EntityLivingBase closestEntity = null;
-// 		for (Object o : Wrapper.INSTANCE.world().loadedEntityList) {
+// 		for (Object o : Utils.getEntityList()) {
 // 			if(o instanceof EntityLivingBase) {
 // 				EntityLivingBase entity = (EntityLivingBase)o;
 // 				if(check(entity)) {

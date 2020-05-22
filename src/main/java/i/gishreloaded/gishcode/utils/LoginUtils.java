@@ -7,7 +7,7 @@ import com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService;
 import com.mojang.authlib.yggdrasil.YggdrasilUserAuthentication;
 
 import i.gishreloaded.gishcode.utils.system.Mapping;
-import i.gishreloaded.gishcode.utils.system.Wrapper;
+import i.gishreloaded.gishcode.wrappers.Wrapper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.Session;
 import org.apache.logging.log4j.LogManager;

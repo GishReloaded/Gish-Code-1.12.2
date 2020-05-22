@@ -10,7 +10,7 @@ import i.gishreloaded.gishcode.Main;
 import i.gishreloaded.gishcode.hack.Hack;
 import i.gishreloaded.gishcode.hack.HackCategory;
 import i.gishreloaded.gishcode.managers.HackManager;
-import i.gishreloaded.gishcode.utils.system.Wrapper;
+
 import i.gishreloaded.gishcode.utils.visual.ChatUtils;
 import i.gishreloaded.gishcode.utils.visual.ColorUtils;
 import i.gishreloaded.gishcode.utils.visual.RenderUtils;
@@ -18,6 +18,7 @@ import i.gishreloaded.gishcode.value.BooleanValue;
 import i.gishreloaded.gishcode.value.Mode;
 import i.gishreloaded.gishcode.value.ModeValue;
 import i.gishreloaded.gishcode.value.Value;
+import i.gishreloaded.gishcode.wrappers.Wrapper;
 import net.minecraft.client.gui.GuiChat;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraftforge.client.event.RenderGameOverlayEvent.Text;

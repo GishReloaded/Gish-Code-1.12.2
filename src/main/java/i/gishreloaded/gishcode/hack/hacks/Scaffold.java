@@ -5,14 +5,17 @@ import java.util.Random;
 import i.gishreloaded.gishcode.hack.Hack;
 import i.gishreloaded.gishcode.hack.HackCategory;
 import i.gishreloaded.gishcode.utils.BlockData;
+import i.gishreloaded.gishcode.utils.BlockUtils;
+
 import i.gishreloaded.gishcode.utils.RobotUtils;
 import i.gishreloaded.gishcode.utils.TimerUtils;
 import i.gishreloaded.gishcode.utils.Utils;
-import i.gishreloaded.gishcode.utils.system.Wrapper;
 import i.gishreloaded.gishcode.utils.visual.RenderUtils;
 import i.gishreloaded.gishcode.value.Mode;
 import i.gishreloaded.gishcode.value.ModeValue;
+import i.gishreloaded.gishcode.wrappers.Wrapper;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockSand;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.init.Blocks;
@@ -131,7 +134,7 @@ public class Scaffold extends Hack{
 		if(!check()) {
 			if(isBridging) {
 				KeyBinding.setKeyBindState(Wrapper.INSTANCE.mcSettings().keyBindSneak.getKeyCode(),
-						Utils.isBlockMaterial(new BlockPos(player).down(), Blocks.AIR));
+						BlockUtils.isBlockMaterial(new BlockPos(player).down(), Blocks.AIR));
 				isBridging = false;
 				if(oldSlot != -1) {
 					player.inventory.currentItem = oldSlot;
@@ -149,34 +152,45 @@ public class Scaffold extends Hack{
 		KeyBinding.setKeyBindState(Wrapper.INSTANCE.mcSettings().keyBindLeft.getKeyCode(), false);
 		blockDown = new BlockPos(player).down();
 		float r1 = new Random().nextFloat();
-		if(r1 == 1.0f) {
-			r1--;
-		}
-		int newSlot = -1;
-        for (int i = 0; i < 9; ++i) {
-            final ItemStack stack = player.inventory.getStackInSlot(i);
-            if (stack != null 
-            		&& stack.getItem() instanceof ItemBlock 
-            		&& Block.getBlockFromItem(stack.getItem()).getDefaultState().getBlock().isFullBlock(Wrapper.INSTANCE.world().getBlockState(blockDown).getBlock().getDefaultState())) {
-                newSlot = i;
-                break;
-            }
-        }
-        if (newSlot == -1) {
-            return;
-        } 
+		if(r1 == 1.0f) r1--;
+		int newSlot = findSlotWithBlock();
+        if (newSlot == -1) return;
         oldSlot = player.inventory.currentItem;
         player.inventory.currentItem = newSlot;
 		player.rotationPitch = Utils.updateRotation(player.rotationPitch, (82.0f - r1), 15.0f);
     	int currentCPS = Utils.random(3, 4);
 		if(timer.isDelay(1000 / currentCPS)) {
 			RobotUtils.clickMouse(1);
-			Wrapper.INSTANCE.player().swingArm(EnumHand.MAIN_HAND);
+			Wrapper.INSTANCE.swingArm();
 			timer.setLastMS();
 		}
         isBridging = true;
         KeyBinding.setKeyBindState(Wrapper.INSTANCE.mcSettings().keyBindSneak.getKeyCode(), 
-        		Utils.isBlockMaterial(new BlockPos(player).down(), Blocks.AIR));
+        		BlockUtils.isBlockMaterial(new BlockPos(player).down(), Blocks.AIR));
+	}
+	
+	void Simple() {
+		blockDown = new BlockPos(Wrapper.INSTANCE.player()).down();
+        if (!BlockUtils.getBlock(blockDown).getMaterial(BlockUtils.getBlock(blockDown).getDefaultState()).isReplaceable()) return;
+		int newSlot = findSlotWithBlock();
+        if (newSlot == -1) return;
+        final int oldSlot = Wrapper.INSTANCE.inventory().currentItem;
+        Wrapper.INSTANCE.inventory().currentItem = newSlot;
+        Utils.placeBlockScaffold(blockDown);
+        Wrapper.INSTANCE.inventory().currentItem = oldSlot;
+	}
+	
+	public int findSlotWithBlock() {
+		for (int i = 0; i < 9; ++i) {
+            final ItemStack stack = Wrapper.INSTANCE.inventory().getStackInSlot(i);
+            if(stack != null && stack.getItem() instanceof ItemBlock) {
+            	Block block = Block.getBlockFromItem(stack.getItem()).getDefaultState().getBlock();
+            	if(block.isFullBlock(BlockUtils.getBlock(blockDown).getDefaultState()) && block != Blocks.SAND && block != Blocks.GRAVEL){
+            		return i;
+            	}
+            }
+        }
+		return -1;
 	}
     
     boolean check() {
@@ -197,28 +211,4 @@ public class Scaffold extends Hack{
 		}
 		return true;
     }
-    
-	void Simple() {
-		blockDown = new BlockPos(Wrapper.INSTANCE.player()).down();
-        if (!Wrapper.INSTANCE.world().getBlockState(blockDown).getBlock().getMaterial(Wrapper.INSTANCE.world().getBlockState(blockDown).getBlock().getDefaultState()).isReplaceable()) {
-            return;
-        }
-        int newSlot = -1;
-        for (int i = 0; i < 9; ++i) {
-            final ItemStack stack = Wrapper.INSTANCE.player().inventory.getStackInSlot(i);
-            if (stack != null 
-            		&& stack.getItem() instanceof ItemBlock 
-            		&& Block.getBlockFromItem(stack.getItem()).getDefaultState().getBlock().isFullBlock(Wrapper.INSTANCE.world().getBlockState(blockDown).getBlock().getDefaultState())) {
-                newSlot = i;
-                break;
-            }
-        }
-        if (newSlot == -1) {
-            return;
-        }
-        final int oldSlot = Wrapper.INSTANCE.player().inventory.currentItem;
-        Wrapper.INSTANCE.player().inventory.currentItem = newSlot;
-        Utils.placeBlockScaffold(blockDown);
-        Wrapper.INSTANCE.player().inventory.currentItem = oldSlot;
-	}
 }

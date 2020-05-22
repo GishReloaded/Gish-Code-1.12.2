@@ -2,8 +2,9 @@ package i.gishreloaded.gishcode.command;
 
 import java.math.BigInteger;
 
-import i.gishreloaded.gishcode.utils.system.Wrapper;
+
 import i.gishreloaded.gishcode.utils.visual.ChatUtils;
+import i.gishreloaded.gishcode.wrappers.Wrapper;
 import net.minecraft.item.ItemStack;
 
 public class VClip extends Command
@@ -19,7 +20,7 @@ public class VClip extends Command
 		try
 		{
 				Wrapper.INSTANCE.player().setPosition(Wrapper.INSTANCE.player().posX,
-						Wrapper.INSTANCE.player().posY + new BigInteger(args[0]).longValue(),Wrapper.INSTANCE.player().posZ);
+						Wrapper.INSTANCE.player().posY + new BigInteger(args[0]).longValue(), Wrapper.INSTANCE.player().posZ);
 				//Wrapper.INSTANCE.player().setPosition(Wrapper.INSTANCE.player().posX,
 						//Wrapper.INSTANCE.player().posY + Integer.valueOf(args[0]), Wrapper.INSTANCE.player().posZ);
 			ChatUtils.message("Height teleported to " + new BigInteger(args[0]).longValue());

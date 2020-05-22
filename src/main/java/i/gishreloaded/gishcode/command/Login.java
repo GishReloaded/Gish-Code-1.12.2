@@ -1,8 +1,8 @@
 package i.gishreloaded.gishcode.command;
 
 import i.gishreloaded.gishcode.utils.LoginUtils;
-import i.gishreloaded.gishcode.utils.system.Wrapper;
 import i.gishreloaded.gishcode.utils.visual.ChatUtils;
+import i.gishreloaded.gishcode.wrappers.Wrapper;
 import net.minecraft.item.ItemStack;
 
 public class Login extends Command

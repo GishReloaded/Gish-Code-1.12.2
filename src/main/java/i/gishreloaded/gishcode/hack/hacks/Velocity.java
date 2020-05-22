@@ -7,14 +7,15 @@ import i.gishreloaded.gishcode.hack.Hack;
 import i.gishreloaded.gishcode.hack.HackCategory;
 import i.gishreloaded.gishcode.utils.Utils;
 import i.gishreloaded.gishcode.utils.system.Mapping;
-import i.gishreloaded.gishcode.utils.system.Wrapper;
 import i.gishreloaded.gishcode.utils.system.Connection.Side;
 import i.gishreloaded.gishcode.utils.visual.ChatUtils;
+
 import i.gishreloaded.gishcode.utils.TimerUtils;
 import i.gishreloaded.gishcode.value.BooleanValue;
 import i.gishreloaded.gishcode.value.Mode;
 import i.gishreloaded.gishcode.value.ModeValue;
 import i.gishreloaded.gishcode.value.NumberValue;
+import i.gishreloaded.gishcode.wrappers.Wrapper;
 import io.netty.buffer.Unpooled;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;

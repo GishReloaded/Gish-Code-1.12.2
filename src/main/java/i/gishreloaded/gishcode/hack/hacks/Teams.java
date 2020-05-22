@@ -12,9 +12,7 @@ public class Teams extends Hack{
 	
 	public Teams() {
 		super("Teams", HackCategory.ANOTHER);
-		
 		this.mode = new ModeValue("Mode", new Mode("Base", false), new Mode("ArmorColor", false), new Mode("NameColor", true));
-		
 		this.addValue(mode);
 	}
 

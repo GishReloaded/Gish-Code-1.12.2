@@ -13,13 +13,14 @@ import i.gishreloaded.gishcode.hack.Hack;
 import i.gishreloaded.gishcode.hack.HackCategory;
 import i.gishreloaded.gishcode.utils.BlockUtils;
 import i.gishreloaded.gishcode.utils.PlayerControllerUtils;
+
 import i.gishreloaded.gishcode.utils.TimerUtils;
 import i.gishreloaded.gishcode.utils.Utils;
-import i.gishreloaded.gishcode.utils.system.Wrapper;
 import i.gishreloaded.gishcode.utils.visual.RenderUtils;
 import i.gishreloaded.gishcode.value.Mode;
 import i.gishreloaded.gishcode.value.ModeValue;
 import i.gishreloaded.gishcode.value.NumberValue;
+import i.gishreloaded.gishcode.wrappers.Wrapper;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.entity.EntityPlayerSP;
@@ -53,7 +54,7 @@ public class Nuker extends Hack{
 	public void onDisable() {
 		if(currentBlock != null) {
 			PlayerControllerUtils.setIsHittingBlock(true);
-			Wrapper.INSTANCE.mc().playerController.resetBlockRemoving();
+			Wrapper.INSTANCE.controller().resetBlockRemoving();
 			currentBlock = null;
 		}
 		prevBlocks.clear();
@@ -80,7 +81,7 @@ public class Nuker extends Hack{
 				.sorted(Comparator.comparingDouble(pos -> eyesPos.squareDistanceTo(new Vec3d(pos))));
 		
 		if(mode.getMode("ID").isToggled()) {
-			stream = stream.filter(pos -> Block.getIdFromBlock(Wrapper.INSTANCE.world().getBlockState(pos).getBlock()) == id);
+			stream = stream.filter(pos -> Block.getIdFromBlock(BlockUtils.getBlock(pos)) == id);
 		} 
 		else if(mode.getMode("All").isToggled()) {
 			//stream = stream.filter(pos -> BlockUtils.getHardness(pos) >= 1);
@@ -106,7 +107,7 @@ public class Nuker extends Hack{
 				currentBlock = blocks2.get(0);
 			}
 			
-			Wrapper.INSTANCE.mc().playerController.resetBlockRemoving();
+			Wrapper.INSTANCE.controller().resetBlockRemoving();
 			progress = 1;
 			prevProgress = 1;
 			BlockUtils.breakBlocksPacketSpam(blocks2);
@@ -120,7 +121,7 @@ public class Nuker extends Hack{
 			}
 		
 		if(currentBlock == null) {
-			Wrapper.INSTANCE.mc().playerController.resetBlockRemoving();
+			Wrapper.INSTANCE.controller().resetBlockRemoving();
 		}
 		
 		if(currentBlock != null && BlockUtils.getHardness(currentBlock) < 1) {
@@ -141,7 +142,7 @@ public class Nuker extends Hack{
 	@Override
 	public void onLeftClickBlock(LeftClickBlock event) {
 		if(mode.getMode("ID").isToggled() && Wrapper.INSTANCE.world().isRemote) {
-			IBlockState blockState = Wrapper.INSTANCE.world().getBlockState(event.getPos());
+			IBlockState blockState = BlockUtils.getState(event.getPos());
 			id = Block.getIdFromBlock(blockState.getBlock());
 		}
 		super.onLeftClickBlock(event);

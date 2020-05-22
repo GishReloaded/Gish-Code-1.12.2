@@ -5,11 +5,12 @@ import i.gishreloaded.gishcode.hack.HackCategory;
 import i.gishreloaded.gishcode.managers.EnemyManager;
 import i.gishreloaded.gishcode.managers.FriendManager;
 import i.gishreloaded.gishcode.managers.HackManager;
+
 import i.gishreloaded.gishcode.utils.Utils;
 import i.gishreloaded.gishcode.utils.ValidUtils;
-import i.gishreloaded.gishcode.utils.system.Wrapper;
 import i.gishreloaded.gishcode.utils.visual.RenderUtils;
 import i.gishreloaded.gishcode.value.BooleanValue;
+import i.gishreloaded.gishcode.wrappers.Wrapper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
@@ -28,7 +29,7 @@ public class ESP extends Hack{
 	
 	@Override
 	public void onRenderWorldLast(RenderWorldLastEvent event) {
-		for (Object object : Wrapper.INSTANCE.world().loadedEntityList) {
+		for (Object object : Utils.getEntityList()) {
 			if(object instanceof EntityLivingBase && !(object instanceof EntityArmorStand)) {
 				EntityLivingBase entity = (EntityLivingBase)object;
 				this.render(entity, event.getPartialTicks());

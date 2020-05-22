@@ -3,7 +3,7 @@ package i.gishreloaded.gishcode.utils;
 import java.lang.reflect.Field;
 
 import i.gishreloaded.gishcode.utils.system.Mapping;
-import i.gishreloaded.gishcode.utils.system.Wrapper;
+import i.gishreloaded.gishcode.wrappers.Wrapper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.PlayerControllerMP;
 import net.minecraft.client.network.NetHandlerPlayClient;
@@ -50,7 +50,7 @@ public class PlayerControllerUtils {
     	try {
     		Field field = PlayerControllerMP.class.getDeclaredField(Mapping.isHittingBlock);
     		field.setAccessible(true);
-    		field.setBoolean(Wrapper.INSTANCE.mc().playerController, isHittingBlock);
+    		field.setBoolean(Wrapper.INSTANCE.controller(), isHittingBlock);
     	} catch (Exception ex) {}
 	}
 	
@@ -58,7 +58,7 @@ public class PlayerControllerUtils {
     	try {
     		Field field = PlayerControllerMP.class.getDeclaredField(Mapping.blockHitDelay);
         	field.setAccessible(true);
-        	field.setInt(Wrapper.INSTANCE.mc().playerController, blockHitDelay);
+        	field.setInt(Wrapper.INSTANCE.controller(), blockHitDelay);
     	} catch (Exception ex) {}
     }
 	
@@ -67,7 +67,7 @@ public class PlayerControllerUtils {
 		try {
 			Field field = PlayerControllerMP.class.getDeclaredField(Mapping.curBlockDamageMP);
 			field.setAccessible(true);
-			getCurBlockDamageMP =  field.getFloat(Wrapper.INSTANCE.mc().playerController);	
+			getCurBlockDamageMP =  field.getFloat(Wrapper.INSTANCE.controller());	
 		} catch (Exception ex) {}
 		return getCurBlockDamageMP;
 	}

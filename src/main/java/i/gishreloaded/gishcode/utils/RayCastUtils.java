@@ -6,7 +6,7 @@ import org.codehaus.plexus.util.reflection.Reflector;
 
 import com.google.common.base.Predicates;
 
-import i.gishreloaded.gishcode.utils.system.Wrapper;
+import i.gishreloaded.gishcode.wrappers.Wrapper;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.EntitySelectors;
 import net.minecraft.util.math.AxisAlignedBB;

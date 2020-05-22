@@ -19,12 +19,12 @@ import com.google.gson.JsonParser;
 
 import i.gishreloaded.gishcode.Main;
 import i.gishreloaded.gishcode.hack.Hack;
-import i.gishreloaded.gishcode.utils.system.Wrapper;
 import i.gishreloaded.gishcode.value.BooleanValue;
 import i.gishreloaded.gishcode.value.Mode;
 import i.gishreloaded.gishcode.value.ModeValue;
 import i.gishreloaded.gishcode.value.NumberValue;
 import i.gishreloaded.gishcode.value.Value;
+import i.gishreloaded.gishcode.wrappers.Wrapper;
 import i.gishreloaded.gishcode.xray.XRayData;
 
 public class FileManager {

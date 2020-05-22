@@ -3,11 +3,12 @@ package i.gishreloaded.gishcode.hack.hacks;
 import i.gishreloaded.gishcode.hack.Hack;
 import i.gishreloaded.gishcode.hack.HackCategory;
 import i.gishreloaded.gishcode.utils.Utils;
-import i.gishreloaded.gishcode.utils.system.Wrapper;
+
 import i.gishreloaded.gishcode.utils.TimerUtils;
 import i.gishreloaded.gishcode.value.BooleanValue;
 import i.gishreloaded.gishcode.value.Mode;
 import i.gishreloaded.gishcode.value.ModeValue;
+import i.gishreloaded.gishcode.wrappers.Wrapper;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.network.play.client.CPacketPlayer;
 import net.minecraft.util.EnumHand;
@@ -42,7 +43,7 @@ public class Glide extends Hack{
         	Wrapper.INSTANCE.sendPacket(new CPacketPlayer.Position(player.posX, player.posY - 6, player.posZ, true));
         	player.motionX *= 0.2;
         	player.motionZ *= 0.2;
-        	Wrapper.INSTANCE.player().swingArm(EnumHand.MAIN_HAND);
+        	Wrapper.INSTANCE.swingArm();
 		}
 		super.onEnable();
 	}

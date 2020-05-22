@@ -9,13 +9,14 @@ import i.gishreloaded.gishcode.managers.FriendManager;
 import i.gishreloaded.gishcode.managers.HackManager;
 import i.gishreloaded.gishcode.utils.Utils;
 import i.gishreloaded.gishcode.utils.ValidUtils;
-import i.gishreloaded.gishcode.utils.system.Wrapper;
+
 import i.gishreloaded.gishcode.utils.RobotUtils;
 import i.gishreloaded.gishcode.utils.TimerUtils;
 import i.gishreloaded.gishcode.value.BooleanValue;
 import i.gishreloaded.gishcode.value.Mode;
 import i.gishreloaded.gishcode.value.ModeValue;
 import i.gishreloaded.gishcode.value.NumberValue;
+import i.gishreloaded.gishcode.wrappers.Wrapper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
@@ -63,6 +64,7 @@ public class Trigger extends Hack{
 	@Override
 	public void onDisable() {
 		this.target = null;
+		AutoShield.block(false);
 		super.onDisable();
 	}
 	
@@ -75,38 +77,40 @@ public class Trigger extends Hack{
 	
 	void attackTarget(EntityLivingBase target) {
         if (check(target)) {
-        	float sharpLevel = EnchantmentHelper.getModifierForCreature(Wrapper.INSTANCE.player().getHeldItemMainhand(), target.getCreatureAttribute());
         	if(this.autoDelay.getValue()) {
-        		if (Wrapper.INSTANCE.player().getCooledAttackStrength(0) == 1) {
-        			if(mode.getMode("Click").isToggled()){
-        				RobotUtils.clickMouse(0);
-        			} else {
-        				Wrapper.INSTANCE.mc().playerController.attackEntity(Wrapper.INSTANCE.player(), target);
-        				Wrapper.INSTANCE.player().swingArm(EnumHand.MAIN_HAND);
-						if (sharpLevel > 0.0f) {
-							Wrapper.INSTANCE.player().onEnchantmentCritical(target);
-       			 		}
-        			}
-        		}
+        		if (Wrapper.INSTANCE.player().getCooledAttackStrength(0) == 1)
+        			processAttack(target, false);
         	}
         	else
         	{
         		int currentCPS = Utils.random(minCPS.getValue().intValue(), maxCPS.getValue().intValue());
         		if(timer.isDelay(1000 / currentCPS)) {
-        			if(mode.getMode("Click").isToggled()){
-        				RobotUtils.clickMouse(0);
-        			} else {
-        				Wrapper.INSTANCE.sendPacket(new CPacketUseEntity(target));
-        				Wrapper.INSTANCE.player().swingArm(EnumHand.MAIN_HAND);
-						if (sharpLevel > 0.0f) {
-							Wrapper.INSTANCE.player().onEnchantmentCritical(target);
-       			 		}
-        			}
+        			processAttack(target, true);
             		timer.setLastMS();
             	}
         	}
+        	return;
         }
+        AutoShield.block(false);
     }
+	
+	public void processAttack(EntityLivingBase entity, boolean packet) {
+		AutoShield.block(false);
+		float sharpLevel = EnchantmentHelper.getModifierForCreature(Wrapper.INSTANCE.player().getHeldItemMainhand(), target.getCreatureAttribute());
+		if(mode.getMode("Click").isToggled()){
+			RobotUtils.clickMouse(0);
+		} else {
+			if(packet)
+				Wrapper.INSTANCE.sendPacket(new CPacketUseEntity(target));
+			else
+				Wrapper.INSTANCE.attack(target);
+			Wrapper.INSTANCE.swingArm();
+			if (sharpLevel > 0.0f) {
+				Wrapper.INSTANCE.player().onEnchantmentCritical(target);
+		 	}
+		}
+		AutoShield.block(true);
+	}
 	
 	void updateTarget() {
 		RayTraceResult object = Wrapper.INSTANCE.mc().objectMouseOver;
@@ -132,7 +136,7 @@ public class Trigger extends Hack{
 	
 	EntityLivingBase getClosestEntity(){
 		EntityLivingBase closestEntity = null;
- 		for (Object o : Wrapper.INSTANCE.world().loadedEntityList) {
+ 		for (Object o : Utils.getEntityList()) {
  			if(o instanceof EntityLivingBase && !(o instanceof EntityArmorStand)) {
  				EntityLivingBase entity = (EntityLivingBase)o;
  				if(check(entity)) {
@@ -144,58 +148,23 @@ public class Trigger extends Hack{
  		}
  		return closestEntity;
  	}
-    
-    public boolean isInAttackFOV(EntityLivingBase entity) {
-        return Utils.getDistanceFromMouse(entity) <= 50.0F;
-    }
-    
-    public boolean isInAttackRange(EntityLivingBase entity) {
-        return entity.getDistance(Wrapper.INSTANCE.player()) <= 4.7F;
-    }
 	
 	public boolean check(EntityLivingBase entity) {
-		if(entity instanceof EntityArmorStand) {
-			return false;
-		}
-		if(ValidUtils.isValidEntity(entity)){
-			return false;
-		}
-		if(!ValidUtils.isNoScreen()) {
-			return false;
-		}
-		if(entity == Wrapper.INSTANCE.player()) {
-			return false;
-		}
-		if(entity.isDead) {
-			return false;
-		}
-		if(ValidUtils.isBot(entity)) {
-			return false;
-		}
-		if(!ValidUtils.isFriendEnemy(entity)) {
-			return false;
-		}
-    	if(!ValidUtils.isInvisible(entity)) {
-			return false;
-		}
+		if(entity instanceof EntityArmorStand) { return false; }
+		if(ValidUtils.isValidEntity(entity)){ return false; }
+		if(!ValidUtils.isNoScreen()) { return false; }
+		if(entity == Wrapper.INSTANCE.player()) { return false; }
+		if(entity.isDead) { return false; }
+		if(ValidUtils.isBot(entity)) { return false; }
+		if(!ValidUtils.isFriendEnemy(entity)) { return false; }
+    	if(!ValidUtils.isInvisible(entity)) { return false; }
 		if(advanced.getValue()) {
-			if(!isInAttackFOV(entity)) {
-				return false;
-			}
-			if(!isInAttackRange(entity)) {
-				return false;
-			}
+			if(!ValidUtils.isInAttackFOV(entity, 50)) { return false; }
+			if(!ValidUtils.isInAttackRange(entity, 4.7F)) { return false; }
 		}
-		if(!ValidUtils.isTeam(entity)) {
-			return false;
-		}
-    	if(!ValidUtils.pingCheck(entity)) {
-    		return false;
-    	}
-		if(!Wrapper.INSTANCE.player().canEntityBeSeen(entity)){
-			return false;
-		}
-		
+		if(!ValidUtils.isTeam(entity)) { return false; }
+    	if(!ValidUtils.pingCheck(entity)) { return false; }
+		if(!Wrapper.INSTANCE.player().canEntityBeSeen(entity)){ return false; }
 		return true;
     }
 }

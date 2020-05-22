@@ -2,9 +2,11 @@ package i.gishreloaded.gishcode.hack.hacks;
 
 import i.gishreloaded.gishcode.hack.Hack;
 import i.gishreloaded.gishcode.hack.HackCategory;
-import i.gishreloaded.gishcode.utils.system.Wrapper;
+
+import i.gishreloaded.gishcode.utils.Utils;
 import i.gishreloaded.gishcode.utils.visual.ColorUtils;
 import i.gishreloaded.gishcode.utils.visual.RenderUtils;
+import i.gishreloaded.gishcode.wrappers.Wrapper;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.client.event.RenderGameOverlayEvent.Text;
@@ -20,7 +22,7 @@ public class PlayerRadar extends Hack{
 		int y = 2;
 		ScaledResolution sr = new ScaledResolution(Wrapper.INSTANCE.mc());
 		
-		for(Object o : Wrapper.INSTANCE.world().loadedEntityList) {
+		for(Object o : Utils.getEntityList()) {
 			if(o instanceof EntityPlayer) {
 				
 				EntityPlayer e = (EntityPlayer) o;

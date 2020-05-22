@@ -4,8 +4,9 @@ import java.lang.reflect.Field;
 
 import i.gishreloaded.gishcode.hack.Hack;
 import i.gishreloaded.gishcode.hack.HackCategory;
+
 import i.gishreloaded.gishcode.utils.system.Mapping;
-import i.gishreloaded.gishcode.utils.system.Wrapper;
+import i.gishreloaded.gishcode.wrappers.Wrapper;
 import net.minecraft.client.multiplayer.PlayerControllerMP;
 import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
 

@@ -33,8 +33,9 @@ import org.lwjgl.opengl.GL11;
 import i.gishreloaded.gishcode.hack.hacks.ClickGui;
 import i.gishreloaded.gishcode.hack.hacks.KillAura;
 import i.gishreloaded.gishcode.hack.hacks.Scaffold;
+
 import i.gishreloaded.gishcode.utils.TimerUtils;
-import i.gishreloaded.gishcode.utils.system.Wrapper;
+import i.gishreloaded.gishcode.wrappers.Wrapper;
 import i.gishreloaded.gishcode.xray.XRayBlock;
 import i.gishreloaded.gishcode.xray.XRayData;
 import net.minecraft.block.state.IBlockState;

@@ -4,8 +4,8 @@ import i.gishreloaded.gishcode.managers.EnemyManager;
 import i.gishreloaded.gishcode.managers.FriendManager;
 import i.gishreloaded.gishcode.utils.LoginUtils;
 import i.gishreloaded.gishcode.utils.Utils;
-import i.gishreloaded.gishcode.utils.system.Wrapper;
 import i.gishreloaded.gishcode.utils.visual.ChatUtils;
+import i.gishreloaded.gishcode.wrappers.Wrapper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 
@@ -23,7 +23,7 @@ public class Enemy extends Command
 		{
 			if(args[0].equalsIgnoreCase("add")) {
 				if(args[1].equalsIgnoreCase("all")) {
-					for(Object object : Wrapper.INSTANCE.world().loadedEntityList) {
+					for(Object object : Utils.getEntityList()) {
 						if(object instanceof EntityPlayer) {
 							EntityPlayer player = (EntityPlayer) object;
 							if(!player.isInvisible()) {

@@ -6,10 +6,11 @@ import java.util.List;
 
 import i.gishreloaded.gishcode.hack.Hack;
 import i.gishreloaded.gishcode.hack.HackCategory;
+
 import i.gishreloaded.gishcode.utils.TimerUtils;
-import i.gishreloaded.gishcode.utils.system.Wrapper;
 import i.gishreloaded.gishcode.utils.system.Connection.Side;
 import i.gishreloaded.gishcode.utils.visual.ChatUtils;
+import i.gishreloaded.gishcode.wrappers.Wrapper;
 import joptsimple.internal.Strings;
 import net.minecraft.network.play.client.CPacketTabComplete;
 import net.minecraft.network.play.server.SPacketTabComplete;

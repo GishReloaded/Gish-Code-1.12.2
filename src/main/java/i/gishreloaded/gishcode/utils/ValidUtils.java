@@ -5,12 +5,28 @@ import i.gishreloaded.gishcode.hack.hacks.AntiBot;
 import i.gishreloaded.gishcode.managers.EnemyManager;
 import i.gishreloaded.gishcode.managers.FriendManager;
 import i.gishreloaded.gishcode.managers.HackManager;
-import i.gishreloaded.gishcode.utils.system.Wrapper;
+import i.gishreloaded.gishcode.wrappers.Wrapper;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 
 public class ValidUtils {
+	
+	public static boolean isLowHealth(EntityLivingBase entity, EntityLivingBase entityPriority) {
+		return entityPriority == null || entity.getHealth() < entityPriority.getHealth();
+	}
+	
+	public static boolean isClosest(EntityLivingBase entity, EntityLivingBase entityPriority) {
+		return entityPriority == null || Wrapper.INSTANCE.player().getDistance(entity) < Wrapper.INSTANCE.player().getDistance(entityPriority);
+	}
+	
+    public static boolean isInAttackFOV(EntityLivingBase entity, int fov) {
+        return Utils.getDistanceFromMouse(entity) <= fov;
+    }
+    
+    public static boolean isInAttackRange(EntityLivingBase entity, float range) {
+        return entity.getDistance(Wrapper.INSTANCE.player()) <= range;
+    }
 	
     public static boolean isValidEntity(EntityLivingBase e) {
 		Hack targets = HackManager.getHack("Targets");
@@ -101,7 +117,7 @@ public class ValidUtils {
 	}
 	public static boolean isNoScreen() {
 		if(HackManager.getHack("NoScreenEvents").isToggled()) {
-			if(!Utils.checkScreen()) {
+			if(!Utils.screenCheck()) {
 				return false;
 			}
 		}

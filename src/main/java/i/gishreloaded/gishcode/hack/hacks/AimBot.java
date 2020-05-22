@@ -5,13 +5,14 @@ import i.gishreloaded.gishcode.hack.HackCategory;
 import i.gishreloaded.gishcode.managers.EnemyManager;
 import i.gishreloaded.gishcode.managers.FriendManager;
 import i.gishreloaded.gishcode.managers.HackManager;
+
 import i.gishreloaded.gishcode.utils.Utils;
 import i.gishreloaded.gishcode.utils.ValidUtils;
-import i.gishreloaded.gishcode.utils.system.Wrapper;
 import i.gishreloaded.gishcode.value.BooleanValue;
 import i.gishreloaded.gishcode.value.Mode;
 import i.gishreloaded.gishcode.value.ModeValue;
 import i.gishreloaded.gishcode.value.NumberValue;
+import i.gishreloaded.gishcode.wrappers.Wrapper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
@@ -62,7 +63,7 @@ public class AimBot extends Hack{
 	}
 
 	void updateTarget(){
-		for (Object object : Wrapper.INSTANCE.world().loadedEntityList) {
+		for (Object object : Utils.getEntityList()) {
 			if(object instanceof EntityLivingBase) {
 				EntityLivingBase entity = (EntityLivingBase) object;
 				if(check(entity)) {
@@ -73,71 +74,25 @@ public class AimBot extends Hack{
 	}
 	
 	public boolean check(EntityLivingBase entity) {
-		if(entity instanceof EntityArmorStand) {
-			return false;
-		}
-		if(ValidUtils.isValidEntity(entity)){
-			return false;
-		}
-		if(!ValidUtils.isNoScreen()) {
-			return false;
-		}
-		if(entity == Wrapper.INSTANCE.player()) {
-			return false;
-		}
-		if(entity.isDead) {
-			return false;
-		}
-		if(ValidUtils.isBot(entity)) {
-			return false;
-		}
-		if(!ValidUtils.isFriendEnemy(entity)) {
-			return false;
-		}
-    	if(!ValidUtils.isInvisible(entity)) {
-			return false;
-		}
-    	if(!isInAttackFOV(entity)) {
-			return false;
-		}
-		if(!isInAttackRange(entity)) {
-			return false;
-		}
-		if(!ValidUtils.isTeam(entity)) {
-			return false;
-		}
-    	if(!ValidUtils.pingCheck(entity)) {
-    		return false;
-    	}
-    	if(!isPriority(entity)) {
-			return false;
-		}
-		if(!this.walls.getValue()) {
-			if(!Wrapper.INSTANCE.player().canEntityBeSeen(entity)) {
-				return false;
-			}
-		}
+		if(entity instanceof EntityArmorStand) { return false; }
+		if(ValidUtils.isValidEntity(entity)){ return false; }
+		if(!ValidUtils.isNoScreen()) { return false; }
+		if(entity == Wrapper.INSTANCE.player()) { return false; }
+		if(entity.isDead) { return false; }
+		if(ValidUtils.isBot(entity)) { return false; }
+		if(!ValidUtils.isFriendEnemy(entity)) { return false; }
+    	if(!ValidUtils.isInvisible(entity)) { return false; }
+    	if(!ValidUtils.isInAttackFOV(entity, FOV.getValue().intValue())) { return false; }
+		if(!ValidUtils.isInAttackRange(entity, range.getValue().floatValue())) { return false; }
+		if(!ValidUtils.isTeam(entity)) { return false; }
+    	if(!ValidUtils.pingCheck(entity)) { return false; }
+    	if(!isPriority(entity)) { return false; }
+		if(!this.walls.getValue()) { if(!Wrapper.INSTANCE.player().canEntityBeSeen(entity)) { return false; } }
 		return true;
     }
 
 	boolean isPriority(EntityLivingBase entity) {
-		return priority.getMode("Closest").isToggled() && isClosest(entity, target) || priority.getMode("Health").isToggled() && isLowHealth(entity, target);
+		return priority.getMode("Closest").isToggled() && ValidUtils.isClosest(entity, target) || priority.getMode("Health").isToggled() && ValidUtils.isLowHealth(entity, target);
 	}
-
-	boolean isLowHealth(EntityLivingBase entity, EntityLivingBase entityPriority) {
-		return entityPriority == null || entity.getHealth() < entityPriority.getHealth();
-	}
-
-	boolean isClosest(EntityLivingBase entity, EntityLivingBase entityPriority) {
-		return entityPriority == null || Wrapper.INSTANCE.player().getDistance(entity) < Wrapper.INSTANCE.player().getDistance(entityPriority);
-	}
-    
-    public boolean isInAttackFOV(EntityLivingBase entity) {
-        return Utils.getDistanceFromMouse(entity) <= FOV.getValue().intValue();
-    }
-    
-    public boolean isInAttackRange(EntityLivingBase entity) {
-        return entity.getDistance(Wrapper.INSTANCE.player()) <= range.getValue().floatValue();
-    }
 
 }

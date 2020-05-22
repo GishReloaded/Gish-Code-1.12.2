@@ -8,13 +8,15 @@ import com.mojang.authlib.GameProfile;
 import i.gishreloaded.gishcode.hack.Hack;
 import i.gishreloaded.gishcode.hack.HackCategory;
 import i.gishreloaded.gishcode.managers.HackManager;
+import i.gishreloaded.gishcode.utils.BlockUtils;
 import i.gishreloaded.gishcode.utils.EntityBot;
+
 import i.gishreloaded.gishcode.utils.Utils;
-import i.gishreloaded.gishcode.utils.system.Wrapper;
 import i.gishreloaded.gishcode.utils.system.Connection.Side;
 import i.gishreloaded.gishcode.utils.visual.ChatUtils;
 import i.gishreloaded.gishcode.value.BooleanValue;
 import i.gishreloaded.gishcode.value.NumberValue;
+import i.gishreloaded.gishcode.wrappers.Wrapper;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.network.NetworkPlayerInfo;
 import net.minecraft.entity.Entity;
@@ -74,7 +76,7 @@ public class AntiBot extends Hack{
 	@Override
 	public boolean onPacket(Object packet, Side side) {
 		if(gwen.getValue()) {
-			for (Object entity : Wrapper.INSTANCE.world().loadedEntityList) {
+			for (Object entity : Utils.getEntityList()) {
 				if (packet instanceof SPacketSpawnPlayer) {
 					SPacketSpawnPlayer spawn = (SPacketSpawnPlayer) packet;
 						double posX = spawn.getX() / 32.0D;
@@ -100,7 +102,7 @@ public class AntiBot extends Hack{
 		if (tick.getValue().intValue() > 0.0) {
 			bots.clear();
         }
-		for(Object object : Wrapper.INSTANCE.world().loadedEntityList) {
+		for(Object object : Utils.getEntityList()) {
 			if(object instanceof EntityLivingBase) {
 				EntityLivingBase entity = (EntityLivingBase) object;
 				if (!(entity instanceof EntityPlayerSP) 
@@ -162,7 +164,7 @@ public class AntiBot extends Hack{
 				&& bot.isInvisible() 
 				&& bot.motionY == 0.0 
 				&& bot.posY > Wrapper.INSTANCE.player().posY + 1.0 
-				&& Utils.isBlockMaterial(new BlockPos(bot).down(), Blocks.AIR)) {
+				&& BlockUtils.isBlockMaterial(new BlockPos(bot).down(), Blocks.AIR)) {
 			return true;
         }
 		if (ifGround.getValue()
@@ -206,7 +208,7 @@ public class AntiBot extends Hack{
 		if (ifInAir.getValue()
 				&& bot.isInvisible() 
 				&& bot.posY > Wrapper.INSTANCE.player().posY + 1.0 
-				&& Utils.isBlockMaterial(new BlockPos(bot).down(), Blocks.AIR)) {
+				&& BlockUtils.isBlockMaterial(new BlockPos(bot).down(), Blocks.AIR)) {
 			percentage++;
         }
 		if (ifGround.getValue()

@@ -13,11 +13,12 @@ import i.gishreloaded.gishcode.managers.FriendManager;
 import i.gishreloaded.gishcode.managers.HackManager;
 import i.gishreloaded.gishcode.utils.Utils;
 import i.gishreloaded.gishcode.utils.ValidUtils;
-import i.gishreloaded.gishcode.utils.system.Wrapper;
 import i.gishreloaded.gishcode.utils.visual.ColorUtils;
 import i.gishreloaded.gishcode.utils.visual.RenderUtils;
 import i.gishreloaded.gishcode.utils.MathUtils;
+
 import i.gishreloaded.gishcode.value.BooleanValue;
+import i.gishreloaded.gishcode.wrappers.Wrapper;
 import net.minecraft.client.entity.EntityOtherPlayerMP;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.gui.FontRenderer;
@@ -53,7 +54,7 @@ public class Profiler extends Hack{
 	
 	@Override
 	public void onRenderWorldLast(RenderWorldLastEvent event) {
-		for (Object object : Wrapper.INSTANCE.world().loadedEntityList) {
+		for (Object object : Utils.getEntityList()) {
 			if(object instanceof EntityLivingBase) {
 				EntityLivingBase entity = (EntityLivingBase)object;
 				RenderManager renderManager = Wrapper.INSTANCE.mc().getRenderManager();

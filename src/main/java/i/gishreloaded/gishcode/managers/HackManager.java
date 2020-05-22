@@ -11,11 +11,11 @@ import i.gishreloaded.gishcode.gui.click.ClickGuiScreen;
 import i.gishreloaded.gishcode.gui.click.theme.dark.DarkTheme;
 import i.gishreloaded.gishcode.hack.Hack;
 import i.gishreloaded.gishcode.hack.hacks.*;
-import i.gishreloaded.gishcode.utils.system.Wrapper;
 import i.gishreloaded.gishcode.utils.visual.ChatUtils;
 import i.gishreloaded.gishcode.value.Mode;
 import i.gishreloaded.gishcode.value.ModeValue;
 import i.gishreloaded.gishcode.value.Value;
+import i.gishreloaded.gishcode.wrappers.Wrapper;
 import net.minecraft.client.gui.GuiChat;
 import net.minecraftforge.client.event.EntityViewRenderEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
@@ -85,10 +85,12 @@ public class HackManager {
 		addHack(new Spider());
 		addHack(new AutoWalk());
 		addHack(new AutoSwim());
+		addHack(new AutoTotem());
+		addHack(new AutoShield());
+		addHack(new Rage());
 		addHack(new FastBreak());
 		addHack(new Disconnect());
-		//addHack(new FakeFace());
-		//addHack(new TestHack());
+		addHack(new GhostMode());
 		addHack(new HUD());
 		addHack(new ClickGui());
 	}
