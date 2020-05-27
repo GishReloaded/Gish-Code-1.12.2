@@ -116,7 +116,7 @@ public class ValidUtils {
 		return true;
 	}
 	public static boolean isNoScreen() {
-		if(HackManager.getHack("NoScreenEvents").isToggled()) {
+		if(HackManager.getHack("NoGUIEvents").isToggled()) {
 			if(!Utils.screenCheck()) {
 				return false;
 			}
