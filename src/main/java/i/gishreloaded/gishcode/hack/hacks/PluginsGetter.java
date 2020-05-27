@@ -23,6 +23,11 @@ public class PluginsGetter extends Hack{
 	}
 	
 	@Override
+	public String getDescription() {
+		return "Show all plugins on current server.";
+	}
+	
+	@Override
 	public void onEnable() {
 		if(Wrapper.INSTANCE.player() == null) {
             return;

@@ -22,6 +22,11 @@ public class AntiSneak extends Hack{
 	}
 	
 	@Override
+	public String getDescription() {
+		return "Does not change walking speed when sneak.";
+	}
+	
+	@Override
 	public boolean onPacket(Object packet, Side side) {
 		if(side == Side.OUT && packet instanceof CPacketEntityAction) {
 			CPacketEntityAction p = (CPacketEntityAction) packet;

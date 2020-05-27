@@ -27,6 +27,11 @@ public class Flight extends Hack{
 	}
 	
 	@Override
+	public String getDescription() {
+		return "Allows you to you fly.";
+	}
+	
+	@Override
 	public void onEnable() {
 		ticks = 0;
 		super.onEnable();

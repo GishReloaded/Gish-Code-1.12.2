@@ -38,7 +38,7 @@ public class GuiManager extends ClickGui {
         int framePosY = 20;
 
         for (HackCategory category : HackCategory.values()) {
-        	int frameHeight = 170;
+        	int frameHeight = 180;
         	int frameWidth = 100;
         	int hacksCount = 0;
                 String name = Character.toString(category.toString().toLowerCase().charAt(0)).toUpperCase() + category.toString().toLowerCase().substring(1);
@@ -50,7 +50,7 @@ public class GuiManager extends ClickGui {
 
                             @Override
                             public void onUpdate() {
-                                setEnabled(mod.isToggled());
+                                setEnabled(hack.isToggled());
                             }
                         };
                         expandingButton.addListner(new ComponentClickListener() {

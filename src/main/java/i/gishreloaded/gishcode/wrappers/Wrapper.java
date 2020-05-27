@@ -52,12 +52,4 @@ public class Wrapper {
 	public PlayerControllerMP controller() { 
 		return Wrapper.INSTANCE.mc().playerController; 
 	}
-	
-	public void swingArm() { 
-		this.player().swingArm(EnumHand.MAIN_HAND); 
-	}
-	
-	public void attack(Entity entity) { 
-		controller().attackEntity(player(), entity); 
-	}
 }

@@ -16,7 +16,7 @@ public class ExpandingButton extends Container {
     private boolean enabled = false, maximized = false;
     private int buttonHeight;
     private Component component;
-    private Hack mod;
+    public Hack hack;
 
 
     public ExpandingButton(int xPos, int yPos, int width, int buttonHeight, Component component, String text) {
@@ -25,11 +25,11 @@ public class ExpandingButton extends Container {
         this.component = component;
     }
 
-    public ExpandingButton(int xPos, int yPos, int width, int buttonHeight, Component component, String text, Hack mod) {
+    public ExpandingButton(int xPos, int yPos, int width, int buttonHeight, Component component, String text, Hack hack) {
         super(xPos, yPos, width, 0, ComponentType.EXPANDING_BUTTON, component, text);
         this.buttonHeight = buttonHeight;
         this.component = component;
-        this.mod = mod;
+        this.hack = hack;
     }
 
     @Override
@@ -169,6 +169,6 @@ public class ExpandingButton extends Container {
 
     public Hack getMod() {
 
-        return mod;
+        return hack;
     }
 }

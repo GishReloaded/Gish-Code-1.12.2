@@ -17,6 +17,11 @@ public class BlockOverlay extends Hack{
 	}
 	
 	@Override
+    public String getDescription() {
+        return "Show of selected block.";
+    }
+	
+	@Override
 	public void onRenderWorldLast(RenderWorldLastEvent event) {
 		if(Wrapper.INSTANCE.mc().objectMouseOver == null) {
 			return;

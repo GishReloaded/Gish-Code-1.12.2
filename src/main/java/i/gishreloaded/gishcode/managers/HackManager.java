@@ -18,6 +18,7 @@ import i.gishreloaded.gishcode.value.Value;
 import i.gishreloaded.gishcode.wrappers.Wrapper;
 import net.minecraft.client.gui.GuiChat;
 import net.minecraftforge.client.event.EntityViewRenderEvent;
+import net.minecraftforge.client.event.MouseEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.event.entity.ProjectileImpactEvent;
@@ -39,13 +40,13 @@ public class HackManager {
 		addHack(new Targets());
 		addHack(new Enemys());
 		addHack(new Teams());
-		addHack(new NoScreenEvents());
+		addHack(new NoGUIEvents());
 		addHack(new Glowing());
 		addHack(new Trajectories());
 		addHack(new XRay());
-		addHack(new ESP());
+		addHack(new EntityESP());
 		addHack(new ItemESP());
-		addHack(new StorageESP());
+		addHack(new ChestESP());
 		addHack(new Tracers());
 		addHack(new WallHack());
 		addHack(new Flight());
@@ -186,6 +187,14 @@ public class HackManager {
     		if(hack.getKey() == key) {
     			hack.toggle();
     			toggleHack = hack;
+    		}
+    	}
+	}
+	
+	public static void onMouse(MouseEvent event) {
+		for(Hack hack : getHacks()) {
+    		if(hack.isToggled()) {
+    			hack.onMouse(event);
     		}
     	}
 	}

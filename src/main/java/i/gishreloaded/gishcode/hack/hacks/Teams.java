@@ -15,5 +15,10 @@ public class Teams extends Hack{
 		this.mode = new ModeValue("Mode", new Mode("Base", false), new Mode("ArmorColor", false), new Mode("NameColor", true));
 		this.addValue(mode);
 	}
+	
+	@Override
+	public String getDescription() {
+		return "Ignore if player in your team.";
+	}
 
 }

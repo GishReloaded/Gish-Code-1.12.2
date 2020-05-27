@@ -89,6 +89,14 @@ public class Utils {
     	Wrapper.INSTANCE.controller().windowClick(windowId, slotId, mouseButton, type, Wrapper.INSTANCE.player());
     }
     
+    public static void swingMainHand() { 
+		Wrapper.INSTANCE.player().swingArm(EnumHand.MAIN_HAND); 
+	}
+	
+	public static void attack(Entity entity) { 
+		Wrapper.INSTANCE.controller().attackEntity(Wrapper.INSTANCE.player(), entity); 
+	}
+    
     public static double[] teleportToPosition(double[] startPosition, double[] endPosition, double setOffset, double slack, boolean extendOffset, boolean onGround) {
         boolean wasSneaking = false;
 
@@ -528,7 +536,7 @@ public class Utils {
                 final Vec3d hitVec = new Vec3d(neighbor).addVector(0.5, 0.5, 0.5).add(new Vec3d(side2.getDirectionVec()).scale(0.5));
                 if (eyesPos.squareDistanceTo(hitVec) <= 18.0625) {
                     Utils.faceVectorPacketInstant(hitVec);
-                    Wrapper.INSTANCE.swingArm();
+                    Utils.swingMainHand();
                     Wrapper.INSTANCE.controller().processRightClickBlock(Wrapper.INSTANCE.player(), Wrapper.INSTANCE.world(), neighbor, side2, hitVec, EnumHand.MAIN_HAND);
                     try {
                     	Field f = Minecraft.class.getDeclaredField("rightClickDelayTimer");

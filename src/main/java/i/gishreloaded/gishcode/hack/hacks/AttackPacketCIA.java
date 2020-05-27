@@ -20,6 +20,11 @@ public class AttackPacketCIA extends Hack{
 		super("AttackPacketCIA", HackCategory.ANOTHER);
 	}
 	
+	@Override
+	public String getDescription() {
+		return "Attack packets 'CPacketCreativeInventoryAction' on server.";
+	}
+	
 	//By Dark Light Neron
 	@Override
 	public void onEnable() {

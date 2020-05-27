@@ -27,6 +27,11 @@ public class AutoShield extends Hack{
 	}
 	
 	@Override
+	public String getDescription() {
+		return "Manages your shield automatically.";
+	}
+	
+	@Override
 	public void onClientTick(ClientTickEvent event) {
 		if(!Utils.screenCheck()) { this.blockByShield(false); }
 		super.onClientTick(event);

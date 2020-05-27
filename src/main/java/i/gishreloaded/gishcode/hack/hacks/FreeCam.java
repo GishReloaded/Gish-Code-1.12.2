@@ -19,6 +19,11 @@ public class FreeCam extends Hack{
 	}
 	
 	@Override
+	public String getDescription() {
+		return "Allows you to move the camera without moving your character.";
+	}
+	
+	@Override
 	public boolean onPacket(Object packet, Side side) {
 		return !(side == i.gishreloaded.gishcode.utils.system.Connection.Side.OUT && (packet instanceof CPacketPlayer
                 || packet instanceof CPacketPlayer.Position

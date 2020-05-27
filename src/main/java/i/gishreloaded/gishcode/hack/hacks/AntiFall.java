@@ -14,6 +14,11 @@ public class AntiFall extends Hack{
 	}
 	
 	@Override
+	public String getDescription() {
+		return "Gives you zero damage on fall.";
+	}
+	
+	@Override
 	public void onClientTick(ClientTickEvent event) { 
 		if(Wrapper.INSTANCE.player().fallDistance > 2) 
 			Wrapper.INSTANCE.sendPacket(new CPacketPlayer(true)); 

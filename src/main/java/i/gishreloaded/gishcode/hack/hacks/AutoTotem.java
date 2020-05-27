@@ -36,6 +36,11 @@ public class AutoTotem extends Hack{
 	}
 	
 	@Override
+	public String getDescription() {
+		return "Automatically takes a totem in offhand.";
+	}
+	
+	@Override
 	public void onEnable() {
 		this.timer = 0;
 		super.onEnable();

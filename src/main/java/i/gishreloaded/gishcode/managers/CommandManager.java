@@ -26,7 +26,8 @@ public class CommandManager
 		commands.add(new Login());
 		commands.add(new Say());
 		commands.add(new Effect());
-		commands.add(new PlayerFinder());
+		commands.add(new DumpPlayers());
+		commands.add(new DumpClasses());
 		commands.add(new Friend());
 		commands.add(new Enemy());
 		commands.add(new Toggle());

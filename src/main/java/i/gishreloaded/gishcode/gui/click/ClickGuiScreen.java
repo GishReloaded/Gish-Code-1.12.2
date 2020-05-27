@@ -10,6 +10,7 @@ import org.lwjgl.opengl.GL11;
 import i.gishreloaded.gishcode.Main;
 import i.gishreloaded.gishcode.command.Command;
 import i.gishreloaded.gishcode.gui.GuiTextField;
+import i.gishreloaded.gishcode.gui.Tooltip;
 import i.gishreloaded.gishcode.hack.Hack;
 import i.gishreloaded.gishcode.managers.CommandManager;
 import i.gishreloaded.gishcode.managers.FileManager;
@@ -24,11 +25,14 @@ import net.minecraft.client.gui.ScaledResolution;
 
 public class ClickGuiScreen extends GuiScreen {
 
-	public static String title = "Coded by Gish_Reloaded";
+	public static final String AUTHOR_TEXT = "Coded by Gish_Reloaded";
     public static ClickGui clickGui;
     public static int[] mouse = new int[2];
-    private static GuiTextField console;
+    public static Tooltip tooltip = null;
+    String title = AUTHOR_TEXT;
 	ArrayList cmds = new ArrayList();
+	GuiTextField console;
+	
 
 	public ClickGuiScreen() {
 		this.cmds.clear();
@@ -45,7 +49,9 @@ public class ClickGuiScreen extends GuiScreen {
    
    @Override
    public void drawScreen(int mouseX, int mouseY, float partialTicks) {
+	   	tooltip = null;
        	clickGui.render();
+       	if(tooltip != null) tooltip.render();
        	int mainColor = i.gishreloaded.gishcode.hack.hacks.ClickGui.isLight ? ColorUtils.color(255, 255, 255, 255) : ColorUtils.color(0, 0, 0, 255);
        	this.console.drawTextBox(i.gishreloaded.gishcode.hack.hacks.ClickGui.getColor(), mainColor);
 		this.console.setTextColor(i.gishreloaded.gishcode.hack.hacks.ClickGui.getColor());
@@ -76,7 +82,7 @@ public class ClickGuiScreen extends GuiScreen {
 	}
 	
 	void setTitle() {
-		if(!console.getText().equals("Coded by Gish_Reloaded")) title = "";
+		if(!console.getText().equals(AUTHOR_TEXT)) title = "";
 	}
 	
 	private boolean handleKeyScroll(int key) {

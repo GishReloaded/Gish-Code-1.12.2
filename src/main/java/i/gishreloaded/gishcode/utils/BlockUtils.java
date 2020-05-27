@@ -96,7 +96,7 @@ public final class BlockUtils
 			
 		}
 		Wrapper.INSTANCE.sendPacket(new CPacketPlayerTryUseItem(EnumHand.MAIN_HAND));
-		Wrapper.INSTANCE.swingArm();
+		Utils.swingMainHand();
 		return true;
 	}
 	

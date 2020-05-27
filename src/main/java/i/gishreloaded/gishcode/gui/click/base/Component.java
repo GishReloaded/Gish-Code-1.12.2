@@ -9,8 +9,6 @@ public class Component extends Interactable {
     private Component component;
 
     private String text;
-    
-    public int height = 0;
 
     public Component(int xPos, int yPos, int width, int height, ComponentType componentType, Component component, String text) {
 
@@ -21,7 +19,6 @@ public class Component extends Interactable {
     }
 
     public void render(int x, int y) {
-
         ClickGui.getTheme().getRenderer().get(componentType).drawComponent(this, x, y);
     }
 

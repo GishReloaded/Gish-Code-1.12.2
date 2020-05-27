@@ -14,6 +14,11 @@ public class Speed extends Hack{
 	public Speed() {
 		super("Speed", HackCategory.PLAYER);
 	}
+	
+	@Override
+	public String getDescription() {
+		return "You move faster.";
+	}
     
 	@Override
 	public void onClientTick(ClientTickEvent event) {

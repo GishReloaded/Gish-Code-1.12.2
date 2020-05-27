@@ -18,17 +18,32 @@ import net.minecraft.tileentity.TileEntityEnderChest;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 
-public class StorageESP extends Hack{
+public class ChestESP extends Hack{
 
 	private int maxChests = 1000;
 	public boolean shouldInform = true;
 	private TileEntityChest openChest;
 	private ArrayDeque<TileEntityChest> emptyChests = new ArrayDeque<TileEntityChest>();
 	private ArrayDeque<TileEntityChest> nonEmptyChests = new ArrayDeque<TileEntityChest>();
+	private String[] chestClasses = new String[] {
+			"TileEntityIronChest",
+			"TileEntityGoldChest",
+			"TileEntityDiamondChest",
+			"TileEntityCopperChest",
+			"TileEntitySilverChest",
+			"TileEntityCrystalChest",
+			"TileEntityObsidianChest",
+			"TileEntityDirtChest"
+			};
 	
-	public StorageESP() {
-		super("StorageESP", HackCategory.VISUAL);
+	public ChestESP() {
+		super("ChestESP", HackCategory.VISUAL);
 	}
+	
+	@Override
+    public String getDescription() {
+        return "Allows you to see all of the chests around you.";
+    }
 	
 	@Override
 	public void onEnable() {
@@ -78,6 +93,14 @@ public class StorageESP extends Hack{
 			} else if(tileEntity instanceof TileEntityEnderChest) {
 				chests++;
 				RenderUtils.drawBlockESP(((TileEntityEnderChest)tileEntity).getPos(), 1, 0, 1);
+			} else {
+				try {
+					for(String chestClass : chestClasses) {
+						Class clazz = Class.forName("cpw.mods.ironchest.common.tileentity.chest." + chestClass);
+						if(clazz != null && clazz.isInstance(tileEntity)) 
+							RenderUtils.drawBlockESP(tileEntity.getPos(), 0.7F, 0.7F, 0.7F);
+					}
+				} catch (ClassNotFoundException e) {}
 			}
 		}
 		

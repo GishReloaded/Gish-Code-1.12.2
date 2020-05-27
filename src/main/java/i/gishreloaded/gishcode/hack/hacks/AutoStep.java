@@ -39,6 +39,11 @@ public class AutoStep extends Hack{
 	}
 	
 	@Override
+    public String getDescription() {
+        return "Allows you to walk on value blocks height.";
+    }
+	
+	@Override
 	public void onEnable() {
 		ticks = 0;
 		super.onEnable();

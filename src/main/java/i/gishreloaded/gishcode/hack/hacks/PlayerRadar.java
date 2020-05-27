@@ -18,6 +18,11 @@ public class PlayerRadar extends Hack{
 	}
 	
 	@Override
+    public String getDescription() {
+        return "Show all players around you.";
+    }
+	
+	@Override
 	public void onRenderGameOverlay(Text event) {
 		int y = 2;
 		ScaledResolution sr = new ScaledResolution(Wrapper.INSTANCE.mc());

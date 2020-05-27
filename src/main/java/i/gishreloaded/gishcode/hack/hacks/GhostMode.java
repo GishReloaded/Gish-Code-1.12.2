@@ -23,6 +23,11 @@ public class GhostMode extends Hack{
 	}
 	
 	@Override
+	public String getDescription() {
+		return "Disable all hacks.";
+	}
+	
+	@Override
 	public void onEnable() {
 		if(this.getKey() == -1) 
 			return;

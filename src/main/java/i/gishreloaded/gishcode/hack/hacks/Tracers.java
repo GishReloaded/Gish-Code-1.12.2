@@ -26,6 +26,11 @@ public class Tracers extends Hack{
 	}
 	
 	@Override
+    public String getDescription() {
+        return "Traces a line to the players.";
+    }
+	
+	@Override
 	public void onRenderWorldLast(RenderWorldLastEvent event) {
 		for (Object object : Utils.getEntityList()) {
 			if(object instanceof EntityLivingBase  && !(object instanceof EntityArmorStand)) {

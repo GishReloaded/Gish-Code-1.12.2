@@ -35,6 +35,11 @@ public class ChestStealer extends Hack{
 	}
 	
 	@Override
+    public String getDescription() {
+        return "Steals all stuff from chest.";
+    }
+	
+	@Override
 	public boolean onPacket(Object packet, Side side) {
 		if(side == Side.IN && packet instanceof SPacketWindowItems) {
 			this.packet = (SPacketWindowItems)packet;

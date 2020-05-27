@@ -1,13 +1,17 @@
 package i.gishreloaded.gishcode.gui.click.theme.dark;
 
 import java.awt.Color;
+import java.awt.Point;
 
+import i.gishreloaded.gishcode.gui.Tooltip;
+import i.gishreloaded.gishcode.gui.click.ClickGuiScreen;
 import i.gishreloaded.gishcode.gui.click.base.Component;
 import i.gishreloaded.gishcode.gui.click.base.ComponentRenderer;
 import i.gishreloaded.gishcode.gui.click.base.ComponentType;
 import i.gishreloaded.gishcode.gui.click.elements.ExpandingButton;
 import i.gishreloaded.gishcode.gui.click.theme.Theme;
 import i.gishreloaded.gishcode.hack.hacks.ClickGui;
+import i.gishreloaded.gishcode.managers.HackManager;
 import i.gishreloaded.gishcode.utils.visual.ColorUtils;
 import i.gishreloaded.gishcode.utils.visual.GLUtils;
 import i.gishreloaded.gishcode.utils.visual.RenderUtils;
@@ -15,22 +19,16 @@ import i.gishreloaded.gishcode.utils.visual.RenderUtils;
 public class DarkExpandingButton extends ComponentRenderer {
 
     public DarkExpandingButton(Theme theme) {
-
         super(ComponentType.EXPANDING_BUTTON, theme);
     }
 
     @Override
     public void drawComponent(Component component, int mouseX, int mouseY) {
-
         ExpandingButton button = (ExpandingButton) component;
         String text = button.getText();
         
         int mainColor = ClickGui.isLight ? ColorUtils.color(255, 255, 255, 255) : ColorUtils.color(0, 0, 0, 255);
         int mainColorInv = ClickGui.isLight ? ColorUtils.color(0, 0, 0, 255) : ColorUtils.color(255, 255, 255, 255);
-        
-//        if (GLUtils.isHovered(button.getX(), button.getY(), button.getDimension().width, 14, mouseX, mouseY)) {
-//            RenderUtils.drawRect(button.getX(), button.getY() + button.getButtonHeight() - 1, button.getX() + button.getDimension().width, button.getY() + button.getButtonHeight(), ClickGui.color);
-//        }
         
         if (button.isEnabled()) {
             RenderUtils.drawRect(button.getX(), button.getY(), button.getX() + button.getDimension().width - 1, button.getY() + 14, 
@@ -62,10 +60,13 @@ public class DarkExpandingButton extends ComponentRenderer {
         if (button.isMaximized()) {
             button.renderChildren(mouseX, mouseY);
         }
+        
+        String description = button.hack.getDescription();
+        if(description != null && button.isMouseOver(mouseX, mouseY) && !button.isMaximized() && HackManager.getHack("ClickGui").isToggledValue("Tooltip")) {
+        	ClickGuiScreen.tooltip = new Tooltip(description, mouseX, mouseY, theme.fontRenderer);
+        }
     }
 
     @Override
-    public void doInteractions(Component component, int mouseX, int mouseY) {
-
-    }
+    public void doInteractions(Component component, int mouseX, int mouseY) {}
 }

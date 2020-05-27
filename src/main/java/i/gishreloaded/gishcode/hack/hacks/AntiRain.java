@@ -12,6 +12,11 @@ public class AntiRain extends Hack{
 	}
 	
 	@Override
+	public String getDescription() {
+		return "Stops rain.";
+	}
+	
+	@Override
 	public void onClientTick(ClientTickEvent event) {
         Wrapper.INSTANCE.world().setRainStrength(0.0f);
 		super.onClientTick(event);

@@ -15,6 +15,11 @@ public class AutoSprint extends Hack{
 	}
 	
 	@Override
+    public String getDescription() {
+        return "Sprints automatically when you should be walking.";
+    }
+	
+	@Override
 	public void onClientTick(ClientTickEvent event) {
 		if(this.canSprint()) {
 			Wrapper.INSTANCE.player().setSprinting(Utils.isMoving(Wrapper.INSTANCE.player()));

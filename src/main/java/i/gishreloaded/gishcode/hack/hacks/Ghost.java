@@ -25,6 +25,11 @@ public class Ghost extends Hack{
 	}
 	
 	@Override
+	public String getDescription() {
+		return "Allows you to pass through walls.";
+	}
+	
+	@Override
 	public boolean onPacket(Object packet, Side side) {
 		boolean skip = true;
 		if(noWalls.getValue()) {

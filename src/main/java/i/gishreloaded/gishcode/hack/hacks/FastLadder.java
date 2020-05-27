@@ -15,6 +15,11 @@ public class FastLadder extends Hack{
 	public FastLadder() {
 		super("FastLadder", HackCategory.PLAYER);
 	}
+	
+	@Override
+	public String getDescription() {
+		return "Allows you to climb up ladders faster.";
+	}
     
 	@Override
 	public void onClientTick(ClientTickEvent event) {

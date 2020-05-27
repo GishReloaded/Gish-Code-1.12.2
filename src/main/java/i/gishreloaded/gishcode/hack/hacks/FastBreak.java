@@ -20,6 +20,11 @@ public class FastBreak extends Hack{
 	}
 	
 	@Override
+	public String getDescription() {
+		return "Allows you to break blocks faster.";
+	}
+	
+	@Override
 	public void onClientTick(ClientTickEvent event) {
 		PlayerControllerUtils.setBlockHitDelay(0);
 		super.onClientTick(event);

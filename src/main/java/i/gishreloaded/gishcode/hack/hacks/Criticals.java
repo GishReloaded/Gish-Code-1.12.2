@@ -31,6 +31,11 @@ public class Criticals extends Hack{
 	}
 	
 	@Override
+	public String getDescription() {
+		return "Changes all your hits to critical hits.";
+	}
+	
+	@Override
 	public boolean onPacket(Object packet, Side side) {
 		if(Wrapper.INSTANCE.player().onGround) {
 			if(side == Side.OUT) {

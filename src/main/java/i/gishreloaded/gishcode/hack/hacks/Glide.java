@@ -37,13 +37,18 @@ public class Glide extends Hack{
 	}
 	
 	@Override
+	public String getDescription() {
+		return "Makes you glide down slowly when falling.";
+	}
+	
+	@Override
 	public void onEnable() {
 		if(damage.getValue()) {
         	EntityPlayerSP player = Wrapper.INSTANCE.player();
         	Wrapper.INSTANCE.sendPacket(new CPacketPlayer.Position(player.posX, player.posY - 6, player.posZ, true));
         	player.motionX *= 0.2;
         	player.motionZ *= 0.2;
-        	Wrapper.INSTANCE.swingArm();
+        	Utils.swingMainHand();
 		}
 		super.onEnable();
 	}

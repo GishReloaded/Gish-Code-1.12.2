@@ -26,6 +26,11 @@ public class InteractClick extends Hack{
 	}
 	
 	@Override
+	public String getDescription() {
+		return "Left - Add to Enemys, Rigth - Add to Friends, Wheel - Remove from All.";
+	}
+	
+	@Override
 	public void onClientTick(ClientTickEvent event) {
 		RayTraceResult object = Wrapper.INSTANCE.mc().objectMouseOver;
 		if(object == null) {

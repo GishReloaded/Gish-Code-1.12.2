@@ -48,7 +48,6 @@ public class ClickGui extends ClickGuiScreen {
     }
 
     public static Theme getTheme() {
-
         return theme;
     }
 
@@ -58,14 +57,12 @@ public class ClickGui extends ClickGuiScreen {
     }
 
     public void render() {
-
         for (Frame frame : frames) {
             frame.render(mouse[0], mouse[1]);
         }
     }
 
     public void onMouseUpdate(int x, int y) {
-
         for (Frame frame : frames) {
             for (Component component : frame.getComponents()) {
                 if (component.isMouseOver(x, y)) {
@@ -115,7 +112,6 @@ public class ClickGui extends ClickGuiScreen {
     }
 
     public void onMouseRelease(int x, int y) {
-
         for (Frame frame : frames) {
             if (frame.isMouseOver(x, y)) {
                 this.currentFrame = frame;
@@ -130,7 +126,6 @@ public class ClickGui extends ClickGuiScreen {
     }
 
     public void onMouseClick(int x, int y, int buttonID) {
-
         for (Frame frame : frames) {
             if (frame.isMouseOver(x, y)) {
                 this.currentFrame = frame;
@@ -146,11 +141,9 @@ public class ClickGui extends ClickGuiScreen {
     }
 
     public void onUpdate() {
-
         for (Frame frame : frames) {
             frame.updateComponents();
         }
-
     }
 
     public void addFrame(Frame frame) {

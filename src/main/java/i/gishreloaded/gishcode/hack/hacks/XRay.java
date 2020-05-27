@@ -23,7 +23,9 @@ public class XRay extends Hack{
 	public NumberValue delay;
 
 	public TimerUtils timer;
-    
+	
+	LinkedList<XRayBlock> blocks = new LinkedList<XRayBlock>();
+	
 	public XRay() {
 		super("XRay", HackCategory.VISUAL);
 		distance = new NumberValue("Distance", 50D, 4D, 100D);
@@ -31,8 +33,12 @@ public class XRay extends Hack{
 		timer = new TimerUtils();
 		this.addValue(distance, delay);
 	}
-	LinkedList<XRayBlock> blocks = new LinkedList<XRayBlock>();
 
+	@Override
+	public String getDescription() {
+		return "Allows you to see blocks through walls.";
+	}
+	
 	@Override
 	public void onEnable() {
 		blocks.clear();

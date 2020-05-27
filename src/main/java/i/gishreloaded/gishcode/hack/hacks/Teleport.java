@@ -70,6 +70,11 @@ public class Teleport extends Hack{
 	}
 	
 	@Override
+	public String getDescription() {
+		return "Teleports you on selected block.";
+	}
+	
+	@Override
 	public void onEnable() {
 		if(mode.getMode("Reach").isToggled()) {
 			reach = (float) Wrapper.INSTANCE.player().getEntityAttribute(EntityPlayer.REACH_DISTANCE).getAttributeValue();

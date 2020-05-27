@@ -13,6 +13,11 @@ public class NightVision extends Hack{
 	}
 	
 	@Override
+	public String getDescription() {
+		return "Gets you night vision.";
+	}
+	
+	@Override
 	public void onEnable() {
 		super.onEnable();
 	}

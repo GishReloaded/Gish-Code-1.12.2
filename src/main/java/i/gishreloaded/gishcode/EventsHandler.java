@@ -13,6 +13,7 @@ import i.gishreloaded.gishcode.utils.system.Connection;
 import i.gishreloaded.gishcode.utils.visual.ChatUtils;
 import i.gishreloaded.gishcode.wrappers.Wrapper;
 import net.minecraftforge.client.event.EntityViewRenderEvent;
+import net.minecraftforge.client.event.MouseEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.event.entity.ProjectileImpactEvent;
@@ -37,6 +38,19 @@ public class EventsHandler {
         }
         return suc;
     }
+	
+	@SubscribeEvent
+    public void onMouse(MouseEvent event) {
+		if(Utils.nullCheck()) return;
+    	try {
+    		HackManager.onMouse(event);
+    	} catch (RuntimeException ex) {
+    		ex.printStackTrace();
+    		ChatUtils.error("RuntimeException: onMouse");
+    		ChatUtils.error(ex.toString());
+    		Utils.copy(ex.toString());
+    	}
+	}
 	
 	@SubscribeEvent
     public void onKeyInput(InputEvent.KeyInputEvent event) {

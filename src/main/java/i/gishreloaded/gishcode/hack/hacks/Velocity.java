@@ -45,6 +45,11 @@ public class Velocity extends Hack{
 	}
 	
 	@Override
+	public String getDescription() {
+		return "Prevents you from getting pushed by players, mobs and flowing water.";
+	}
+	
+	@Override
 	public void onClientTick(ClientTickEvent event) {
 		if(mode.getMode("AAC").isToggled()) {
 			EntityPlayerSP player = Wrapper.INSTANCE.player();

@@ -32,6 +32,11 @@ public class FireballReturn extends Hack{
 		
 		this.timer = new TimerUtils();
 	}
+	
+	@Override
+	public String getDescription() {
+		return "Beats fireballs when they fly at you.";
+	}
 
 	@Override
 	public void onClientTick(ClientTickEvent event) {

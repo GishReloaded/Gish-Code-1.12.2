@@ -1,5 +1,7 @@
 package i.gishreloaded.gishcode.gui.click.elements;
 
+import java.awt.Dimension;
+
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
 
@@ -7,6 +9,7 @@ import i.gishreloaded.gishcode.gui.click.ClickGui;
 import i.gishreloaded.gishcode.gui.click.base.Component;
 import i.gishreloaded.gishcode.gui.click.base.ComponentType;
 import i.gishreloaded.gishcode.gui.click.base.Container;
+import i.gishreloaded.gishcode.wrappers.Wrapper;
 
 public class Frame extends Container {
 
@@ -135,13 +138,15 @@ public class Frame extends Container {
 
             for (Component component1 : this.getComponents()) {
                 if (this.getComponents().indexOf(component1) < this.getComponents().indexOf(c)) {
-                    yCount += component1.getDimension().getHeight();
+                    yCount += component1.getDimension().getHeight() + 2;
                 }
             }
 
-            c.setyBase(yCount);
+            c.setyBase(yCount + 2);
             c.setyPos(c.getyBase() + this.scrollAmmount);
         }
+        
+        //this.setDimension(new Dimension(this.getDimension().width, this.getDimension().height * Wrapper.INSTANCE.mc().displayHeight));
     }
 
     public int getMaxScroll() {

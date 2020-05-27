@@ -7,11 +7,11 @@ import i.gishreloaded.gishcode.utils.visual.ChatUtils;
 import i.gishreloaded.gishcode.wrappers.Wrapper;
 import net.minecraft.client.network.NetworkPlayerInfo;
 
-public class PlayerFinder extends Command
+public class DumpPlayers extends Command
 {
-	public PlayerFinder()
+	public DumpPlayers()
 	{
-		super("pfind");
+		super("dumpplayers");
 	}
 
 	@Override
@@ -59,6 +59,6 @@ public class PlayerFinder extends Command
 	@Override
 	public String getSyntax()
 	{
-		return "pfind <all/creatives>";
+		return "dumpplayers <all/creatives>";
 	}
 }

@@ -49,6 +49,11 @@ public class AimBot extends Hack{
 	}
 	
 	@Override
+	public String getDescription() {
+		return "Automatically points towards player.";
+	}
+	
+	@Override
 	public void onDisable() {
 		this.target = null;
 		super.onDisable();

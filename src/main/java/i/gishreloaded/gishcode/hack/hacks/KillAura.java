@@ -85,6 +85,11 @@ public class KillAura extends Hack{
 	}
 	
 	@Override
+	public String getDescription() {
+		return "Attacks the entities around you.";
+	}
+	
+	@Override
 	public void onEnable() {
 		facingCam = null;
 		if(mode.getMode("AAC").isToggled()) {
@@ -245,11 +250,11 @@ public class KillAura extends Hack{
             Wrapper.INSTANCE.sendPacket(new CPacketPlayer.Position(player.posX, player.posY, player.posZ, player.onGround));
 		} else {
 			if(autoDelay.getValue() || mode.getMode("Simple").isToggled()) 
-				Wrapper.INSTANCE.attack(entity);
+				Utils.attack(entity);
 			 else 
 				Wrapper.INSTANCE.sendPacket(new CPacketUseEntity(entity));
 		}
-		Wrapper.INSTANCE.swingArm();
+		Utils.swingMainHand();
 		if (sharpLevel > 0.0f) 
 			player.onEnchantmentCritical(entity);
 		AutoShield.block(true);

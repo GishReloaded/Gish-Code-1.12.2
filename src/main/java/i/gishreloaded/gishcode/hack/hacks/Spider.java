@@ -17,6 +17,11 @@ public class Spider extends Hack{
 	}
 	
 	@Override
+	public String getDescription() {
+		return "Allows you to climb up walls like a spider.";
+	}
+	
+	@Override
 	public void onClientTick(ClientTickEvent event) {
         if(!Wrapper.INSTANCE.player().isOnLadder() 
         		&& Wrapper.INSTANCE.player().collidedHorizontally 

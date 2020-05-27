@@ -29,6 +29,11 @@ public class ItemESP extends Hack{
 	}
 	
 	@Override
+	public String getDescription() {
+		return "Highlights nearby items.";
+	}
+	
+	@Override
 	public void onRenderWorldLast(RenderWorldLastEvent event) {
 		for (Object object : Utils.getEntityList()) {
 			if(object instanceof EntityItem || object instanceof EntityArrow) {

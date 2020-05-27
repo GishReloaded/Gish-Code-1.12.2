@@ -18,6 +18,11 @@ public class AutoWalk extends Hack{
 	}
 	
 	@Override
+	public String getDescription() {
+		return "Automatic walking.";
+	}
+	
+	@Override
 	public void onDisable() {
 		KeyBinding.setKeyBindState(Wrapper.INSTANCE.mcSettings().keyBindForward.getKeyCode(), false);
 		super.onDisable();

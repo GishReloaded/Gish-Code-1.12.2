@@ -21,6 +21,11 @@ public class AutoSwim extends Hack{
 	}
 	
 	@Override
+    public String getDescription() {
+        return "Jumps automatically when you in water.";
+    }
+	
+	@Override
 	public void onClientTick(ClientTickEvent event) {
 		if(!Wrapper.INSTANCE.player().isInWater() && !Wrapper.INSTANCE.player().isInLava()) {
 			return;

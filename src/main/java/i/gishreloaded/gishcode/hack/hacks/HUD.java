@@ -37,6 +37,11 @@ public class HUD extends Hack{
 	}
 	
 	@Override
+	public String getDescription() {
+		return "Heads-Up Display";
+	}
+	
+	@Override
 	public void onRenderGameOverlay(Text event) {
 		//if(Wrapper.INSTANCE.mc().getLanguageManager().getCurrentLanguage() == Wrapper.INSTANCE.mc().getLanguageManager().getLanguage("ru_ru")) {}
 		GL11.glPushMatrix();

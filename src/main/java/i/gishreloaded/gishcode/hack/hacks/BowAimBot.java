@@ -44,6 +44,11 @@ public class BowAimBot extends Hack{
 	}
 	
 	@Override
+	public String getDescription() {
+		return "Automatically aims your bow at the closest entity.";
+	}
+	
+	@Override
 	public void onDisable() {
 		this.target = null;
 		super.onDisable();

@@ -30,6 +30,11 @@ public class WallHack extends Hack{
 	}
 	
 	@Override
+	public String getDescription() {
+		return "The skin of the entities around you glows.";
+	}
+	
+	@Override
 	public void onRenderWorldLast(RenderWorldLastEvent event) {
 		GlStateManager.clear(GL11.GL_DEPTH_BUFFER_BIT);
 		RenderHelper.enableStandardItemLighting();

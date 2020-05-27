@@ -19,6 +19,11 @@ public class AttackPacketCW extends Hack{
 		super("AttackPacketCW", HackCategory.ANOTHER);
 	}
 	
+	@Override
+	public String getDescription() {
+		return "Attack packets 'CPacketClickWindow' on server.";
+	}
+	
 	//By Dark Light Neron
 	@Override
 	public void onEnable() {

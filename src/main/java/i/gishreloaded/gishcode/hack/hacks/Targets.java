@@ -27,4 +27,9 @@ public class Targets extends Hack{
 		
 		addValue(players, mobs, invisibles, murder);
 	}
+	
+	@Override
+	public String getDescription() {
+		return "Manage targets for hacks.";
+	}
 }

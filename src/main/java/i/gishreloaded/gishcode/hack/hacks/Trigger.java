@@ -62,6 +62,11 @@ public class Trigger extends Hack{
 	}
 	
 	@Override
+	public String getDescription() {
+		return "Automatically attacks the entity you're looking at.";
+	}
+	
+	@Override
 	public void onDisable() {
 		this.target = null;
 		AutoShield.block(false);
@@ -103,8 +108,8 @@ public class Trigger extends Hack{
 			if(packet)
 				Wrapper.INSTANCE.sendPacket(new CPacketUseEntity(target));
 			else
-				Wrapper.INSTANCE.attack(target);
-			Wrapper.INSTANCE.swingArm();
+				Utils.attack(target);
+			Utils.swingMainHand();
 			if (sharpLevel > 0.0f) {
 				Wrapper.INSTANCE.player().onEnchantmentCritical(target);
 		 	}

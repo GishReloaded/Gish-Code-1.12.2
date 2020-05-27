@@ -46,6 +46,11 @@ public class AutoArmor extends Hack{
 	}
 	
 	@Override
+	public String getDescription() {
+		return "Manages your armor automatically.";
+	}
+	
+	@Override
 	public void onEnable() {
 		this.timer = 0;
 		super.onEnable();

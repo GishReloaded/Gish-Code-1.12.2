@@ -51,6 +51,11 @@ public class Nuker extends Hack{
 	}
 	
 	@Override
+	public String getDescription() {
+		return "Automatically breaks blocks around you.";
+	}
+	
+	@Override
 	public void onDisable() {
 		if(currentBlock != null) {
 			PlayerControllerUtils.setIsHittingBlock(true);

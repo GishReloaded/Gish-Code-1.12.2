@@ -32,6 +32,11 @@ public class Trajectories extends Hack{
 	}
 	
 	@Override
+	public String getDescription() {
+		return "Predicts the flight path of arrows and throwable items.";
+	}
+	
+	@Override
 	public void onRenderWorldLast(RenderWorldLastEvent event) {
 		EntityPlayerSP player = Wrapper.INSTANCE.player();
 		

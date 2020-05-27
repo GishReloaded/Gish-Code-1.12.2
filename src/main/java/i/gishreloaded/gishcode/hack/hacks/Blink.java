@@ -16,6 +16,11 @@ public class Blink extends Hack{
 	public Blink() {
 		super("Blink", HackCategory.PLAYER);
 	}
+	
+	@Override
+    public String getDescription() {
+        return "Allows you to move without sending it to the server.";
+    }
 
 	@Override
 	public boolean onPacket(Object packet, Side side) {

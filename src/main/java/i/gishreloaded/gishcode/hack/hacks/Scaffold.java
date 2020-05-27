@@ -56,6 +56,11 @@ public class Scaffold extends Hack{
 	}
 	
 	@Override
+	public String getDescription() {
+		return "Automatically places blocks below your feet.";
+	}
+	
+	@Override
 	public void onDisable() {
 		facingCam = null;
 		super.onDisable();
@@ -161,7 +166,7 @@ public class Scaffold extends Hack{
     	int currentCPS = Utils.random(3, 4);
 		if(timer.isDelay(1000 / currentCPS)) {
 			RobotUtils.clickMouse(1);
-			Wrapper.INSTANCE.swingArm();
+			Utils.swingMainHand();
 			timer.setLastMS();
 		}
         isBridging = true;

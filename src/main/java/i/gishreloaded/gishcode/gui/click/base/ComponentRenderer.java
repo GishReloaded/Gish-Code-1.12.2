@@ -13,7 +13,11 @@ import java.awt.Point;
 import org.lwjgl.opengl.GL11;
 
 import i.gishreloaded.gishcode.gui.click.theme.Theme;
+import i.gishreloaded.gishcode.hack.hacks.ClickGui;
+import i.gishreloaded.gishcode.utils.visual.ColorUtils;
 import i.gishreloaded.gishcode.utils.visual.GLUtils;
+import i.gishreloaded.gishcode.utils.visual.RenderUtils;
+import net.minecraft.client.renderer.GlStateManager;
 
 public abstract class ComponentRenderer {
 
@@ -52,22 +56,6 @@ public abstract class ComponentRenderer {
     public void drawArrow(int x, int y, int size, boolean right) {
 
         drawArrow(x, y, size, right, 0xFFFFFFFF);
-    }
-
-    public void renderToolTip(Component component, String tooltip, Point mouse) {
-
-        GL11.glPushMatrix();
-        GL11.glDisable(GL11.GL_SCISSOR_TEST);
-        int aboveMouse = 8;
-        int width = theme.getFontRenderer().getStringWidth(tooltip);
-        GLUtils.glColor(tooltipColor.brighter());
-        drawRect(mouse.x - 1, mouse.y - aboveMouse - 1, mouse.x + width + 5, mouse.y + theme.getFontRenderer().FONT_HEIGHT - aboveMouse + 3, 1.0F);
-        GLUtils.glColor(tooltipColor);
-        drawFilledRect(mouse.x, mouse.y - aboveMouse, mouse.x + width + 4, mouse.y + theme.getFontRenderer().FONT_HEIGHT - aboveMouse + 2);
-        theme.getFontRenderer().drawStringWithShadow(tooltip, mouse.x + 2, mouse.y - aboveMouse + 2, 16777215);
-        GL11.glEnable(GL11.GL_SCISSOR_TEST);
-        GL11.glPopMatrix();
-
     }
 
     public void drawFilledRect(float x, float y, float x1, float y1) {

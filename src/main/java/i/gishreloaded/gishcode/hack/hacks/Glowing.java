@@ -30,6 +30,11 @@ public class Glowing extends Hack{
 	}
 	
 	@Override
+	public String getDescription() {
+		return "Glows all entities around you.";
+	}
+	
+	@Override
 	public void onDisable() {
 		for (Object object : Utils.getEntityList()) {
 	    	  Entity entity = (Entity)object;

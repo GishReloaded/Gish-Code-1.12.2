@@ -53,6 +53,11 @@ public class Profiler extends Hack{
 	}
 	
 	@Override
+	public String getDescription() {
+		return "Allows you to see armor of player or info of item.";
+	}
+	
+	@Override
 	public void onRenderWorldLast(RenderWorldLastEvent event) {
 		for (Object object : Utils.getEntityList()) {
 			if(object instanceof EntityLivingBase) {

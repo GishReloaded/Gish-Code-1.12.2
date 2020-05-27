@@ -23,6 +23,11 @@ public class Disconnect extends Hack{
 	}
 	
 	@Override
+	public String getDescription() {
+		return "Automatically leaves the server when your health is low.";
+	}
+	
+	@Override
 	public void onClientTick(ClientTickEvent event) {
 		if(Wrapper.INSTANCE.player().getHealth() <= leaveHealth.getValue().floatValue()){
 			

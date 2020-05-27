@@ -15,6 +15,7 @@
 //import net.minecraft.block.Block;
 //import net.minecraft.init.Blocks;
 //import net.minecraft.init.Items;
+//import net.minecraft.item.Item;
 //import net.minecraft.item.ItemBlock;
 //import net.minecraft.item.ItemBucket;
 //import net.minecraft.item.ItemStack;
@@ -26,33 +27,51 @@
 //
 //public class WaterFall extends Hack{
 //	
+//	private int delay;
+//	
 //	public WaterFall() {
 //		super("WaterFall", HackCategory.PLAYER);
 //	}
 //	
-//	boolean isFalling() {
-//		BlockPos blockPos = new BlockPos(Wrapper.INSTANCE.player()).down(); 
-//		return (!Wrapper.INSTANCE.player().onGround && Wrapper.INSTANCE.player().fallDistance > 2 && BlockUtils.getBlock(blockPos) != Blocks.AIR 
-//				|| BlockUtils.getBlock(blockPos.down()) != Blocks.AIR  || BlockUtils.getBlock(blockPos.down().down()) != Blocks.AIR);
-//	}
+//	private boolean hasItem(Item item) {
+//		for (int i = 0; i < 9; ++i) {
+//            ItemStack stack = Wrapper.INSTANCE.inventory().getStackInSlot(i);
+//            if(stack != null && stack.getItem() == item) { return true; }
+//        }
+//		return false;
+//    }
 //	
-//	public void switchAndPut() {
+//	public void switchToItem(Item item) {
 //		int newSlot = -1;
 //        for (int i = 0; i < 9; ++i) {
 //            ItemStack stack = Wrapper.INSTANCE.inventory().getStackInSlot(i);
-//            if(stack != null && stack.getItem() == Items.WATER_BUCKET) { newSlot = i; break; }
+//            if(stack != null && stack.getItem() == item) { newSlot = i; break; }
 //        }
 //        if (newSlot == -1) return;
-//        Wrapper.INSTANCE.player().rotationPitch = Utils.updateRotation(120F, Wrapper.INSTANCE.player().rotationYaw, 30.0F);
 //        Wrapper.INSTANCE.inventory().currentItem = newSlot;
+//	}
+//	
+//	public void useItem() {
+//        Wrapper.INSTANCE.sendPacket((new CPacketPlayer.Rotation(90.0f, 90.0f, false)));
+//        Utils.swingMainHand();
 //        RobotUtils.clickMouse(1);
-//		Wrapper.INSTANCE.swingArm();
 //	}
 //	
 //	@Override
 //	public void onClientTick(ClientTickEvent event) {
-//		if(!isFalling() || !Utils.screenCheck()) return; 
-//		switchAndPut();
+//		 if (Wrapper.INSTANCE.player().fallDistance >= 5.0f) {
+//	            this.switchToItem(Items.WATER_BUCKET);
+//	            Block block = BlockUtils.getBlock(Wrapper.INSTANCE.player().getPosition().down(-3));
+//	            if (block != Blocks.AIR && hasItem(Items.WATER_BUCKET)) {
+//	                this.useItem();
+//	                ++this.delay;
+//	                if (this.delay >= 20) {
+//	                	this.switchToItem(Items.BUCKET);
+//	                	this.useItem();
+//	                    this.delay = 0;
+//	                }
+//	            }
+//	        }
 //		super.onClientTick(event);
 //	}
 //}

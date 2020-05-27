@@ -17,6 +17,11 @@ public class AntiWeb extends Hack{
 	}
 	
 	@Override
+	public String getDescription() {
+		return "Does not change walking speed in web.";
+	}
+	
+	@Override
 	public void onClientTick(ClientTickEvent event) {
 		try {
 			Field isInWeb = Entity.class.getDeclaredField(Mapping.isInWeb);

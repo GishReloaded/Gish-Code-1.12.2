@@ -68,6 +68,11 @@ public class AntiBot extends Hack{
 	}
 	
 	@Override
+	public String getDescription() {
+		return "Ignore/Remove anti cheat bots.";
+	}
+	
+	@Override
 	public void onEnable() {
 		bots.clear();
 		super.onEnable();

@@ -21,11 +21,16 @@ import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 
-public class ESP extends Hack{
+public class EntityESP extends Hack{
 	
-	public ESP() {
-		super("ESP", HackCategory.VISUAL);
+	public EntityESP() {
+		super("EntityESP", HackCategory.VISUAL);
 	}
+	
+	@Override
+    public String getDescription() {
+        return "Allows you to see all of the entities around you.";
+    }
 	
 	@Override
 	public void onRenderWorldLast(RenderWorldLastEvent event) {

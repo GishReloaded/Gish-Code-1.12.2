@@ -24,6 +24,7 @@ public class ClickGui extends Hack{
 	public ModeValue theme;
 	public static BooleanValue rainbow;
 	public static BooleanValue shadow;
+	public static BooleanValue tooltip;
 	
 	public static NumberValue red;
 	public static NumberValue green;
@@ -40,6 +41,7 @@ public class ClickGui extends Hack{
 		
 		this.theme = new ModeValue("Theme", new Mode("Dark", true), new Mode("Light", false));
 		
+		this.tooltip = new BooleanValue("Tooltip", true);
 		this.shadow = new BooleanValue("Shadow", true);
 		this.rainbow = new BooleanValue("Rainbow", true);
 		this.red = new NumberValue("Red", 170D, 0D, 255D);
@@ -47,8 +49,13 @@ public class ClickGui extends Hack{
 		this.blue = new NumberValue("Blue", 170D, 0D, 255D);
 		this.alpha = new NumberValue("Alpha", 170D, 0D, 255D);
 		
-		this.addValue(theme, shadow, rainbow, red, green, blue, alpha);
+		this.addValue(theme, tooltip, shadow, rainbow, red, green, blue, alpha);
 		this.setColor();
+	}
+	
+	@Override
+	public String getDescription() {
+		return "Graphical user interface.";
 	}
 	
 	 public static int getColor() {
