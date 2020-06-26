@@ -18,6 +18,8 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import i.gishreloaded.gishcode.Main;
+import i.gishreloaded.gishcode.gui.click.ClickGuiScreen;
+import i.gishreloaded.gishcode.gui.click.elements.Frame;
 import i.gishreloaded.gishcode.hack.Hack;
 import i.gishreloaded.gishcode.value.BooleanValue;
 import i.gishreloaded.gishcode.value.Mode;
@@ -27,7 +29,7 @@ import i.gishreloaded.gishcode.value.Value;
 import i.gishreloaded.gishcode.wrappers.Wrapper;
 import i.gishreloaded.gishcode.xray.XRayData;
 
-public class FileManager {
+public class FileManager { //todo this class will be rewrite
 
     private static Gson gsonPretty = new GsonBuilder().setPrettyPrinting().create();
 
@@ -39,6 +41,7 @@ public class FileManager {
     private static File XRAYDATA = null;
     private static File FRIENDS = null;
     private static File ENEMYS = null;
+    public static File CLICKGUI = null;
     
     public FileManager() {
     	GISHCODE_DIR = getDirectory();
@@ -46,6 +49,7 @@ public class FileManager {
     	
         HACKS = new File(GISHCODE_DIR, "hacks.json");
         XRAYDATA = new File(GISHCODE_DIR, "xraydata.json");
+        CLICKGUI = new File(GISHCODE_DIR, "clickgui.json");
         FRIENDS = new File(GISHCODE_DIR, "friends.json");
         ENEMYS = new File(GISHCODE_DIR, "enemys.json");
     	
@@ -59,53 +63,40 @@ public class FileManager {
     public static File getDirectory() {
     	String var = System.getenv("GISHCODE_DIR");
     	File dir = var == null || var == "" ? Wrapper.INSTANCE.mc().mcDataDir : new File(var);
-    	return new File(String.format("%s%s%s-%s-%s%s", dir, File.separator, Main.NAME, Main.MCVERSION, Main.VERSION, File.separator));
+    	return new File(String.format("%s%s%s-%s%s", dir, File.separator, Main.NAME, Main.MCVERSION, File.separator));
     }
-
 
     public static void loadHacks() {
         try {
-            BufferedReader loadJson = new BufferedReader(new FileReader(HACKS));
-            JsonObject moduleJason = (JsonObject) jsonParser.parse(loadJson);
-            loadJson.close();
+            BufferedReader bufferedReader = new BufferedReader(new FileReader(HACKS));
+            JsonObject jsonObject = (JsonObject) jsonParser.parse(bufferedReader);
+            bufferedReader.close();
 
-            for (Map.Entry<String, JsonElement> entry : moduleJason.entrySet()) {
-                Hack mods = HackManager.getHack(entry.getKey());
+            for (Map.Entry<String, JsonElement> entry : jsonObject.entrySet()) {
+                Hack hack = HackManager.getHack(entry.getKey());
+                
+                if(hack == null) continue;
+                
+                JsonObject jsonObjectHack = (JsonObject) entry.getValue();
+                
+                hack.setKey(jsonObjectHack.get("key").getAsInt());
+                hack.setToggled(jsonObjectHack.get("toggled").getAsBoolean());
+                
+                if(hack.getValues().isEmpty()) continue;
 
-                if (mods != null) {
-                    JsonObject jsonMod = (JsonObject) entry.getValue();
-                    boolean enabled = jsonMod.get("toggled").getAsBoolean();
-
-                    if (enabled) {
-                        mods.setToggled(true);
+                for (Value value : hack.getValues()) {
+                    if (value instanceof BooleanValue) 
+                        value.setValue(jsonObjectHack.get(value.getName()).getAsBoolean());
+                    if (value instanceof NumberValue) 
+                        value.setValue(jsonObjectHack.get(value.getName()).getAsDouble());
+                    if (value instanceof ModeValue) {
+                    	ModeValue modeValue = (ModeValue) value;
+                    	for(Mode mode : modeValue.getModes()) 
+                    		mode.setToggled(jsonObjectHack.get(mode.getName()).getAsBoolean());
                     }
-
-                    if (!mods.getValues().isEmpty()) {
-                        for (Value value : mods.getValues()) {
-                            if (value instanceof BooleanValue) {
-                                boolean bvalue = jsonMod.get(value.getName()).getAsBoolean();
-                                value.setValue(bvalue);
-                            }
-                            if (value instanceof NumberValue) {
-                                double dvalue = jsonMod.get(value.getName()).getAsDouble();
-                                value.setValue(dvalue);
-                            }
-                            if (value instanceof ModeValue) {
-                            	ModeValue modeValue = (ModeValue) value;
-                            	for(Mode mode : modeValue.getModes()) {
-                                	boolean mvalue = jsonMod.get(mode.getName()).getAsBoolean();
-                            		mode.setToggled(mvalue);
-                            	}
-                            }
-                        }
-                    }
-                    mods.setKey(jsonMod.get("key").getAsInt());
                 }
             }
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        } catch (Exception e) { e.printStackTrace(); }
     }
     
     public static void loadFriends() {
@@ -142,10 +133,7 @@ public class FileManager {
             	
             	XRayManager.addData(new XRayData(id, meta, red, green, blue));
             }
-            
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        } catch (Exception e) { e.printStackTrace(); }
     }
     
     public static void saveXRayData() {
@@ -165,9 +153,52 @@ public class FileManager {
             PrintWriter saveJson = new PrintWriter(new FileWriter(XRAYDATA));
             saveJson.println(gsonPretty.toJson(json));
             saveJson.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        } catch (Exception e) { e.printStackTrace(); }
+    }
+    
+    public static void loadClickGui() {
+        try {
+        	BufferedReader loadJson = new BufferedReader(new FileReader(CLICKGUI));
+            JsonObject json = (JsonObject) jsonParser.parse(loadJson);
+            loadJson.close();
+            
+            for (Map.Entry<String, JsonElement> entry : json.entrySet()) {
+            	JsonObject jsonData = (JsonObject) entry.getValue();
+            	
+            	String text = entry.getKey();
+            	
+            	int posX = jsonData.get("posX").getAsInt();
+            	int posY = jsonData.get("posY").getAsInt();
+            	boolean maximized = jsonData.get("maximized").getAsBoolean();
+            	
+            	for(Frame frame : ClickGuiScreen.clickGui.getFrames()) {
+            		if(frame.getText().equals(text)) {
+            			frame.setxPos(posX);
+            			frame.setyPos(posY);
+            			frame.setMaximized(maximized);
+            		}
+            	}
+            }
+        } catch (Exception e) { e.printStackTrace(); }
+    }
+    
+    public static void saveClickGui() {
+        try {
+        	JsonObject json = new JsonObject();
+        	for(Frame frame : ClickGuiScreen.clickGui.getFrames()) {
+        		JsonObject jsonData = new JsonObject();
+        		
+        		jsonData.addProperty("posX", frame.getX());
+            	jsonData.addProperty("posY", frame.getY());
+            	jsonData.addProperty("maximized", frame.isMaximized());
+            	
+            	json.add(frame.getText(), jsonData);
+        	}
+        	
+            PrintWriter saveJson = new PrintWriter(new FileWriter(CLICKGUI));
+            saveJson.println(gsonPretty.toJson(json));
+            saveJson.close();
+        } catch (Exception e) { e.printStackTrace(); }
     }
     
     public static void saveFriends() {
@@ -209,9 +240,7 @@ public class FileManager {
             PrintWriter saveJson = new PrintWriter(new FileWriter(HACKS));
             saveJson.println(gsonPretty.toJson(json));
             saveJson.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        } catch (Exception e) { e.printStackTrace(); }
     }
     
     public static void write(File outputFile, List<String> writeContent, boolean newline, boolean overrideContent) {

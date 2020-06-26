@@ -26,7 +26,7 @@ public class DarkKeybinds extends ComponentRenderer {
 
         KeybindMods keybind = (KeybindMods) component;
         
-        int mainColor = ClickGui.isLight ? ColorUtils.color(255, 255, 255, 255) : ColorUtils.color(0, 0, 0, 255);
+        int mainColor = ClickGui.isLight ? ColorUtils.color(255, 255, 255, 55) : ColorUtils.color(0, 0, 0, 55);
         int mainColorInv = ClickGui.isLight ? ColorUtils.color(0, 0, 0, 255) : ColorUtils.color(255, 255, 255, 255);
         
         theme.fontRenderer.drawString("Key", keybind.getX() + 4, keybind.getY() + 2, 
@@ -40,7 +40,7 @@ public class DarkKeybinds extends ComponentRenderer {
         if(keybind.getMod().getKey() == -1) {
         	theme.fontRenderer.drawString(keybind.isEditing() ? "|" : "NONE", keybind.getX() + keybind.getDimension().width / 2 + nameWidth / 2 - theme.fontRenderer.getStringWidth("NONE") / 2, keybind.getY() + 2, keybind.isEditing() ? 
         			mainColorInv : 
-        				ColorUtils.color(0.6f, 0.6f, 0.6f, 1.0f));
+        				ColorUtils.color(0.4f, 0.4f, 0.4f, 1.0f));
         }
         else
         {

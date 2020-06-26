@@ -13,6 +13,8 @@ import i.gishreloaded.gishcode.value.ModeValue;
 import i.gishreloaded.gishcode.value.Value;
 import i.gishreloaded.gishcode.wrappers.Wrapper;
 import net.minecraftforge.client.event.EntityViewRenderEvent;
+import net.minecraftforge.client.event.GuiContainerEvent;
+import net.minecraftforge.client.event.GuiOpenEvent;
 import net.minecraftforge.client.event.MouseEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
@@ -105,6 +107,8 @@ public class Hack {
 	
 	public void onEnable() {}
     public void onDisable() {}
+    public void onGuiContainer(GuiContainerEvent event) {}
+    public void onGuiOpen(GuiOpenEvent event) {}
     public void onMouse(MouseEvent event) {}
     public boolean onPacket(Object packet, Connection.Side side) { return true; }
     public void onPlayerTick(TickEvent.PlayerTickEvent event) {}

@@ -107,10 +107,10 @@ public class DarkFrame extends ComponentRenderer {
             component.setxPos(frame.getX());
         }
 
-        RenderUtils.drawRect(frame.getX(), frame.getY() + 1, frame.getX() + dimension.width, frame.getY() + dimension.height, mainColor);
+        //RenderUtils.drawRect(frame.getX(), frame.getY() + 1, frame.getX() + dimension.width, frame.getY() + dimension.height, mainColor);
         float height = 5;
         float maxHeight = 0;
-        height = dimension.height - 16;
+        height = dimension.height - 40;
 
         for (Component component : frame.getComponents()) {
             maxHeight += component.getDimension().height;

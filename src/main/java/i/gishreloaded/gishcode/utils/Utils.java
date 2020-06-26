@@ -34,6 +34,8 @@ import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.play.client.CPacketEntityAction;
 import net.minecraft.network.play.client.CPacketPlayer;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -95,6 +97,20 @@ public class Utils {
 	
 	public static void attack(Entity entity) { 
 		Wrapper.INSTANCE.controller().attackEntity(Wrapper.INSTANCE.player(), entity); 
+	}
+	
+	public static void addEffect(int id, int duration, int amplifier) {
+		Wrapper.INSTANCE.player().addPotionEffect(new PotionEffect(Potion.getPotionById(id), duration, amplifier));
+	}
+	
+	public static void removeEffect(int id) {
+		Wrapper.INSTANCE.player().removePotionEffect(Potion.getPotionById(id));
+	}
+	
+	public static void clearEffects() {
+		for(PotionEffect effect : Wrapper.INSTANCE.player().getActivePotionEffects()) {
+			Wrapper.INSTANCE.player().removePotionEffect(effect.getPotion());
+		}
 	}
     
     public static double[] teleportToPosition(double[] startPosition, double[] endPosition, double setOffset, double slack, boolean extendOffset, boolean onGround) {

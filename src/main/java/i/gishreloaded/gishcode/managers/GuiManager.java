@@ -28,12 +28,8 @@ import i.gishreloaded.gishcode.value.Value;
 
 public class GuiManager extends ClickGui {
 
-    public void Initialization() {
-        addCategoryPanels();
-    }
-
-    private void addCategoryPanels() {
-        int right = GLUtils.getScreenWidth();
+    public void Init() {
+    	int right = GLUtils.getScreenWidth();
         int framePosX = 20;
         int framePosY = 20;
 
@@ -143,5 +139,8 @@ public class GuiManager extends ClickGui {
                 frame.setPinnable(true);
                 this.addFrame(frame);
         }
+        if (!FileManager.CLICKGUI.exists()) 
+        	FileManager.saveClickGui(); 
+        else FileManager.loadClickGui();
     }
 }

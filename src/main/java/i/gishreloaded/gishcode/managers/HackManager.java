@@ -17,6 +17,8 @@ import i.gishreloaded.gishcode.value.ModeValue;
 import i.gishreloaded.gishcode.value.Value;
 import i.gishreloaded.gishcode.wrappers.Wrapper;
 import net.minecraft.client.gui.GuiChat;
+import net.minecraftforge.client.event.GuiContainerEvent;
+import net.minecraftforge.client.event.GuiOpenEvent;
 import net.minecraftforge.client.event.EntityViewRenderEvent;
 import net.minecraftforge.client.event.MouseEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
@@ -89,9 +91,11 @@ public class HackManager {
 		addHack(new AutoTotem());
 		addHack(new AutoShield());
 		addHack(new Rage());
+		addHack(new TestHack());
 		addHack(new FastBreak());
 		addHack(new Disconnect());
 		addHack(new GhostMode());
+		addHack(new ArmorHUD());
 		addHack(new HUD());
 		addHack(new ClickGui());
 	}
@@ -105,7 +109,7 @@ public class HackManager {
             this.guiManager = new GuiManager();
             this.guiScreen = new ClickGuiScreen();
             ClickGuiScreen.clickGui = this.guiManager;
-            this.guiManager.Initialization();
+            this.guiManager.Init();
     		this.guiManager.setTheme(new DarkTheme());
         }
         return this.guiManager;
@@ -187,6 +191,22 @@ public class HackManager {
     		if(hack.getKey() == key) {
     			hack.toggle();
     			toggleHack = hack;
+    		}
+    	}
+	}
+	
+	public static void onGuiContainer(GuiContainerEvent event) {
+		for(Hack hack : getHacks()) {
+    		if(hack.isToggled()) {
+    			hack.onGuiContainer(event);
+    		}
+    	}
+	}
+	
+	public static void onGuiOpen(GuiOpenEvent event) {
+		for(Hack hack : getHacks()) {
+    		if(hack.isToggled()) {
+    			hack.onGuiOpen(event);
     		}
     	}
 	}

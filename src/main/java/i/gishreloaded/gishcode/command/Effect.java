@@ -3,7 +3,7 @@ package i.gishreloaded.gishcode.command;
 import i.gishreloaded.gishcode.managers.EnemyManager;
 import i.gishreloaded.gishcode.managers.FriendManager;
 import i.gishreloaded.gishcode.utils.LoginUtils;
-
+import i.gishreloaded.gishcode.utils.Utils;
 import i.gishreloaded.gishcode.utils.visual.ChatUtils;
 import i.gishreloaded.gishcode.wrappers.Wrapper;
 import net.minecraft.item.ItemStack;
@@ -30,7 +30,7 @@ public class Effect extends Command
 					ChatUtils.error("Potion is null");
 					return;
 				}
-				addEffect(id, duration, amplifier);
+				Utils.addEffect(id, duration, amplifier);
 			}
 			else
 			if(args[0].equalsIgnoreCase("remove")) {
@@ -39,30 +39,16 @@ public class Effect extends Command
 					ChatUtils.error("Potion is null");
 					return;
 				}
-				removeEffect(id);
+				Utils.removeEffect(id);
 			}
 			else
 			if(args[0].equalsIgnoreCase("clear")) {
-				clearEffects();
+				Utils.clearEffects();
 			}
 		}
 		catch(Exception e)
 		{
 			ChatUtils.error("Usage: " + getSyntax());
-		}
-	}
-	
-	void addEffect(int id, int duration, int amplifier) {
-		Wrapper.INSTANCE.player().addPotionEffect(new PotionEffect(Potion.getPotionById(id), duration, amplifier));
-	}
-	
-	void removeEffect(int id) {
-		Wrapper.INSTANCE.player().removePotionEffect(Potion.getPotionById(id));
-	}
-	
-	void clearEffects() {
-		for(PotionEffect effect : Wrapper.INSTANCE.player().getActivePotionEffects()) {
-			Wrapper.INSTANCE.player().removePotionEffect(effect.getPotion());
 		}
 	}
 

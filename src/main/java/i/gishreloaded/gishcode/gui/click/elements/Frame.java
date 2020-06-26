@@ -145,8 +145,8 @@ public class Frame extends Container {
             c.setyBase(yCount + 2);
             c.setyPos(c.getyBase() + this.scrollAmmount);
         }
-        
-        //this.setDimension(new Dimension(this.getDimension().width, this.getDimension().height * Wrapper.INSTANCE.mc().displayHeight));
+        int height = (Wrapper.INSTANCE.mc().displayHeight / 3) + this.getComponents().size();
+        this.setDimension(new Dimension(this.getDimension().width, height));
     }
 
     public int getMaxScroll() {

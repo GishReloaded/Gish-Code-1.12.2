@@ -13,6 +13,7 @@ import i.gishreloaded.gishcode.utils.system.Connection;
 import i.gishreloaded.gishcode.utils.visual.ChatUtils;
 import i.gishreloaded.gishcode.wrappers.Wrapper;
 import net.minecraftforge.client.event.EntityViewRenderEvent;
+import net.minecraftforge.client.event.GuiContainerEvent;
 import net.minecraftforge.client.event.MouseEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
@@ -21,6 +22,7 @@ import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.client.event.GuiOpenEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.InputEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
@@ -38,6 +40,32 @@ public class EventsHandler {
         }
         return suc;
     }
+	
+	@SubscribeEvent
+    public void onGuiContainer(GuiContainerEvent event) {
+		if(Utils.nullCheck()) return;
+    	try {
+    		HackManager.onGuiContainer(event);
+    	} catch (RuntimeException ex) {
+    		ex.printStackTrace();
+    		ChatUtils.error("RuntimeException: onGuiContainer");
+    		ChatUtils.error(ex.toString());
+    		Utils.copy(ex.toString());
+    	}
+	}
+	
+	@SubscribeEvent
+    public void onGuiOpen(GuiOpenEvent event) {
+		if(Utils.nullCheck()) return;
+    	try {
+    		HackManager.onGuiOpen(event);
+    	} catch (RuntimeException ex) {
+    		ex.printStackTrace();
+    		ChatUtils.error("RuntimeException: onGuiOpen");
+    		ChatUtils.error(ex.toString());
+    		Utils.copy(ex.toString());
+    	}
+	}
 	
 	@SubscribeEvent
     public void onMouse(MouseEvent event) {

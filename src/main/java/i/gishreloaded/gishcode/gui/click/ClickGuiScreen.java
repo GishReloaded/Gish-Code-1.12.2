@@ -103,11 +103,13 @@ public class ClickGuiScreen extends GuiScreen {
                         CommandManager.getInstance().runCommands("." + console.getText());
                         mc.displayGuiScreen((GuiScreen)null);
                         FileManager.saveHacks();
+                        FileManager.saveClickGui();
                     } else
                     if (Keyboard.getEventKey() == Keyboard.KEY_ESCAPE) {
                     	setTitle();
                         mc.displayGuiScreen(null);
                         FileManager.saveHacks();
+                        FileManager.saveClickGui();
                     } else {
                         clickGui.onkeyPressed(Keyboard.getEventKey(), Keyboard.getEventCharacter());
                     }
