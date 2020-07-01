@@ -74,10 +74,10 @@ public class KillAura extends Hack{
 		autoDelay = new BooleanValue("AutoDelay", false);
 		packetReach = new BooleanValue("PacketReach", false);
 		packetRange = new NumberValue("PacketRange", 10.0D, 1.0D, 100D);
-		minCPS = new NumberValue("MinCPS", 4D, 1D, 30D);
-		maxCPS = new NumberValue("MaxCPS", 8D, 1D, 30D);
-		range = new NumberValue("Range", 3.4D, 1.0D, 7D);
-		FOV = new NumberValue("FOV", 180D, 1D, 180D);
+		minCPS = new NumberValue("MinCPS", 4.0D, 1.0D, 30.0D);
+		maxCPS = new NumberValue("MaxCPS", 8.0D, 1.0D, 30.0D);
+		range = new NumberValue("Range", 3.4D, 1.0D, 7.0D);
+		FOV = new NumberValue("FOV", 180D, 1.0D, 180D);
 		
 		this.addValue(mode, priority, walls, autoDelay, packetReach, minCPS, maxCPS, packetRange, range, FOV);
 		

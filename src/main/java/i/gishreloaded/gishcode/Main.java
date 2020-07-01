@@ -23,7 +23,7 @@ public class Main {
 	
 	public static final String MODID = "gishcode";
 	public static final String NAME = "GishCode";
-	public static final String VERSION = "0.4.4";
+	public static final String VERSION = "0.4.5";
 	public static final String MCVERSION = "1.12.2";
 	public static int initCount = 0;
 	public static HackManager hackManager;

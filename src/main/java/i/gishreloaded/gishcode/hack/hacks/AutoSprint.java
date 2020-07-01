@@ -1,10 +1,14 @@
 package i.gishreloaded.gishcode.hack.hacks;
 
+import org.lwjgl.input.Keyboard;
+
+import i.gishreloaded.gishcode.gui.click.ClickGuiScreen;
 import i.gishreloaded.gishcode.hack.Hack;
 import i.gishreloaded.gishcode.hack.HackCategory;
-
+import i.gishreloaded.gishcode.managers.HackManager;
 import i.gishreloaded.gishcode.utils.Utils;
 import i.gishreloaded.gishcode.wrappers.Wrapper;
+import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.init.MobEffects;
 import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
 
@@ -21,13 +25,23 @@ public class AutoSprint extends Hack{
 	
 	@Override
 	public void onClientTick(ClientTickEvent event) {
-		if(this.canSprint()) {
-			Wrapper.INSTANCE.player().setSprinting(Utils.isMoving(Wrapper.INSTANCE.player()));
+		if(isMoveInGui() && this.canSprint(false)) {
+			Wrapper.INSTANCE.player().setSprinting(true); 
+			return;
 		}
+		if(this.canSprint(true))
+			Wrapper.INSTANCE.player().setSprinting(Utils.isMoving(Wrapper.INSTANCE.player()));
 		super.onClientTick(event);
 	}
 	
-	boolean canSprint() {
+	boolean isMoveInGui() {
+		return Keyboard.isKeyDown(Wrapper.INSTANCE.mcSettings().keyBindForward.getKeyCode())
+				&& (boolean)(Wrapper.INSTANCE.mc().currentScreen instanceof GuiContainer
+				|| Wrapper.INSTANCE.mc().currentScreen instanceof ClickGuiScreen) 
+				&& HackManager.getHack("GuiWalk").isToggled();
+	}
+	
+	boolean canSprint(boolean forward) {
 		if(!Wrapper.INSTANCE.player().onGround) {
 			return false;
 		}
@@ -46,7 +60,7 @@ public class AutoSprint extends Hack{
 		if(Wrapper.INSTANCE.player().collidedHorizontally) {
 			return false;
 		}
-		if(Wrapper.INSTANCE.player().moveForward < 0.1F) {
+		if(forward && Wrapper.INSTANCE.player().moveForward < 0.1F) {
 			return false;
 		}
 		if(Wrapper.INSTANCE.player().isSneaking()) {

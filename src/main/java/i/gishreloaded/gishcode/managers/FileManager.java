@@ -28,6 +28,7 @@ import i.gishreloaded.gishcode.value.NumberValue;
 import i.gishreloaded.gishcode.value.Value;
 import i.gishreloaded.gishcode.wrappers.Wrapper;
 import i.gishreloaded.gishcode.xray.XRayData;
+import net.minecraft.item.Item;
 
 public class FileManager { //todo this class will be rewrite
 
@@ -39,6 +40,7 @@ public class FileManager { //todo this class will be rewrite
 
     private static File HACKS = null;
     private static File XRAYDATA = null;
+    private static File PICKUPFILTER = null;
     private static File FRIENDS = null;
     private static File ENEMYS = null;
     public static File CLICKGUI = null;
@@ -49,6 +51,7 @@ public class FileManager { //todo this class will be rewrite
     	
         HACKS = new File(GISHCODE_DIR, "hacks.json");
         XRAYDATA = new File(GISHCODE_DIR, "xraydata.json");
+        PICKUPFILTER = new File(GISHCODE_DIR, "pickupfilter.json");
         CLICKGUI = new File(GISHCODE_DIR, "clickgui.json");
         FRIENDS = new File(GISHCODE_DIR, "friends.json");
         ENEMYS = new File(GISHCODE_DIR, "enemys.json");
@@ -56,6 +59,7 @@ public class FileManager { //todo this class will be rewrite
         if (!GISHCODE_DIR.exists()) GISHCODE_DIR.mkdir();
         if (!HACKS.exists()) saveHacks(); else loadHacks();
         if (!XRAYDATA.exists()) saveXRayData(); else loadXRayData();
+        if (!PICKUPFILTER.exists()) savePickupFilter(); else loadPickupFilter();
         if (!FRIENDS.exists()) saveFriends(); else loadFriends();
         if (!ENEMYS.exists()) saveEnemys(); else loadEnemys();
 	}
@@ -151,6 +155,37 @@ public class FileManager { //todo this class will be rewrite
             }
             
             PrintWriter saveJson = new PrintWriter(new FileWriter(XRAYDATA));
+            saveJson.println(gsonPretty.toJson(json));
+            saveJson.close();
+        } catch (Exception e) { e.printStackTrace(); }
+    }
+    
+    public static void loadPickupFilter() {
+        try {
+        	BufferedReader loadJson = new BufferedReader(new FileReader(PICKUPFILTER));
+            JsonObject json = (JsonObject) jsonParser.parse(loadJson);
+            loadJson.close();
+            
+            for (Map.Entry<String, JsonElement> entry : json.entrySet()) {
+            	JsonObject jsonData = (JsonObject) entry.getValue();
+            	int id = Integer.parseInt(entry.getKey());
+            	PickupFilterManager.addItem(id);
+            }
+        } catch (Exception e) { e.printStackTrace(); }
+    }
+    
+    public static void savePickupFilter() {
+        try {
+            JsonObject json = new JsonObject();
+            
+            for(int id : PickupFilterManager.items) {
+            	JsonObject jsonData = new JsonObject();
+            	
+            	jsonData.addProperty("name", Item.getItemById(id).getUnlocalizedName());
+            	
+            	json.add("" + id, jsonData);
+            }
+            PrintWriter saveJson = new PrintWriter(new FileWriter(PICKUPFILTER));
             saveJson.println(gsonPretty.toJson(json));
             saveJson.close();
         } catch (Exception e) { e.printStackTrace(); }

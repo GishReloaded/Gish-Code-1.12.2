@@ -38,7 +38,7 @@ public class HUD extends Hack{
 	
 	@Override
 	public String getDescription() {
-		return "Heads-Up Display";
+		return "Heads-Up Display.";
 	}
 	
 	@Override

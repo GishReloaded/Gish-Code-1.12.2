@@ -42,7 +42,7 @@ public class HackManager {
 		addHack(new Targets());
 		addHack(new Enemys());
 		addHack(new Teams());
-		addHack(new NoGUIEvents());
+		addHack(new NoGuiEvents());
 		addHack(new Glowing());
 		addHack(new Trajectories());
 		addHack(new XRay());
@@ -77,11 +77,13 @@ public class HackManager {
 		addHack(new AntiSneak());
 		addHack(new FreeCam());
 		addHack(new BlockOverlay());
+		addHack(new PickupFilter());
 		addHack(new PluginsGetter());
 		addHack(new AttackPacketCW());
 		addHack(new AttackPacketCIA());
 		addHack(new Teleport());
 		addHack(new FireballReturn());
+		addHack(new GuiWalk());
 		addHack(new PlayerRadar());
 		addHack(new AntiRain());
 		addHack(new AntiWeb());

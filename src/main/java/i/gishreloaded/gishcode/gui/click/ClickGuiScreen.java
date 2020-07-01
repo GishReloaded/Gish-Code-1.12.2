@@ -64,7 +64,7 @@ public class ClickGuiScreen extends GuiScreen {
        this.console = new GuiTextField(0, this.fontRenderer, this.width / 2 - 100, 0, 200, 14);
        this.console.setMaxStringLength(100);
        this.console.setText(title);
-       this.console.setFocused(true);
+       this.console.setFocused(!Utils.isMoving(Wrapper.INSTANCE.player()));
 	super.initGui();
    }
     
@@ -86,6 +86,7 @@ public class ClickGuiScreen extends GuiScreen {
 	}
 	
 	private boolean handleKeyScroll(int key) {
+		if(Utils.isMoving(Wrapper.INSTANCE.player())) return false;
 		if (key == Keyboard.KEY_W) return clickGui.onMouseScroll(3); else 
         if (key == Keyboard.KEY_S) return clickGui.onMouseScroll(-3);
 		return false;

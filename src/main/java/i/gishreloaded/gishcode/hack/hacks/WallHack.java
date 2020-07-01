@@ -47,12 +47,9 @@ public class WallHack extends Hack{
 	
 	void render(Entity entity, float ticks) {
 		Entity ent = checkEntity(entity);
-    	if(ent == null || ent == Wrapper.INSTANCE.player()) { 
-			return;
-    	}
-    	if (ent == Wrapper.INSTANCE.mc().getRenderViewEntity() && Wrapper.INSTANCE.mcSettings().thirdPersonView == 0) {
-        	return;
-        }
+    	if(ent == null || ent == Wrapper.INSTANCE.player()) return;
+    	if (ent == Wrapper.INSTANCE.mc().getRenderViewEntity() 
+    			&& Wrapper.INSTANCE.mcSettings().thirdPersonView == 0) return;
     	Wrapper.INSTANCE.mc().entityRenderer.disableLightmap();
 		Wrapper.INSTANCE.mc().getRenderManager().renderEntityStatic(ent, ticks, false);
 		Wrapper.INSTANCE.mc().entityRenderer.enableLightmap();
