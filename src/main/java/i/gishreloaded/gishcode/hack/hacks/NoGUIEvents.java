@@ -6,7 +6,7 @@ import i.gishreloaded.gishcode.hack.HackCategory;
 public class NoGuiEvents extends Hack{
 
 	public NoGuiEvents() {
-		super("NoGUIEvents", HackCategory.ANOTHER);
+		super("NoGuiEvents", HackCategory.ANOTHER);
 	}
 	
 	@Override

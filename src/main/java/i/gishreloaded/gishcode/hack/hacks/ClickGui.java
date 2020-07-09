@@ -39,11 +39,11 @@ public class ClickGui extends Hack{
 		this.setKey(Keyboard.KEY_RSHIFT);
 		this.setShow(false);
 		
-		this.theme = new ModeValue("Theme", new Mode("Dark", false), new Mode("Light", true));
+		this.theme = new ModeValue("Theme", new Mode("Dark", true), new Mode("Light", false));
 		
 		this.tooltip = new BooleanValue("Tooltip", true);
 		this.shadow = new BooleanValue("Shadow", true);
-		this.rainbow = new BooleanValue("Rainbow", false);
+		this.rainbow = new BooleanValue("Rainbow", true);
 		this.red = new NumberValue("Red", 255D, 0D, 255D);
 		this.green = new NumberValue("Green", 255D, 0D, 255D);
 		this.blue = new NumberValue("Blue", 255D, 0D, 255D);

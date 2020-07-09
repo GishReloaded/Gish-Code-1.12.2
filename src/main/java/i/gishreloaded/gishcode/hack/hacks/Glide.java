@@ -82,6 +82,8 @@ public class Glide extends Hack{
                     tick = 0;
                 } else {
                     ++tick;
+                    Utils.attack(Wrapper.INSTANCE.player());
+                    Utils.swingMainHand();
                 }
                 if (player.fallDistance >= 0.1) {
                     fall = false;
@@ -89,6 +91,7 @@ public class Glide extends Hack{
                 if (player.fallDistance >= 0.4) {
                     fall = true;
                     player.fallDistance = 0.0f;
+                    
                 }
             }
 		}

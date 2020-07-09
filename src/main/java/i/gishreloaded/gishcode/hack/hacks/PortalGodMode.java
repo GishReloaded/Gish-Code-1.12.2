@@ -13,8 +13,6 @@ import i.gishreloaded.gishcode.wrappers.Wrapper;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import net.minecraft.client.entity.EntityPlayerSP;
-import net.minecraft.client.gui.inventory.GuiContainerCreative;
-import net.minecraft.client.gui.inventory.GuiInventory;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -27,29 +25,28 @@ import net.minecraft.network.play.client.CPacketCustomPayload;
 import net.minecraft.network.play.client.CPacketEntityAction;
 import net.minecraft.network.play.client.CPacketPlayer;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.GameType;
 import net.minecraftforge.client.event.GuiContainerEvent;
 import net.minecraftforge.client.event.GuiOpenEvent;
 import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
-import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
 
-public class TestHack extends Hack{
+public class PortalGodMode extends Hack{
 	
-	public TestHack() {
-		super("TestHack", HackCategory.ANOTHER);
+	public PortalGodMode() {
+		super("PortalGodMode", HackCategory.ANOTHER);
 	}
 	
 	@Override
 	public String getDescription() {
-		return "I do not recommend enabling this!";
+		return "Portal God Mode, cancels the CPacketConfirmTeleport packet.";
 	}
 	
 	@Override
-	public void onEnable() {
-		ChatUtils.warning("Why ?");
-		super.onEnable();
+	public boolean onPacket(Object packet, Side side) {
+		if(packet instanceof CPacketConfirmTeleport)
+			return false;
+		return true;
 	}
 }

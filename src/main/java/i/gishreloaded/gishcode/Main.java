@@ -6,6 +6,8 @@ package i.gishreloaded.gishcode;
 
 import i.gishreloaded.gishcode.managers.FileManager;
 import i.gishreloaded.gishcode.managers.HackManager;
+import i.gishreloaded.gishcode.managers.LoginManager;
+import i.gishreloaded.gishcode.utils.LoginUtils;
 import i.gishreloaded.gishcode.utils.system.Nan0EventRegister;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.FMLCommonHandler;
@@ -23,7 +25,7 @@ public class Main {
 	
 	public static final String MODID = "gishcode";
 	public static final String NAME = "GishCode";
-	public static final String VERSION = "0.4.5";
+	public static final String VERSION = "0.4.6";
 	public static final String MCVERSION = "1.12.2";
 	public static int initCount = 0;
 	public static HackManager hackManager;

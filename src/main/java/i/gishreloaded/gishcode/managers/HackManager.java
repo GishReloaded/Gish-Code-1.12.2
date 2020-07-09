@@ -77,7 +77,6 @@ public class HackManager {
 		addHack(new AntiSneak());
 		addHack(new FreeCam());
 		addHack(new BlockOverlay());
-		addHack(new PickupFilter());
 		addHack(new PluginsGetter());
 		addHack(new AttackPacketCW());
 		addHack(new AttackPacketCIA());
@@ -97,6 +96,10 @@ public class HackManager {
 		addHack(new FastBreak());
 		addHack(new Disconnect());
 		addHack(new GhostMode());
+		addHack(new PortalGodMode());
+		addHack(new PickupFilter());
+		addHack(new PacketFilter());
+		addHack(new FakeCreative());
 		addHack(new ArmorHUD());
 		addHack(new HUD());
 		addHack(new ClickGui());
