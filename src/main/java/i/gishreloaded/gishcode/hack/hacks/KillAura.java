@@ -113,34 +113,33 @@ public class KillAura extends Hack{
 	@SideOnly(Side.CLIENT)
 	@Override
 	public void onCameraSetup(CameraSetup event) {
-		if(mode.getMode("AAC").isToggled() && event.getEntity() == Wrapper.INSTANCE.player() && target != null) {
-			float yaw = Utils.getRotationsNeeded(target)[0] - 180;
-			float pitch = Utils.getRotationsNeeded(target)[1] + 10;
-			facingCam = new float[] { Utils.getRotationsNeeded(target)[0], pitch };
-			event.setYaw(yaw);
-			event.setPitch(pitch);
-		}
+		if(!(mode.getMode("AAC").isToggled() 
+				&& event.getEntity() == Wrapper.INSTANCE.player() && target != null)) 
+			return;
+		
+		float yaw = Utils.getRotationsNeeded(target)[0] - 180;
+		float pitch = Utils.getRotationsNeeded(target)[1] + 10;
+		facingCam = new float[] { Utils.getRotationsNeeded(target)[0], pitch };
+		
+		event.setYaw(yaw);
+		event.setPitch(pitch);
 		super.onCameraSetup(event);
 	}
     
 	@Override
 	public void onClientTick(ClientTickEvent event) {
 		if(mode.getMode("AAC").isToggled()) {
-			phaseOne();
-			phaseTwo();
-			phaseFour();
-		} else if(mode.getMode("Simple").isToggled()) {
-			killAuraUpdate();
-			killAuraAttack(target);
+			phaseOne(); phaseTwo(); phaseFour();
+		}
+		else if(mode.getMode("Simple").isToggled()) {
+			killAuraUpdate(); killAuraAttack(target);
 		}
 		super.onClientTick(event);
 	}
 	
 	@Override
 	public void onPlayerTick(PlayerTickEvent event) {
-		if(mode.getMode("AAC").isToggled()) {
-			phaseThree(event);
-		}
+		if(mode.getMode("AAC").isToggled()) phaseThree(event);
 		super.onPlayerTick(event);
 	}
 	
@@ -149,21 +148,13 @@ public class KillAura extends Hack{
 			randomCenter = Utils.getRandomCenter(target.getEntityBoundingBox());
 			facing = Utils.getSmoothNeededRotations(randomCenter, 100.0F, 100.0F);
 		}
-		for (Object object : Utils.getEntityList()) {
-			if(object instanceof EntityLivingBase) {
-				EntityLivingBase entity = (EntityLivingBase) object;
-				if(check(entity)) {
-					target = entity;
-					phaseOne = true;
-				}
-			}
-		}
+		killAuraUpdate();
+		if(target != null) 
+			phaseOne = true;
 	}
 	
 	void phaseTwo() {
-		if(target == null || randomCenter == null || !phaseOne) {
-			return;
-		}
+		if(target == null || randomCenter == null || !phaseOne) return;
 		if(facing[0] == Utils.getNeededRotations(randomCenter)[0]) {
 			phaseOne = false;
 			phaseTwo = true;
@@ -171,17 +162,18 @@ public class KillAura extends Hack{
 	}
 	
 	void phaseThree(PlayerTickEvent event) {
-		if(target == null || facing == null || event.player != Wrapper.INSTANCE.player()) {
+		if(target == null 
+				|| facing == null 
+				|| event.player != Wrapper.INSTANCE.player()) 
 			return;
-		}
+		
 		if(target.hurtTime <= target.maxHurtTime) {
           	event.player.rotationYaw = facing[0];
           	event.player.rotationPitch = facing[1];
           	Wrapper.INSTANCE.player().rotationYawHead = facing[0];
 		}
-		if(!phaseTwo) {
-			return;
-		}
+		if(!phaseTwo) return;
+		
       	event.player.rotationYaw = facing[0];
       	event.player.rotationPitch = facing[1];
       	Wrapper.INSTANCE.player().rotationYawHead = facing[0];
@@ -197,26 +189,21 @@ public class KillAura extends Hack{
 			facingCam = null;
 			return;
 		}
-		Entity rayCastEntity = RayCastUtils.rayCast(range.getValue().floatValue() + 1.0f, facing[0], facing[1]);
+		Entity rayCastEntity = RayCastUtils.rayCast((float)(range.getValue().floatValue() + 1.0F), facing[0], facing[1]);
 		killAuraAttack(rayCastEntity == null ? target : (EntityLivingBase) rayCastEntity);
 	}
 	
 	void killAuraUpdate(){
 		for (Object object : Utils.getEntityList()) {
-			if(object instanceof EntityLivingBase) {
-				EntityLivingBase entity = (EntityLivingBase) object;
-				if(check(entity)) {
-					target = entity;
-				}
-			}
+			if(!(object instanceof EntityLivingBase)) continue;
+			EntityLivingBase entity = (EntityLivingBase) object;
+			if(!check(entity)) continue;
+			target = entity;
 		}
 	}
 	
 	public void killAuraAttack(EntityLivingBase entity) {
-		if(entity == null) {
-			AutoShield.block(false);
-			return;
-		}
+		if(entity == null) { AutoShield.block(false); return; }
 		if(this.autoDelay.getValue()) {
     		if (Wrapper.INSTANCE.player().getCooledAttackStrength(0) == 1) {
     			processAttack(entity);
@@ -225,8 +212,12 @@ public class KillAura extends Hack{
     	}
 		else
 		{
-			int CPS = Utils.random(minCPS.getValue().intValue(), maxCPS.getValue().intValue());
-			int r1 = Utils.random(1, 50), r2 = Utils.random(1, 60), r3 = Utils.random(1, 70);
+			int CPS = Utils.random(
+					(int)(minCPS.getValue().intValue()),
+					(int)(maxCPS.getValue().intValue()));
+			int r1 = Utils.random(1, 50),
+					r2 = Utils.random(1, 60),
+					r3 = Utils.random(1, 70);
 			if (timer.isDelay((1000 + ((r1 - r2) + r3)) / CPS)) {
 				processAttack(entity);
 				timer.setLastMS();
@@ -239,16 +230,22 @@ public class KillAura extends Hack{
 	
 	public void processAttack(EntityLivingBase entity) {
 		AutoShield.block(false);
-		if(!isInAttackRange(entity) || !ValidUtils.isInAttackFOV(entity, FOV.getValue().intValue())) return;
+		if(!isInAttackRange(entity) || !ValidUtils.isInAttackFOV(entity, (int)(FOV.getValue().intValue()))) return;
 		EntityPlayerSP player = Wrapper.INSTANCE.player();
 		float sharpLevel = EnchantmentHelper.getModifierForCreature(player.getHeldItemMainhand(), entity.getCreatureAttribute());
 		if(this.packetReach.getValue()) {
             double posX = entity.posX - 3.5 * Math.cos(Math.toRadians(Utils.getYaw(entity) + 90.0f));
             double posZ = entity.posZ - 3.5 * Math.sin(Math.toRadians(Utils.getYaw(entity) + 90.0f));
-            Wrapper.INSTANCE.sendPacket(new CPacketPlayer.PositionRotation(posX, entity.posY, posZ, Utils.getYaw(entity), Utils.getPitch(entity), player.onGround));
-            Wrapper.INSTANCE.sendPacket(new CPacketUseEntity(entity));
-            Wrapper.INSTANCE.sendPacket(new CPacketPlayer.Position(player.posX, player.posY, player.posZ, player.onGround));
-		} else {
+            Wrapper.INSTANCE.sendPacket(
+            		new CPacketPlayer.PositionRotation(posX, entity.posY, posZ, 
+            				Utils.getYaw(entity), Utils.getPitch(entity), player.onGround));
+            Wrapper.INSTANCE.sendPacket(
+            		new CPacketUseEntity(entity));
+            Wrapper.INSTANCE.sendPacket(
+            		new CPacketPlayer.Position(player.posX, player.posY, player.posZ, player.onGround));
+		}
+		else
+		{
 			if(autoDelay.getValue() || mode.getMode("Simple").isToggled()) 
 				Utils.attack(entity);
 			 else 
@@ -261,12 +258,13 @@ public class KillAura extends Hack{
     }
 	
 	boolean isPriority(EntityLivingBase entity) {
-		return priority.getMode("Closest").isToggled() && ValidUtils.isClosest(entity, target) || priority.getMode("Health").isToggled() && ValidUtils.isLowHealth(entity, target);
+		return priority.getMode("Closest").isToggled() && ValidUtils.isClosest(entity, target) 
+				|| priority.getMode("Health").isToggled() && ValidUtils.isLowHealth(entity, target);
 	}
 	
     boolean isInAttackRange(EntityLivingBase entity) {
-        return packetReach.getValue() ? entity.getDistance(Wrapper.INSTANCE.player()) <= packetRange.getValue().floatValue() 
-        		: entity.getDistance(Wrapper.INSTANCE.player()) <= range.getValue().floatValue();
+        return packetReach.getValue() ? entity.getDistance(Wrapper.INSTANCE.player()) <= (float)(packetRange.getValue().floatValue()) 
+        		: entity.getDistance(Wrapper.INSTANCE.player()) <= (float)(range.getValue().floatValue());
     }
 	
 	public boolean check(EntityLivingBase entity) {

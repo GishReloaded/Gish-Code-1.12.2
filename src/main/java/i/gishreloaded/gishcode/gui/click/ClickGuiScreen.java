@@ -62,7 +62,7 @@ public class ClickGuiScreen extends GuiScreen {
    public void initGui() {
 	   Keyboard.enableRepeatEvents(true);
        this.console = new GuiTextField(0, this.fontRenderer, this.width / 2 - 100, 0, 200, 14);
-       this.console.setMaxStringLength(100);
+       this.console.setMaxStringLength(500);
        this.console.setText(title);
        this.console.setFocused(!Utils.isMoving(Wrapper.INSTANCE.player()));
 	super.initGui();

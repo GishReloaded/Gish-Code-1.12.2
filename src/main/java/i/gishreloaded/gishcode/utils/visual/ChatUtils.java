@@ -9,7 +9,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentTranslation;
 
-public class ChatUtils{	
+public class ChatUtils{	// TODO Rewrite to LogManager 
 	
 	public static void component(ITextComponent component)
 	{

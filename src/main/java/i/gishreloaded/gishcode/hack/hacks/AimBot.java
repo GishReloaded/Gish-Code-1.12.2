@@ -62,19 +62,20 @@ public class AimBot extends Hack{
 	@Override
 	public void onClientTick(ClientTickEvent event) {
 		updateTarget();
-		Utils.assistFaceEntity(this.target, this.yaw.getValue().floatValue(), this.pitch.getValue().floatValue());
+		Utils.assistFaceEntity(
+				this.target, 
+				this.yaw.getValue().floatValue(),
+				this.pitch.getValue().floatValue());
 		this.target = null;
 		super.onClientTick(event);
 	}
 
 	void updateTarget(){
 		for (Object object : Utils.getEntityList()) {
-			if(object instanceof EntityLivingBase) {
-				EntityLivingBase entity = (EntityLivingBase) object;
-				if(check(entity)) {
-					this.target = entity;
-				}
-			}
+			if(!(object instanceof EntityLivingBase)) continue;
+			EntityLivingBase entity = (EntityLivingBase) object;
+			if(!check(entity)) continue;
+			this.target = entity;
 		}
 	}
 	
@@ -97,7 +98,8 @@ public class AimBot extends Hack{
     }
 
 	boolean isPriority(EntityLivingBase entity) {
-		return priority.getMode("Closest").isToggled() && ValidUtils.isClosest(entity, target) || priority.getMode("Health").isToggled() && ValidUtils.isLowHealth(entity, target);
+		return priority.getMode("Closest").isToggled() && ValidUtils.isClosest(entity, target) 
+				|| priority.getMode("Health").isToggled() && ValidUtils.isLowHealth(entity, target);
 	}
 
 }

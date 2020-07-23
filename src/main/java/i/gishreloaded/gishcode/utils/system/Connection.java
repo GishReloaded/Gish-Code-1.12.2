@@ -11,6 +11,7 @@ import io.netty.channel.ChannelPromise;
 
 public class Connection extends ChannelDuplexHandler {
 
+	public static enum Side { IN, OUT; }
     private EventsHandler eventHandler;
 
     public Connection(EventsHandler eventHandler) {
@@ -26,22 +27,13 @@ public class Connection extends ChannelDuplexHandler {
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object packet) throws Exception {
-        if (!eventHandler.onPacket(packet, Side.IN)) {
-            return;
-        }
+        if (!eventHandler.onPacket(packet, Side.IN)) return;
         super.channelRead(ctx, packet);
     }
 
     @Override
     public void write(ChannelHandlerContext ctx, Object packet, ChannelPromise promise) throws Exception {
-        if (!eventHandler.onPacket(packet, Side.OUT)) {
-            return;
-        }
+        if (!eventHandler.onPacket(packet, Side.OUT)) return;
         super.write(ctx, packet, promise);
-    }
-
-    public static enum Side {
-        IN,
-        OUT;
     }
 }

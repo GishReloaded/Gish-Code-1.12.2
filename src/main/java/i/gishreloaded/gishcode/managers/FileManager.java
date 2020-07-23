@@ -30,7 +30,7 @@ import i.gishreloaded.gishcode.wrappers.Wrapper;
 import i.gishreloaded.gishcode.xray.XRayData;
 import net.minecraft.item.Item;
 
-public class FileManager { //todo this class will be rewrite
+public class FileManager { // TODO this class will be rewrite
 
     private static Gson gsonPretty = new GsonBuilder().setPrettyPrinting().create();
 
@@ -44,6 +44,7 @@ public class FileManager { //todo this class will be rewrite
     private static File FRIENDS = null;
     private static File ENEMYS = null;
     public static File CLICKGUI = null;
+    public static File SKINCHANGER = null;
     
     public FileManager() {
     	GISHCODE_DIR = getDirectory();
@@ -52,6 +53,7 @@ public class FileManager { //todo this class will be rewrite
         HACKS = new File(GISHCODE_DIR, "hacks.json");
         XRAYDATA = new File(GISHCODE_DIR, "xraydata.json");
         PICKUPFILTER = new File(GISHCODE_DIR, "pickupfilter.json");
+        SKINCHANGER = new File(GISHCODE_DIR, "cachedtextures");
         CLICKGUI = new File(GISHCODE_DIR, "clickgui.json");
         FRIENDS = new File(GISHCODE_DIR, "friends.json");
         ENEMYS = new File(GISHCODE_DIR, "enemys.json");
@@ -62,6 +64,7 @@ public class FileManager { //todo this class will be rewrite
         if (!PICKUPFILTER.exists()) savePickupFilter(); else loadPickupFilter();
         if (!FRIENDS.exists()) saveFriends(); else loadFriends();
         if (!ENEMYS.exists()) saveEnemys(); else loadEnemys();
+        if (!SKINCHANGER.exists()) SKINCHANGER.mkdir();
 	}
     
     public static File getDirectory() {

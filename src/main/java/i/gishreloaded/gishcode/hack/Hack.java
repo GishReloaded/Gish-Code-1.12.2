@@ -122,24 +122,16 @@ public class Hack {
     public void onRenderGameOverlay(RenderGameOverlayEvent.Text event) {}
     public void onLeftClickBlock(PlayerInteractEvent.LeftClickBlock event){}
 	
-    public void debug(int i) {
-    	ChatUtils.message("Debug: " + i);
+    public void d(Object o) { 
+    	String str = "[DEBUG]: " + o;
+    	ChatUtils.warning(str);
+    	System.out.println(str);
     }
     
-    public void debug(float i) {
-    	ChatUtils.message("Debug: " + i);
-    }
-    
-    public void debug(double i) {
-    	ChatUtils.message("Debug: " + i);
-    }
-    
-    public void debug(long i) {
-    	ChatUtils.message("Debug: " + i);
-    }
-    
-    public void debug() {
-    	ChatUtils.message("Debug: " + 0);
+    public void d() { 
+    	String str = "[DEBUG]: !";
+    	ChatUtils.warning(str);
+    	System.out.println(str);
     }
     
     public String getDescription() {

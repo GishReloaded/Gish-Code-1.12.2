@@ -2,6 +2,7 @@ package i.gishreloaded.gishcode.hack.hacks;
 
 import i.gishreloaded.gishcode.hack.Hack;
 import i.gishreloaded.gishcode.hack.HackCategory;
+import i.gishreloaded.gishcode.managers.HackManager;
 import i.gishreloaded.gishcode.utils.Utils;
 
 import i.gishreloaded.gishcode.utils.TimerUtils;
@@ -28,7 +29,7 @@ public class Glide extends Hack{
 	public Glide() {
 		super("Glide", HackCategory.PLAYER);
 		
-		damage = new BooleanValue("Damage", false);
+		damage = new BooleanValue("SelfDamage", false);
 		this.mode = new ModeValue("Mode", new Mode("Falling", true), new Mode("Flat", false));
 		
 		this.addValue(mode, damage);
@@ -43,13 +44,8 @@ public class Glide extends Hack{
 	
 	@Override
 	public void onEnable() {
-		if(damage.getValue()) {
-        	EntityPlayerSP player = Wrapper.INSTANCE.player();
-        	Wrapper.INSTANCE.sendPacket(new CPacketPlayer.Position(player.posX, player.posY - 6, player.posZ, true));
-        	player.motionX *= 0.2;
-        	player.motionZ *= 0.2;
-        	Utils.swingMainHand();
-		}
+		if(damage.getValue())
+			HackManager.getHack("SelfDamage").toggle();
 		super.onEnable();
 	}
 	
@@ -82,8 +78,6 @@ public class Glide extends Hack{
                     tick = 0;
                 } else {
                     ++tick;
-                    Utils.attack(Wrapper.INSTANCE.player());
-                    Utils.swingMainHand();
                 }
                 if (player.fallDistance >= 0.1) {
                     fall = false;

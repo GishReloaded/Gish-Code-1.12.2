@@ -416,9 +416,8 @@ public class GuiContainerCreative extends InventoryEffectRenderer
 
         if (this.searchField.getText().isEmpty())
         {
-            for (Object object : Item.REGISTRY)
+            for (Item item : Item.REGISTRY)
             {
-            	Item item = (Item)object;
                 item.getSubItems(CreativeTabs.SEARCH, guicontainercreative$containercreative.itemList);
             }
         }

@@ -28,6 +28,7 @@ public class CommandManager
 		commands.add(new Effect());
 		commands.add(new DumpPlayers());
 		commands.add(new DumpClasses());
+		commands.add(new SkinSteal());
 		commands.add(new Friend());
 		commands.add(new Enemy());
 		commands.add(new Toggle());

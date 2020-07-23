@@ -44,8 +44,14 @@ public class Criticals extends Hack{
 					if(attack.getAction() == Action.ATTACK) {
 						if(mode.getMode("Packet").isToggled()) {
 							if(Wrapper.INSTANCE.player().collidedVertically && this.timer.isDelay(500)) {
-								Wrapper.INSTANCE.sendPacket(new CPacketPlayer.Position(Wrapper.INSTANCE.player().posX, Wrapper.INSTANCE.player().posY + 0.0627, Wrapper.INSTANCE.player().posZ, false));
-								Wrapper.INSTANCE.sendPacket(new CPacketPlayer.Position(Wrapper.INSTANCE.player().posX, Wrapper.INSTANCE.player().posY, Wrapper.INSTANCE.player().posZ, false));
+								Wrapper.INSTANCE.sendPacket(new CPacketPlayer.Position(
+										Wrapper.INSTANCE.player().posX,
+										Wrapper.INSTANCE.player().posY + 0.0627,
+										Wrapper.INSTANCE.player().posZ, false));
+								Wrapper.INSTANCE.sendPacket(new CPacketPlayer.Position(
+										Wrapper.INSTANCE.player().posX,
+										Wrapper.INSTANCE.player().posY,
+										Wrapper.INSTANCE.player().posZ, false));
 								Entity entity = attack.getEntityFromWorld(Wrapper.INSTANCE.world());
 								if(entity != null) {
 									Wrapper.INSTANCE.player().onCriticalHit(entity);

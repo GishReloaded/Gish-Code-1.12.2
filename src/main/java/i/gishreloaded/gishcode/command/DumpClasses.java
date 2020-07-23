@@ -57,7 +57,7 @@ public class DumpClasses extends Command
 	@Override
 	public String getDescription()
 	{
-		return "Get classes in ClassLoader by regex.";
+		return "Get classes from ClassLoader by regex.";
 	}
 
 	@Override

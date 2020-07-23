@@ -200,6 +200,26 @@ public class Utils {
         return new double[]{startX, startY, startZ};
     }
     
+    public static void selfDamage(double posY) {
+		if(!Wrapper.INSTANCE.player().onGround) 
+			return;
+		for (int i = 0; i <= 64.0D; i++) {
+			Wrapper.INSTANCE.sendPacket(new CPacketPlayer.Position(
+					Wrapper.INSTANCE.player().posX,
+					Wrapper.INSTANCE.player().posY + posY,
+					Wrapper.INSTANCE.player().posZ, 
+					false));
+			Wrapper.INSTANCE.sendPacket(new CPacketPlayer.Position(
+					Wrapper.INSTANCE.player().posX,
+					Wrapper.INSTANCE.player().posY,
+					Wrapper.INSTANCE.player().posZ, 
+					(i == 64.0D)));
+		}
+		Wrapper.INSTANCE.player().motionX *= 0.2;
+		Wrapper.INSTANCE.player().motionZ *= 0.2;
+    	Utils.swingMainHand();
+	}
+    
     public static String getPlayerName(EntityPlayer player) {
     	return player.getGameProfile() != null ? 
 				player.getGameProfile().getName() : player.getName();
@@ -540,6 +560,37 @@ public class Utils {
 		pl.rotationYaw = preYaw;
 		pl.rotationPitch = prePitch;
 	}
+    
+	public static void setEntityBoundingBoxSize(Entity entity, float width, float height) {
+        if (width != entity.width || height != entity.height) {
+            float f = entity.width;
+            entity.width = width;
+            entity.height = height;
+            if (entity.width < f) {
+                double d0 = (double)width / 2.0D;
+                entity.setEntityBoundingBox(
+                		new AxisAlignedBB(
+                				entity.posX - d0,
+                				entity.posY,
+                				entity.posZ - d0,
+                				entity.posX + d0,
+                				entity.posY + (double)entity.height,
+                				entity.posZ + d0));
+                return;
+            }
+            AxisAlignedBB axisalignedbb = entity.getEntityBoundingBox();
+            entity.setEntityBoundingBox(
+            		new AxisAlignedBB(axisalignedbb.minX,
+            				axisalignedbb.minY,
+            				axisalignedbb.minZ,
+            				axisalignedbb.minX + (double)entity.width,
+            				axisalignedbb.minY + (double)entity.height,
+            				axisalignedbb.minZ + (double)entity.width));
+//            if (entity.width > f && !entity.firstUpdate && !entity.world.isRemote) {
+//            	entity.move(MoverType.SELF, (double)(f - entity.width), 0.0D, (double)(f - entity.width));
+//            }
+        }
+    }
 	
 	public static boolean placeBlockScaffold(final BlockPos pos) {
         final Vec3d eyesPos = new Vec3d(Wrapper.INSTANCE.player().posX, Wrapper.INSTANCE.player().posY + Wrapper.INSTANCE.player().getEyeHeight(), Wrapper.INSTANCE.player().posZ);
@@ -587,6 +638,10 @@ public class Utils {
         }
         return false;
     }
+	
+	public static boolean isBlockEdge(EntityLivingBase entity) {
+		return (Wrapper.INSTANCE.world().getCollisionBoxes(entity, entity.getEntityBoundingBox().offset(0.0D, -0.5D, 0.0D).expand(0.001D, 0.0D, 0.001D)).isEmpty() && entity.onGround);
+	}
     
     public static void faceEntity(EntityLivingBase entity) {
 	    if (entity == null) {

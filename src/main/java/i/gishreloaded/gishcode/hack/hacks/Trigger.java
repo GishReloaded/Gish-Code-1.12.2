@@ -88,7 +88,9 @@ public class Trigger extends Hack{
         	}
         	else
         	{
-        		int currentCPS = Utils.random(minCPS.getValue().intValue(), maxCPS.getValue().intValue());
+        		int currentCPS = Utils.random(
+        				(int)(minCPS.getValue().intValue()),
+        				(int)(maxCPS.getValue().intValue()));
         		if(timer.isDelay(1000 / currentCPS)) {
         			processAttack(target, true);
             		timer.setLastMS();
@@ -101,7 +103,9 @@ public class Trigger extends Hack{
 	
 	public void processAttack(EntityLivingBase entity, boolean packet) {
 		AutoShield.block(false);
-		float sharpLevel = EnchantmentHelper.getModifierForCreature(Wrapper.INSTANCE.player().getHeldItemMainhand(), target.getCreatureAttribute());
+		float sharpLevel = EnchantmentHelper.getModifierForCreature(
+				Wrapper.INSTANCE.player().getHeldItemMainhand(),
+				target.getCreatureAttribute());
 		if(mode.getMode("Click").isToggled()){
 			RobotUtils.clickMouse(0);
 		} else {
@@ -145,7 +149,8 @@ public class Trigger extends Hack{
  			if(o instanceof EntityLivingBase && !(o instanceof EntityArmorStand)) {
  				EntityLivingBase entity = (EntityLivingBase)o;
  				if(check(entity)) {
- 					if(closestEntity == null || Wrapper.INSTANCE.player().getDistance(entity) < Wrapper.INSTANCE.player().getDistance(closestEntity)) {
+ 					if(closestEntity == null || Wrapper.INSTANCE.player().getDistance(entity)
+ 							< Wrapper.INSTANCE.player().getDistance(closestEntity)) {
  						closestEntity = entity;
  					}
  				}

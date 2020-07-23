@@ -29,21 +29,15 @@ public class Disconnect extends Hack{
 	
 	@Override
 	public void onClientTick(ClientTickEvent event) {
-		if(Wrapper.INSTANCE.player().getHealth() <= leaveHealth.getValue().floatValue()){
+		if(Wrapper.INSTANCE.player().getHealth() <= leaveHealth.getValue().floatValue()) {
 			
 			boolean flag = Wrapper.INSTANCE.mc().isIntegratedServerRunning();
 			Wrapper.INSTANCE.world().sendQuittingDisconnectingPacket();
 			Wrapper.INSTANCE.mc().loadWorld((WorldClient)null);
 			
             if (flag)
-            {
-            	Wrapper.INSTANCE.mc().displayGuiScreen(new GuiMainMenu());
-            }
-            else
-            {
+            	Wrapper.INSTANCE.mc().displayGuiScreen(new GuiMainMenu()); else
             	Wrapper.INSTANCE.mc().displayGuiScreen(new GuiMultiplayer(new GuiMainMenu()));
-            }
-            
             this.setToggled(false);
 		}
 		super.onClientTick(event);

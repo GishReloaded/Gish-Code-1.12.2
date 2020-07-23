@@ -12,7 +12,7 @@
 //import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
 //import i.gishreloaded.gishcode.utils.system.Connection.Side;
 //
-//public class Regeneration extends Hack{
+//public class Regeneration extends Hack {
 //	
 //	public NumberValue speed;
 //	
