@@ -10,6 +10,7 @@ public class Mapping {
 	public static String session = isNotObfuscated() ? "session" : "field_71449_j";
 	public static String yaw = isNotObfuscated() ? "yaw" : "field_149476_e";
 	public static String pitch = isNotObfuscated() ? "pitch" : "field_149473_f";
+	public static String rightClickDelayTimer = isNotObfuscated() ? "rightClickDelayTimer" : "field_71467_ac";
 	public static String getPlayerInfo = isNotObfuscated() ? "getPlayerInfo" : "func_175155_b";
 	public static String playerTextures = isNotObfuscated() ? "playerTextures" : "field_187107_a";
 	public static String currentGameType = isNotObfuscated() ? "currentGameType" : "field_78779_k";

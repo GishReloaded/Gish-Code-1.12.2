@@ -562,11 +562,9 @@ public class Utils {
 	}
     
 	public static void setEntityBoundingBoxSize(Entity entity, float width, float height) {
-        if (width != entity.width || height != entity.height) {
-            float f = entity.width;
-            entity.width = width;
+		if(entity.width == width && entity.height == height) return;
+            entity.width = width;  
             entity.height = height;
-            if (entity.width < f) {
                 double d0 = (double)width / 2.0D;
                 entity.setEntityBoundingBox(
                 		new AxisAlignedBB(
@@ -576,20 +574,7 @@ public class Utils {
                 				entity.posX + d0,
                 				entity.posY + (double)entity.height,
                 				entity.posZ + d0));
-                return;
-            }
-            AxisAlignedBB axisalignedbb = entity.getEntityBoundingBox();
-            entity.setEntityBoundingBox(
-            		new AxisAlignedBB(axisalignedbb.minX,
-            				axisalignedbb.minY,
-            				axisalignedbb.minZ,
-            				axisalignedbb.minX + (double)entity.width,
-            				axisalignedbb.minY + (double)entity.height,
-            				axisalignedbb.minZ + (double)entity.width));
-//            if (entity.width > f && !entity.firstUpdate && !entity.world.isRemote) {
-//            	entity.move(MoverType.SELF, (double)(f - entity.width), 0.0D, (double)(f - entity.width));
-//            }
-        }
+        
     }
 	
 	public static boolean placeBlockScaffold(final BlockPos pos) {
@@ -606,7 +591,7 @@ public class Utils {
                     Utils.swingMainHand();
                     Wrapper.INSTANCE.controller().processRightClickBlock(Wrapper.INSTANCE.player(), Wrapper.INSTANCE.world(), neighbor, side2, hitVec, EnumHand.MAIN_HAND);
                     try {
-                    	Field f = Minecraft.class.getDeclaredField("rightClickDelayTimer");
+                    	Field f = Minecraft.class.getDeclaredField(Mapping.rightClickDelayTimer);
                     	f.setAccessible(true);
             			f.set(Wrapper.INSTANCE.mc(), 4);
             		} catch (Exception e) {

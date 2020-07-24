@@ -98,7 +98,7 @@ public class HackManager {
 		addHack(new Rage());
 		addHack(new Suicide());
 		addHack(new SelfDamage());
-		addHack(new Hitbox());
+		addHack(new HitBox());
 		addHack(new AntiAfk());
 		addHack(new TestHack());
 		addHack(new FastBreak());
