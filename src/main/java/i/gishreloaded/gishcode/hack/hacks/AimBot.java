@@ -2,24 +2,16 @@ package i.gishreloaded.gishcode.hack.hacks;
 
 import i.gishreloaded.gishcode.hack.Hack;
 import i.gishreloaded.gishcode.hack.HackCategory;
-import i.gishreloaded.gishcode.managers.EnemyManager;
-import i.gishreloaded.gishcode.managers.FriendManager;
-import i.gishreloaded.gishcode.managers.HackManager;
-
 import i.gishreloaded.gishcode.utils.Utils;
 import i.gishreloaded.gishcode.utils.ValidUtils;
-import i.gishreloaded.gishcode.value.BooleanValue;
 import i.gishreloaded.gishcode.value.Mode;
-import i.gishreloaded.gishcode.value.ModeValue;
-import i.gishreloaded.gishcode.value.NumberValue;
+import i.gishreloaded.gishcode.value.types.BooleanValue;
+import i.gishreloaded.gishcode.value.types.DoubleValue;
+import i.gishreloaded.gishcode.value.types.IntegerValue;
+import i.gishreloaded.gishcode.value.types.ModeValue;
 import i.gishreloaded.gishcode.wrappers.Wrapper;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityArmorStand;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemBow;
-import net.minecraft.util.math.RayTraceResult;
 import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
 
 public class AimBot extends Hack{
@@ -27,10 +19,10 @@ public class AimBot extends Hack{
 	public ModeValue priority;
     public BooleanValue walls;
     
-    public NumberValue yaw;
-    public NumberValue pitch;
-    public NumberValue range;
-    public NumberValue FOV;
+    public DoubleValue yaw;
+    public DoubleValue pitch;
+    public DoubleValue range;
+    public IntegerValue FOV;
     
     public EntityLivingBase target;
     
@@ -40,10 +32,10 @@ public class AimBot extends Hack{
 
 		walls = new BooleanValue("ThroughWalls", false);
 		
-		yaw = new NumberValue("Yaw", 15.0D, 0D, 50D);
-		pitch = new NumberValue("Pitch", 15.0D, 0D, 50D);
-		range = new NumberValue("Range", 4.7D, 0.1D, 10D);
-		FOV = new NumberValue("FOV", 90D, 1D, 180D);
+		yaw = new DoubleValue("Yaw", 15.0D, 0D, 50D);
+		pitch = new DoubleValue("Pitch", 15.0D, 0D, 50D);
+		range = new DoubleValue("Range", 4.7D, 0.1D, 10D);
+		FOV = new IntegerValue("FOV", 90, 1, 360);
 		
 		this.addValue(priority, walls, yaw, pitch, range, FOV);
 	}
@@ -88,7 +80,7 @@ public class AimBot extends Hack{
 		if(ValidUtils.isBot(entity)) { return false; }
 		if(!ValidUtils.isFriendEnemy(entity)) { return false; }
     	if(!ValidUtils.isInvisible(entity)) { return false; }
-    	if(!ValidUtils.isInAttackFOV(entity, FOV.getValue().intValue())) { return false; }
+    	if(!ValidUtils.isInAttackFOV(entity, (FOV.getValue() / 2))) { return false; }
 		if(!ValidUtils.isInAttackRange(entity, range.getValue().floatValue())) { return false; }
 		if(!ValidUtils.isTeam(entity)) { return false; }
     	if(!ValidUtils.pingCheck(entity)) { return false; }

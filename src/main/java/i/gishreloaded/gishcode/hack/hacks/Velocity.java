@@ -11,10 +11,9 @@ import i.gishreloaded.gishcode.utils.system.Connection.Side;
 import i.gishreloaded.gishcode.utils.visual.ChatUtils;
 
 import i.gishreloaded.gishcode.utils.TimerUtils;
-import i.gishreloaded.gishcode.value.BooleanValue;
 import i.gishreloaded.gishcode.value.Mode;
-import i.gishreloaded.gishcode.value.ModeValue;
-import i.gishreloaded.gishcode.value.NumberValue;
+import i.gishreloaded.gishcode.value.types.BooleanValue;
+import i.gishreloaded.gishcode.value.types.ModeValue;
 import i.gishreloaded.gishcode.wrappers.Wrapper;
 import io.netty.buffer.Unpooled;
 import net.minecraft.client.Minecraft;
@@ -75,11 +74,11 @@ public class Velocity extends Hack{
 				double x = p.getMotionX() / 8000.0D;
 			    double y = p.getMotionY() / 8000.0D;
 			    double z = p.getMotionZ() / 8000.0D;  
-			    double percent = this.percentage.getValue().intValue() / 100.0D;      
+			    double percent = this.percentage.getValue() / 100.0D;      
 			    x *= percent;
 			    y *= percent;
 			    z *= percent;
-			    if(this.percentage.getValue().intValue() > 0) {
+			    if(this.percentage.getValue() > 0) {
 			    	try {
 						ChatUtils.warning("x" + x + " y" + y + " z" + z);
 			        	Field mX = SPacketEntityVelocity.class.getDeclaredField("motionX");

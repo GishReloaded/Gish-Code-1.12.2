@@ -6,10 +6,9 @@ import i.gishreloaded.gishcode.hack.Hack;
 import i.gishreloaded.gishcode.hack.HackCategory;
 import i.gishreloaded.gishcode.managers.XRayManager;
 import i.gishreloaded.gishcode.utils.BlockUtils;
-
 import i.gishreloaded.gishcode.utils.TimerUtils;
 import i.gishreloaded.gishcode.utils.visual.RenderUtils;
-import i.gishreloaded.gishcode.value.NumberValue;
+import i.gishreloaded.gishcode.value.types.IntegerValue;
 import i.gishreloaded.gishcode.wrappers.Wrapper;
 import i.gishreloaded.gishcode.xray.XRayBlock;
 import i.gishreloaded.gishcode.xray.XRayData;
@@ -19,8 +18,8 @@ import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
 
 public class XRay extends Hack{
 
-    public NumberValue distance;
-	public NumberValue delay;
+    public IntegerValue distance;
+	public IntegerValue delay;
 
 	public TimerUtils timer;
 	
@@ -28,8 +27,8 @@ public class XRay extends Hack{
 	
 	public XRay() {
 		super("XRay", HackCategory.VISUAL);
-		distance = new NumberValue("Distance", 50D, 4D, 100D);
-		delay = new NumberValue("UpdateDelay", 100D, 0D, 300D);
+		distance = new IntegerValue("Distance", 50, 4, 100);
+		delay = new IntegerValue("UpdateDelay", 100, 0, 300);
 		timer = new TimerUtils();
 		this.addValue(distance, delay);
 	}
@@ -43,11 +42,11 @@ public class XRay extends Hack{
 	public void onEnable() {
 		blocks.clear();
 	}
-
+	
 	@Override
 	public void onClientTick(ClientTickEvent event) {
-		int distance = this.distance.getValue().intValue();
-		if(!timer.isDelay((long) (delay.getValue().intValue() * 10))) {
+		int distance = this.distance.getValue();
+		if(!timer.isDelay((long) (delay.getValue() * 10))) {
 			return;
 		}
 		blocks.clear();

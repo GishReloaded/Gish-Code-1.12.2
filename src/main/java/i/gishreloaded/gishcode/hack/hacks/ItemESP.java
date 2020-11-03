@@ -9,7 +9,7 @@ import i.gishreloaded.gishcode.managers.FriendManager;
 import i.gishreloaded.gishcode.managers.HackManager;
 import i.gishreloaded.gishcode.utils.Utils;
 import i.gishreloaded.gishcode.utils.visual.RenderUtils;
-import i.gishreloaded.gishcode.value.BooleanValue;
+import i.gishreloaded.gishcode.value.types.BooleanValue;
 import i.gishreloaded.gishcode.wrappers.Wrapper;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;

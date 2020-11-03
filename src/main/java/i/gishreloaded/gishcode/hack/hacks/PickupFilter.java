@@ -10,7 +10,7 @@ import i.gishreloaded.gishcode.utils.Utils;
 import i.gishreloaded.gishcode.utils.system.Connection.Side;
 import i.gishreloaded.gishcode.utils.visual.ChatUtils;
 import i.gishreloaded.gishcode.utils.visual.RenderUtils;
-import i.gishreloaded.gishcode.value.BooleanValue;
+import i.gishreloaded.gishcode.value.types.BooleanValue;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraftforge.event.entity.player.EntityItemPickupEvent;

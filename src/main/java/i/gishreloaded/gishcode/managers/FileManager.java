@@ -5,7 +5,6 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,11 +20,12 @@ import i.gishreloaded.gishcode.Main;
 import i.gishreloaded.gishcode.gui.click.ClickGuiScreen;
 import i.gishreloaded.gishcode.gui.click.elements.Frame;
 import i.gishreloaded.gishcode.hack.Hack;
-import i.gishreloaded.gishcode.value.BooleanValue;
 import i.gishreloaded.gishcode.value.Mode;
-import i.gishreloaded.gishcode.value.ModeValue;
-import i.gishreloaded.gishcode.value.NumberValue;
 import i.gishreloaded.gishcode.value.Value;
+import i.gishreloaded.gishcode.value.types.BooleanValue;
+import i.gishreloaded.gishcode.value.types.DoubleValue;
+import i.gishreloaded.gishcode.value.types.IntegerValue;
+import i.gishreloaded.gishcode.value.types.ModeValue;
 import i.gishreloaded.gishcode.wrappers.Wrapper;
 import i.gishreloaded.gishcode.xray.XRayData;
 import net.minecraft.item.Item;
@@ -94,8 +94,10 @@ public class FileManager { // TODO this class will be rewrite
                 for (Value value : hack.getValues()) {
                     if (value instanceof BooleanValue) 
                         value.setValue(jsonObjectHack.get(value.getName()).getAsBoolean());
-                    if (value instanceof NumberValue) 
+                    if (value instanceof DoubleValue) 
                         value.setValue(jsonObjectHack.get(value.getName()).getAsDouble());
+                    if (value instanceof IntegerValue) 
+                        value.setValue(jsonObjectHack.get(value.getName()).getAsBigInteger());
                     if (value instanceof ModeValue) {
                     	ModeValue modeValue = (ModeValue) value;
                     	for(Mode mode : modeValue.getModes()) 
@@ -258,12 +260,12 @@ public class FileManager { // TODO this class will be rewrite
 
                 if (!hack.getValues().isEmpty()) {
                     for (Value value : hack.getValues()) {
-                        if (value instanceof BooleanValue) {
+                        if (value instanceof BooleanValue)
                         	jsonHack.addProperty(value.getName(), (Boolean) value.getValue());
-                        }
-                        if (value instanceof NumberValue) {
-                        	jsonHack.addProperty(value.getName(), (Number) value.getValue());
-                        }
+                        if (value instanceof IntegerValue)
+                        	jsonHack.addProperty(value.getName(), (Integer) value.getValue());
+                        if (value instanceof DoubleValue)
+                        	jsonHack.addProperty(value.getName(), (Double) value.getValue());
                         if (value instanceof ModeValue) {
                         	ModeValue modeValue = (ModeValue) value;
                         	for(Mode mode : modeValue.getModes()) {

@@ -12,7 +12,7 @@ import i.gishreloaded.gishcode.managers.SkinChangerManager;
 import i.gishreloaded.gishcode.utils.RobotUtils;
 import i.gishreloaded.gishcode.utils.Utils;
 import i.gishreloaded.gishcode.value.Mode;
-import i.gishreloaded.gishcode.value.ModeValue;
+import i.gishreloaded.gishcode.value.types.ModeValue;
 import i.gishreloaded.gishcode.wrappers.Wrapper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityArmorStand;

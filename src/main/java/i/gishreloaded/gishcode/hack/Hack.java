@@ -7,17 +7,19 @@ import i.gishreloaded.gishcode.hack.hacks.HUD;
 import i.gishreloaded.gishcode.utils.system.Connection;
 import i.gishreloaded.gishcode.utils.visual.ChatUtils;
 import i.gishreloaded.gishcode.utils.visual.RenderUtils;
-import i.gishreloaded.gishcode.value.BooleanValue;
 import i.gishreloaded.gishcode.value.Mode;
-import i.gishreloaded.gishcode.value.ModeValue;
 import i.gishreloaded.gishcode.value.Value;
+import i.gishreloaded.gishcode.value.types.BooleanValue;
+import i.gishreloaded.gishcode.value.types.ModeValue;
 import i.gishreloaded.gishcode.wrappers.Wrapper;
 import net.minecraftforge.client.event.EntityViewRenderEvent;
 import net.minecraftforge.client.event.GuiContainerEvent;
 import net.minecraftforge.client.event.GuiOpenEvent;
 import net.minecraftforge.client.event.MouseEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
+import net.minecraftforge.client.event.RenderPlayerEvent;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
+import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.ProjectileImpactEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
@@ -117,7 +119,9 @@ public class Hack {
     public void onAttackEntity(AttackEntityEvent event) {}
     public void onItemPickup(EntityItemPickupEvent event) {}
     public void onProjectileImpact(ProjectileImpactEvent event) {}
+    public void onEntityJoinWorldEvent(EntityJoinWorldEvent event) {}
     public void onLivingUpdate(LivingEvent.LivingUpdateEvent event) {}
+    public void onRenderPlayer(RenderPlayerEvent event) {}
     public void onRenderWorldLast(RenderWorldLastEvent event) {}
     public void onRenderGameOverlay(RenderGameOverlayEvent.Text event) {}
     public void onLeftClickBlock(PlayerInteractEvent.LeftClickBlock event){}

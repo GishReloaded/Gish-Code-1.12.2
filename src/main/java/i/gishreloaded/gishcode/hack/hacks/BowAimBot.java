@@ -1,36 +1,24 @@
 package i.gishreloaded.gishcode.hack.hacks;
 
-import java.lang.reflect.Field;
-
 import i.gishreloaded.gishcode.hack.Hack;
 import i.gishreloaded.gishcode.hack.HackCategory;
-import i.gishreloaded.gishcode.managers.EnemyManager;
-import i.gishreloaded.gishcode.managers.FriendManager;
-import i.gishreloaded.gishcode.managers.HackManager;
-
 import i.gishreloaded.gishcode.utils.Utils;
 import i.gishreloaded.gishcode.utils.ValidUtils;
-import i.gishreloaded.gishcode.utils.system.Mapping;
-import i.gishreloaded.gishcode.utils.system.Connection.Side;
-import i.gishreloaded.gishcode.value.BooleanValue;
-import i.gishreloaded.gishcode.value.NumberValue;
+import i.gishreloaded.gishcode.value.types.BooleanValue;
+import i.gishreloaded.gishcode.value.types.DoubleValue;
+import i.gishreloaded.gishcode.value.types.IntegerValue;
 import i.gishreloaded.gishcode.wrappers.Wrapper;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityArmorStand;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemBow;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.play.client.CPacketPlayer;
-import net.minecraft.util.math.RayTraceResult;
 import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
 
 public class BowAimBot extends Hack{
 
     public BooleanValue walls;
-    public NumberValue yaw;
-    public NumberValue FOV;
+    public DoubleValue yaw;
+    public IntegerValue FOV;
     
     public EntityLivingBase target;
     public float rangeAimVelocity = 0;
@@ -38,8 +26,8 @@ public class BowAimBot extends Hack{
 	public BowAimBot() {
 		super("BowAimBot", HackCategory.COMBAT);
 		walls = new BooleanValue("ThroughWalls", false);
-		yaw = new NumberValue("Yaw", 22.0D, 0D, 50D);
-		FOV = new NumberValue("FOV", 90D, 1D, 180D);
+		yaw = new DoubleValue("Yaw", 22.0D, 0D, 50D);
+		FOV = new IntegerValue("FOV", 90, 1, 360);
 		this.addValue(walls, yaw, FOV);
 	}
 	
@@ -100,7 +88,7 @@ public class BowAimBot extends Hack{
 		if(ValidUtils.isBot(entity)) { return false; }
 		if(!ValidUtils.isFriendEnemy(entity)) { return false; }
     	if(!ValidUtils.isInvisible(entity)) { return false; }
-    	if(!ValidUtils.isInAttackFOV(entity, FOV.getValue().intValue())) { return false; }
+    	if(!ValidUtils.isInAttackFOV(entity, (FOV.getValue() / 2))) { return false; }
 		if(!ValidUtils.isTeam(entity)) { return false; }
     	if(!ValidUtils.pingCheck(entity)) { return false; }
 		if(!this.walls.getValue()) { if(!Wrapper.INSTANCE.player().canEntityBeSeen(entity)) { return false; } }

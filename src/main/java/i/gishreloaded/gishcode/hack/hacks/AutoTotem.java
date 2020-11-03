@@ -2,14 +2,12 @@ package i.gishreloaded.gishcode.hack.hacks;
 
 import i.gishreloaded.gishcode.hack.Hack;
 import i.gishreloaded.gishcode.hack.HackCategory;
-
 import i.gishreloaded.gishcode.utils.Utils;
 import i.gishreloaded.gishcode.utils.system.Connection.Side;
-import i.gishreloaded.gishcode.value.BooleanValue;
-import i.gishreloaded.gishcode.value.NumberValue;
+import i.gishreloaded.gishcode.value.types.BooleanValue;
+import i.gishreloaded.gishcode.value.types.IntegerValue;
 import i.gishreloaded.gishcode.wrappers.Wrapper;
 import net.minecraft.init.Items;
-import net.minecraft.init.MobEffects;
 import net.minecraft.inventory.ClickType;
 import net.minecraft.inventory.ContainerPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
@@ -22,7 +20,7 @@ public class AutoTotem extends Hack{
 
 	public BooleanValue swapWhileMoving;
 	
-	public NumberValue delay;
+	public IntegerValue delay;
 	
 	private int timer;
 	
@@ -30,7 +28,7 @@ public class AutoTotem extends Hack{
 		super("AutoTotem", HackCategory.COMBAT);
 		
 		swapWhileMoving = new BooleanValue("SwapWhileMoving", false);
-		delay = new NumberValue("SwipeDelay", 2.0D, 0D, 20D);
+		delay = new IntegerValue("SwipeDelay", 2, 0, 20);
 		
 		this.addValue(swapWhileMoving, delay);
 	}
@@ -49,7 +47,7 @@ public class AutoTotem extends Hack{
 	@Override
 	public boolean onPacket(Object packet, Side side) {
 		if(side == Side.OUT && packet instanceof CPacketClickWindow) {
-			this.timer = this.delay.getValue().intValue();
+			this.timer = this.delay.getValue();
 		}
 		return true;
 	}

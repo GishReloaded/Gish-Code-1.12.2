@@ -9,7 +9,6 @@ public class Value<T> {
     private T defaultValue;
 
     public Value(String name, T defaultValue) {
-
         this.name = name;
         this.defaultValue = defaultValue;
         this.value = defaultValue;

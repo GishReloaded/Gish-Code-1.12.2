@@ -5,8 +5,7 @@ import i.gishreloaded.gishcode.hack.HackCategory;
 
 import i.gishreloaded.gishcode.utils.system.Connection;
 import i.gishreloaded.gishcode.utils.system.Connection.Side;
-import i.gishreloaded.gishcode.value.BooleanValue;
-import i.gishreloaded.gishcode.value.NumberValue;
+import i.gishreloaded.gishcode.value.types.BooleanValue;
 import i.gishreloaded.gishcode.wrappers.Wrapper;
 import net.minecraft.network.play.client.CPacketPlayer;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;

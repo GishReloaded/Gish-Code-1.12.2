@@ -14,10 +14,10 @@ import i.gishreloaded.gishcode.managers.HackManager;
 import i.gishreloaded.gishcode.utils.visual.ChatUtils;
 import i.gishreloaded.gishcode.utils.visual.ColorUtils;
 import i.gishreloaded.gishcode.utils.visual.RenderUtils;
-import i.gishreloaded.gishcode.value.BooleanValue;
 import i.gishreloaded.gishcode.value.Mode;
-import i.gishreloaded.gishcode.value.ModeValue;
 import i.gishreloaded.gishcode.value.Value;
+import i.gishreloaded.gishcode.value.types.BooleanValue;
+import i.gishreloaded.gishcode.value.types.ModeValue;
 import i.gishreloaded.gishcode.wrappers.Wrapper;
 import net.minecraft.client.gui.GuiChat;
 import net.minecraft.client.gui.ScaledResolution;
@@ -58,7 +58,7 @@ public class HUD extends Hack{
 		
 		ScaledResolution sr = new ScaledResolution(Wrapper.INSTANCE.mc());
 		String coords = String.format("\u00a77X: \u00a7f%s \u00a77Y: \u00a7f%s \u00a77Z: \u00a7f%s", RenderUtils.DF((float)x, 1), RenderUtils.DF((float)y, 1), RenderUtils.DF((float)z, 1));
-		boolean isChatOpen = Wrapper.INSTANCE.mc().currentScreen instanceof GuiChat;
+		boolean isChatOpen = Wrapper.INSTANCE.mc().currentScreen instanceof GuiChat || Wrapper.INSTANCE.mc().currentScreen instanceof i.gishreloaded.gishcode.gui.GuiConsole;
 		
 		int heightFPS = isChatOpen ? sr.getScaledHeight() - 37 : sr.getScaledHeight() - 22;
 		int heightCoords = isChatOpen ? sr.getScaledHeight() - 25 : sr.getScaledHeight() - 10;

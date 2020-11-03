@@ -1,6 +1,5 @@
 package i.gishreloaded.gishcode.command;
 
-import i.gishreloaded.gishcode.hack.hacks.AntiBot;
 import i.gishreloaded.gishcode.managers.EnemyManager;
 import i.gishreloaded.gishcode.managers.FriendManager;
 import i.gishreloaded.gishcode.utils.EntityBot;

@@ -1,41 +1,25 @@
 package i.gishreloaded.gishcode.hack.hacks;
 
-import java.awt.AWTException;
-import java.awt.Robot;
-import java.awt.event.InputEvent;
-import java.util.Comparator;
-
 import i.gishreloaded.gishcode.hack.Hack;
 import i.gishreloaded.gishcode.hack.HackCategory;
-import i.gishreloaded.gishcode.managers.EnemyManager;
-import i.gishreloaded.gishcode.managers.FriendManager;
-import i.gishreloaded.gishcode.managers.HackManager;
-
 import i.gishreloaded.gishcode.utils.RayCastUtils;
-import i.gishreloaded.gishcode.utils.RobotUtils;
 import i.gishreloaded.gishcode.utils.TimerUtils;
 import i.gishreloaded.gishcode.utils.Utils;
 import i.gishreloaded.gishcode.utils.ValidUtils;
-import i.gishreloaded.gishcode.utils.visual.RenderUtils;
-import i.gishreloaded.gishcode.value.BooleanValue;
+import i.gishreloaded.gishcode.utils.visual.ChatUtils;
 import i.gishreloaded.gishcode.value.Mode;
-import i.gishreloaded.gishcode.value.ModeValue;
-import i.gishreloaded.gishcode.value.NumberValue;
+import i.gishreloaded.gishcode.value.types.BooleanValue;
+import i.gishreloaded.gishcode.value.types.DoubleValue;
+import i.gishreloaded.gishcode.value.types.IntegerValue;
+import i.gishreloaded.gishcode.value.types.ModeValue;
 import i.gishreloaded.gishcode.wrappers.Wrapper;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityArmorStand;
-import net.minecraft.entity.item.EntityTNTPrimed;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Items;
-import net.minecraft.network.play.client.CPacketAnimation;
 import net.minecraft.network.play.client.CPacketPlayer;
 import net.minecraft.network.play.client.CPacketUseEntity;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraftforge.client.event.EntityViewRenderEvent.CameraSetup;
 import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
@@ -50,11 +34,11 @@ public class KillAura extends Hack{
 	public BooleanValue walls;
 	public BooleanValue autoDelay;
 	public BooleanValue packetReach;
-    public NumberValue minCPS;
-    public NumberValue maxCPS;
-    public NumberValue packetRange;
-    public NumberValue range;
-    public NumberValue FOV;
+    public IntegerValue minCPS;
+    public IntegerValue maxCPS;
+    public DoubleValue packetRange;
+    public DoubleValue range;
+    public IntegerValue FOV;
     
     public TimerUtils timer;
     public EntityLivingBase target;
@@ -73,11 +57,11 @@ public class KillAura extends Hack{
 		walls = new BooleanValue("ThroughWalls", false);
 		autoDelay = new BooleanValue("AutoDelay", false);
 		packetReach = new BooleanValue("PacketReach", false);
-		packetRange = new NumberValue("PacketRange", 10.0D, 1.0D, 100D);
-		minCPS = new NumberValue("MinCPS", 4.0D, 1.0D, 30.0D);
-		maxCPS = new NumberValue("MaxCPS", 8.0D, 1.0D, 30.0D);
-		range = new NumberValue("Range", 3.4D, 1.0D, 7.0D);
-		FOV = new NumberValue("FOV", 180D, 1.0D, 180D);
+		packetRange = new DoubleValue("PacketRange", 10.0D, 1.0D, 100D);
+		minCPS = new IntegerValue("MinCPS", 4, 1, 30);
+		maxCPS = new IntegerValue("MaxCPS", 8, 1, 30);
+		range = new DoubleValue("Range", 3.4D, 1.0D, 7.0D);
+		FOV = new IntegerValue("FOV", 360, 1, 360);
 		
 		this.addValue(mode, priority, walls, autoDelay, packetReach, minCPS, maxCPS, packetRange, range, FOV);
 		
@@ -212,9 +196,8 @@ public class KillAura extends Hack{
     	}
 		else
 		{
-			int CPS = Utils.random(
-					(int)(minCPS.getValue().intValue()),
-					(int)(maxCPS.getValue().intValue()));
+			if(this.minCPS.getValue() > this.maxCPS.getValue()) ChatUtils.error("minCPS > maxCPS");
+			int CPS = Utils.random(this.minCPS.getValue(), this.maxCPS.getValue());
 			int r1 = Utils.random(1, 50),
 					r2 = Utils.random(1, 60),
 					r3 = Utils.random(1, 70);
@@ -230,7 +213,7 @@ public class KillAura extends Hack{
 	
 	public void processAttack(EntityLivingBase entity) {
 		AutoShield.block(false);
-		if(!isInAttackRange(entity) || !ValidUtils.isInAttackFOV(entity, (int)(FOV.getValue().intValue()))) return;
+		if(!isInAttackRange(entity) || !ValidUtils.isInAttackFOV(entity, (FOV.getValue() / 2))) return;
 		EntityPlayerSP player = Wrapper.INSTANCE.player();
 		float sharpLevel = EnchantmentHelper.getModifierForCreature(player.getHeldItemMainhand(), entity.getCreatureAttribute());
 		if(this.packetReach.getValue()) {
@@ -277,7 +260,7 @@ public class KillAura extends Hack{
 		if(ValidUtils.isBot(entity)) { return false; }
 		if(!ValidUtils.isFriendEnemy(entity)) { return false; }
     	if(!ValidUtils.isInvisible(entity)) { return false; }
-    	if(!ValidUtils.isInAttackFOV(entity, FOV.getValue().intValue())) { return false; }
+    	if(!ValidUtils.isInAttackFOV(entity, (FOV.getValue()))) { return false; }
 		if(!isInAttackRange(entity)) { return false; }
 		if(!ValidUtils.isTeam(entity)) { return false; }
     	if(!ValidUtils.pingCheck(entity)) { return false; }

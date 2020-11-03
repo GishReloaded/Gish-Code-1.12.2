@@ -1,4 +1,7 @@
-package i.gishreloaded.gishcode.value;
+package i.gishreloaded.gishcode.value.types;
+
+import i.gishreloaded.gishcode.value.Mode;
+import i.gishreloaded.gishcode.value.Value;
 
 public class ModeValue extends Value<Mode> {
 	

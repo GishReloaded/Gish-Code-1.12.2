@@ -8,8 +8,8 @@ import i.gishreloaded.gishcode.gui.click.listener.CheckButtonClickListener;
 import i.gishreloaded.gishcode.hack.Hack;
 import i.gishreloaded.gishcode.managers.HackManager;
 import i.gishreloaded.gishcode.value.Mode;
-import i.gishreloaded.gishcode.value.ModeValue;
 import i.gishreloaded.gishcode.value.Value;
+import i.gishreloaded.gishcode.value.types.ModeValue;
 
 public class CheckButton extends Component {
 

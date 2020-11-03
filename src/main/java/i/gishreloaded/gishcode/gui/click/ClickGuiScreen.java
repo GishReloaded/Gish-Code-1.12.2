@@ -25,52 +25,29 @@ import net.minecraft.client.gui.ScaledResolution;
 
 public class ClickGuiScreen extends GuiScreen {
 
-	public static final String AUTHOR_TEXT = "Coded by Gish_Reloaded";
     public static ClickGui clickGui;
     public static int[] mouse = new int[2];
     public static Tooltip tooltip = null;
-    String title = AUTHOR_TEXT;
-	ArrayList cmds = new ArrayList();
-	GuiTextField console;
-	
 
-	public ClickGuiScreen() {
-		this.cmds.clear();
-        for(Command c : CommandManager.commands){
-        	this.cmds.add(c.getCommand() + " - " + c.getDescription());
-        }
-	}
+	public ClickGuiScreen() {}
    
-   @Override
-	protected void mouseClicked(int x, int y, int button) throws IOException {
-		super.mouseClicked(x, y, button);
-		this.console.mouseClicked(x, y, button);
-   }
+	@Override
+	protected void mouseClicked(int x, int y, int button) throws IOException { super.mouseClicked(x, y, button); }
    
-   @Override
-   public void drawScreen(int mouseX, int mouseY, float partialTicks) {
+	@Override
+	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
 	   	tooltip = null;
        	clickGui.render();
        	if(tooltip != null) tooltip.render();
-       	int mainColor = i.gishreloaded.gishcode.hack.hacks.ClickGui.isLight ? ColorUtils.color(255, 255, 255, 255) : ColorUtils.color(0, 0, 0, 255);
-       	this.console.drawTextBox(i.gishreloaded.gishcode.hack.hacks.ClickGui.getColor(), mainColor);
-		this.console.setTextColor(i.gishreloaded.gishcode.hack.hacks.ClickGui.getColor());
+       	drawRect(0, 0, 0, 0, 0); // TODO WTF ?
 		super.drawScreen(mouseX, mouseY, partialTicks);
-   }
+	}
    
    @Override
-   public void initGui() {
-	   Keyboard.enableRepeatEvents(true);
-       this.console = new GuiTextField(0, this.fontRenderer, this.width / 2 - 100, 0, 200, 14);
-       this.console.setMaxStringLength(500);
-       this.console.setText(title);
-       this.console.setFocused(!Utils.isMoving(Wrapper.INSTANCE.player()));
-	super.initGui();
-   }
+   public void initGui() { Keyboard.enableRepeatEvents(true); super.initGui(); }
     
     @Override
 	public void updateScreen() {
-		this.console.updateCursorCounter();
 		clickGui.onUpdate();
 		super.updateScreen();
 	}
@@ -81,11 +58,7 @@ public class ClickGuiScreen extends GuiScreen {
 		super.onGuiClosed();
 	}
 	
-	void setTitle() {
-		if(!console.getText().equals(AUTHOR_TEXT)) title = "";
-	}
-	
-	private boolean handleKeyScroll(int key) {
+	private boolean handleKeyScroll(int key) { // TODO Fix Scroll
 		if(Utils.isMoving(Wrapper.INSTANCE.player())) return false;
 		if (key == Keyboard.KEY_W) return clickGui.onMouseScroll(3); else 
         if (key == Keyboard.KEY_S) return clickGui.onMouseScroll(-3);
@@ -98,16 +71,12 @@ public class ClickGuiScreen extends GuiScreen {
             while (Keyboard.next()) {
                 if (Keyboard.getEventKeyState()) {
                 	if(!this.handleKeyScroll(Keyboard.getEventKey()))
-                		console.textboxKeyTyped(Keyboard.getEventCharacter(), Keyboard.getEventKey());
                     if (Keyboard.getEventKey() == Keyboard.KEY_RETURN) {
-                        setTitle();
-                        CommandManager.getInstance().runCommands("." + console.getText());
                         mc.displayGuiScreen((GuiScreen)null);
                         FileManager.saveHacks();
                         FileManager.saveClickGui();
                     } else
                     if (Keyboard.getEventKey() == Keyboard.KEY_ESCAPE) {
-                    	setTitle();
                         mc.displayGuiScreen(null);
                         FileManager.saveHacks();
                         FileManager.saveClickGui();

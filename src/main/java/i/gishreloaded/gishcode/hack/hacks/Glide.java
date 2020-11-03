@@ -6,9 +6,9 @@ import i.gishreloaded.gishcode.managers.HackManager;
 import i.gishreloaded.gishcode.utils.Utils;
 
 import i.gishreloaded.gishcode.utils.TimerUtils;
-import i.gishreloaded.gishcode.value.BooleanValue;
 import i.gishreloaded.gishcode.value.Mode;
-import i.gishreloaded.gishcode.value.ModeValue;
+import i.gishreloaded.gishcode.value.types.BooleanValue;
+import i.gishreloaded.gishcode.value.types.ModeValue;
 import i.gishreloaded.gishcode.wrappers.Wrapper;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.network.play.client.CPacketPlayer;

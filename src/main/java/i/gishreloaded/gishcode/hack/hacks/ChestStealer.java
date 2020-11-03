@@ -2,25 +2,21 @@ package i.gishreloaded.gishcode.hack.hacks;
 
 import i.gishreloaded.gishcode.hack.Hack;
 import i.gishreloaded.gishcode.hack.HackCategory;
-
 import i.gishreloaded.gishcode.utils.system.Connection.Side;
-import i.gishreloaded.gishcode.value.NumberValue;
+import i.gishreloaded.gishcode.value.types.IntegerValue;
 import i.gishreloaded.gishcode.wrappers.Wrapper;
 import net.minecraft.client.entity.EntityPlayerSP;
-import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.inventory.GuiChest;
 import net.minecraft.inventory.ClickType;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
-import net.minecraft.network.play.client.CPacketCloseWindow;
 import net.minecraft.network.play.server.SPacketWindowItems;
-import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.Phase;
 
 public class ChestStealer extends Hack{
 
-	public NumberValue delay;
+	public IntegerValue delay;
 	
 	public SPacketWindowItems packet;
 	public int ticks;
@@ -28,7 +24,7 @@ public class ChestStealer extends Hack{
 	public ChestStealer() {
 		super("ChestStealer", HackCategory.PLAYER);
 		
-		delay = new NumberValue("Delay", 4.0D, 0.0D, 20.0D);
+		delay = new IntegerValue("Delay", 4, 0, 20);
 		
 		this.addValue(delay);
 		this.ticks = 0;
@@ -70,7 +66,7 @@ public class ChestStealer extends Hack{
 				for (int i = 0; i < player.openContainer.inventorySlots.size() - 36; ++i) {
                     Slot slot = player.openContainer.getSlot(i);
                     if (slot.getHasStack() && slot.getStack() != null) {
-                    	if (this.ticks >= this.delay.getValue().intValue()) {
+                    	if (this.ticks >= this.delay.getValue()) {
         	            	Wrapper.INSTANCE.controller().windowClick(player.openContainer.windowId, i, 1, ClickType.QUICK_MOVE, player);
         	            	this.ticks = 0;
         	            }

@@ -15,9 +15,8 @@ import i.gishreloaded.gishcode.utils.Utils;
 import i.gishreloaded.gishcode.utils.ValidUtils;
 import i.gishreloaded.gishcode.utils.visual.ColorUtils;
 import i.gishreloaded.gishcode.utils.visual.RenderUtils;
+import i.gishreloaded.gishcode.value.types.BooleanValue;
 import i.gishreloaded.gishcode.utils.MathUtils;
-
-import i.gishreloaded.gishcode.value.BooleanValue;
 import i.gishreloaded.gishcode.wrappers.Wrapper;
 import net.minecraft.client.entity.EntityOtherPlayerMP;
 import net.minecraft.client.entity.EntityPlayerSP;
@@ -81,9 +80,11 @@ public class Profiler extends Hack{
 			return;
     	}
     	
-    	int color = ColorUtils.color(200, 200, 200, 160);
+    	int color = ColorUtils.color(0, 0, 0, 130);
     	EntityPlayerSP player = Wrapper.INSTANCE.player();
     	FontRenderer fontRenderer = Wrapper.INSTANCE.fontRenderer();
+    	if(player.canEntityBeSeen(entity)) 
+    		color = ColorUtils.color(200, 200, 200, 160);
     	y += (entity.isSneaking() ? 0.5D : 0.7D);
     	float distance = player.getDistance(entity) / 4.0F;
     	if (distance < 1.6F) {

@@ -2,11 +2,12 @@ package i.gishreloaded.gishcode;
 
 import org.lwjgl.input.Keyboard;
 
+import i.gishreloaded.gishcode.gui.GuiConsole;
 import i.gishreloaded.gishcode.gui.click.ClickGuiScreen;
 import i.gishreloaded.gishcode.hack.Hack;
-import i.gishreloaded.gishcode.hack.hacks.AntiBot;
 import i.gishreloaded.gishcode.hack.hacks.ClickGui;
 import i.gishreloaded.gishcode.hack.hacks.GhostMode;
+import i.gishreloaded.gishcode.managers.CommandManager;
 import i.gishreloaded.gishcode.managers.HackManager;
 import i.gishreloaded.gishcode.utils.Utils;
 import i.gishreloaded.gishcode.utils.system.Connection;
@@ -17,11 +18,13 @@ import net.minecraftforge.client.event.GuiContainerEvent;
 import net.minecraftforge.client.event.MouseEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
+import net.minecraftforge.client.event.RenderPlayerEvent;
 import net.minecraftforge.event.entity.ProjectileImpactEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.client.event.GuiOpenEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.InputEvent;
@@ -86,6 +89,7 @@ public class EventsHandler {
     	try {
     		int key = Keyboard.getEventKey();
     		if(Keyboard.getEventKeyState()) {
+    			CommandManager.onKeyPressed(key);
     			HackManager.onKeyPressed(key);
     		}
     	} catch (RuntimeException ex) {
@@ -130,7 +134,20 @@ public class EventsHandler {
     		HackManager.onProjectileImpact(event);
     	} catch (RuntimeException ex) {
     		ex.printStackTrace();
-    		ChatUtils.error("RuntimeException: ProjectileImpact");
+    		ChatUtils.error("RuntimeException: onProjectileImpact");
+    		ChatUtils.error(ex.toString());
+    		Utils.copy(ex.toString());
+    	}
+	}
+    
+    @SubscribeEvent
+    public void onEntityJoinWorldEvent(EntityJoinWorldEvent event) {
+		if(Utils.nullCheck() || GhostMode.enabled) return;
+    	try {
+    		HackManager.onEntityJoinWorldEvent(event);
+    	} catch (RuntimeException ex) {
+    		ex.printStackTrace();
+    		ChatUtils.error("RuntimeException: onEntityJoinWorldEvent");
     		ChatUtils.error(ex.toString());
     		Utils.copy(ex.toString());
     	}
@@ -166,7 +183,6 @@ public class EventsHandler {
     @SubscribeEvent
     public void onClientTick(TickEvent.ClientTickEvent event) {
     	if(Utils.nullCheck()) {
-    		AntiBot.bots.clear();
     		initialized = false;
     		return; 
     	}
@@ -175,9 +191,11 @@ public class EventsHandler {
                 new Connection(this);
                 ClickGui.setColor();
                 initialized = true;
-            }
+            } // TODO rewrite
     		if(!(Wrapper.INSTANCE.mc().currentScreen instanceof ClickGuiScreen))
     			HackManager.getHack("ClickGui").setToggled(false);
+    		if(!(Wrapper.INSTANCE.mc().currentScreen instanceof GuiConsole))
+    			HackManager.getHack("Console").setToggled(false);
     		if(!GhostMode.enabled)
     			HackManager.onClientTick(event);
     	} catch (RuntimeException ex) {
@@ -196,6 +214,19 @@ public class EventsHandler {
     	} catch (RuntimeException ex) {
     		ex.printStackTrace();
     		ChatUtils.error("RuntimeException: onLivingUpdate");
+    		ChatUtils.error(ex.toString());
+    		Utils.copy(ex.toString());
+    	}
+    }
+    
+    @SubscribeEvent
+    public void onRenderPlayerEvent(RenderPlayerEvent event) {
+    	if(Utils.nullCheck() || GhostMode.enabled || Wrapper.INSTANCE.mcSettings().hideGUI) return;
+    	try {
+    		HackManager.onRenderPlayer(event);
+    	} catch (RuntimeException ex) {
+    		ex.printStackTrace();
+    		ChatUtils.error("RuntimeException: onRenderPlayerEvent");
     		ChatUtils.error(ex.toString());
     		Utils.copy(ex.toString());
     	}

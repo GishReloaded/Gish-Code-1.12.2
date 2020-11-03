@@ -3,7 +3,9 @@ package i.gishreloaded.gishcode.managers;
 import java.util.ArrayList;
 
 import i.gishreloaded.gishcode.command.*;
+import i.gishreloaded.gishcode.hack.Hack;
 import i.gishreloaded.gishcode.utils.visual.ChatUtils;
+import i.gishreloaded.gishcode.wrappers.Wrapper;
 
 public class CommandManager
 {
@@ -21,7 +23,7 @@ public class CommandManager
 	{
 		commands.add(new Help());
 		commands.add(new Hacks());
-		commands.add(new Key());
+		commands.add(new Bind());
 		commands.add(new VClip());
 		commands.add(new Login());
 		commands.add(new Say());
@@ -29,6 +31,8 @@ public class CommandManager
 		commands.add(new DumpPlayers());
 		commands.add(new DumpClasses());
 		commands.add(new SkinSteal());
+		commands.add(new SelfDamage());
+		commands.add(new SelfKick());
 		commands.add(new Friend());
 		commands.add(new Enemy());
 		commands.add(new Toggle());
@@ -57,6 +61,13 @@ public class CommandManager
 		if(!commandResolved){
 			ChatUtils.error("Cannot resolve internal command: \u00a7c"+commandName);
 		}
+	}
+	
+	public static void onKeyPressed(int key) {
+		if (Wrapper.INSTANCE.mc().currentScreen != null) return;
+		for(Command cmd : commands)
+    		if(cmd.getKey() == key)
+    			CommandManager.getInstance().runCommands("." + cmd.getExecute());
 	}
 	
 	public static CommandManager getInstance(){

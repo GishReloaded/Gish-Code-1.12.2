@@ -2,8 +2,7 @@ package i.gishreloaded.gishcode.hack.hacks;
 
 import i.gishreloaded.gishcode.hack.Hack;
 import i.gishreloaded.gishcode.hack.HackCategory;
-
-import i.gishreloaded.gishcode.value.NumberValue;
+import i.gishreloaded.gishcode.value.types.DoubleValue;
 import i.gishreloaded.gishcode.wrappers.Wrapper;
 import net.minecraft.client.gui.GuiMainMenu;
 import net.minecraft.client.gui.GuiMultiplayer;
@@ -12,12 +11,12 @@ import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
 
 public class Disconnect extends Hack{
 
-	public NumberValue leaveHealth;
+	public DoubleValue leaveHealth;
 	
 	public Disconnect() {
 		super("Disconnect", HackCategory.COMBAT);
 		
-		leaveHealth = new NumberValue("LeaveHealth", 4.0D, 0D, 20D);
+		leaveHealth = new DoubleValue("LeaveHealth", 4.0D, 0D, 20D);
 		
 		this.addValue(leaveHealth);
 	}

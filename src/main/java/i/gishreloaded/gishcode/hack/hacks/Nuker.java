@@ -13,17 +13,14 @@ import i.gishreloaded.gishcode.hack.Hack;
 import i.gishreloaded.gishcode.hack.HackCategory;
 import i.gishreloaded.gishcode.utils.BlockUtils;
 import i.gishreloaded.gishcode.utils.PlayerControllerUtils;
-
-import i.gishreloaded.gishcode.utils.TimerUtils;
 import i.gishreloaded.gishcode.utils.Utils;
 import i.gishreloaded.gishcode.utils.visual.RenderUtils;
 import i.gishreloaded.gishcode.value.Mode;
-import i.gishreloaded.gishcode.value.ModeValue;
-import i.gishreloaded.gishcode.value.NumberValue;
+import i.gishreloaded.gishcode.value.types.DoubleValue;
+import i.gishreloaded.gishcode.value.types.ModeValue;
 import i.gishreloaded.gishcode.wrappers.Wrapper;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
@@ -33,7 +30,7 @@ import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
 public class Nuker extends Hack{
 	
 	public ModeValue mode;
-    public NumberValue distance;
+    public DoubleValue distance;
     
     public final ArrayDeque<Set<BlockPos>> prevBlocks = new ArrayDeque<Set<BlockPos>>();
     public BlockPos currentBlock;
@@ -45,7 +42,7 @@ public class Nuker extends Hack{
 		super("Nuker", HackCategory.PLAYER);
 		
 		this.mode = new ModeValue("Mode", new Mode("ID", true), new Mode("All", false));
-		distance = new NumberValue("Distance", 6.0D, 0.1D, 6.0D);
+		distance = new DoubleValue("Distance", 6.0D, 0.1D, 6.0D);
 		
 		this.addValue(mode, distance);
 	}
@@ -74,8 +71,8 @@ public class Nuker extends Hack{
 		Vec3d eyesPos = Utils.getEyesPos().subtract(0.5, 0.5, 0.5);
 		BlockPos eyesBlock = new BlockPos(Utils.getEyesPos());
 		
-		double rangeSq = Math.pow(distance.getValue().doubleValue(), 2);
-		int blockRange = (int)Math.ceil(distance.getValue().doubleValue());
+		double rangeSq = Math.pow(distance.getValue(), 2);
+		int blockRange = (int)Math.ceil(distance.getValue());
 		
 		Stream<BlockPos> stream = StreamSupport.stream(BlockPos.getAllInBox(
 						eyesBlock.add(blockRange, blockRange, blockRange),

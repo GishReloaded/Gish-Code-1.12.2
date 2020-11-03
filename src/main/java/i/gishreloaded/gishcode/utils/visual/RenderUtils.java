@@ -58,7 +58,7 @@ public class RenderUtils {
 	public static int splashTickPos = 0;
 	public static boolean isSplash = false;
 	
-	public static String DF (float value, int maxvalue) {
+	public static String DF (Number value, int maxvalue) {
 	     DecimalFormat df = new DecimalFormat("0", DecimalFormatSymbols.getInstance(Locale.ENGLISH));
 	     df.setMaximumFractionDigits(maxvalue);
 	     return df.format(value);
@@ -150,6 +150,7 @@ public class RenderUtils {
         {
         	eyes = new Vec3d(0, 0, 1).rotatePitch(-(float) Math.toRadians(Wrapper.INSTANCE.player().rotationPitch)).rotateYaw(-(float) Math.toRadians(Wrapper.INSTANCE.player().rotationYaw));
         }
+        
         GL11.glBegin(GL11.GL_LINES);
         GL11.glVertex3d(eyes.x, Wrapper.INSTANCE.player().getEyeHeight() + eyes.y, eyes.z);
         GL11.glVertex3d(xPos, yPos, zPos);

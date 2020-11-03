@@ -35,6 +35,7 @@ public class ChestESP extends Hack{
 			"TileEntityObsidianChest",
 			"TileEntityDirtChest"
 			};
+	private boolean shouldRenderIronChest = true;
 	
 	public ChestESP() {
 		super("ChestESP", HackCategory.VISUAL);
@@ -94,13 +95,15 @@ public class ChestESP extends Hack{
 				chests++;
 				RenderUtils.drawBlockESP(((TileEntityEnderChest)tileEntity).getPos(), 1, 0, 1);
 			} else {
-				try {
-					for(String chestClass : chestClasses) {
-						Class clazz = Class.forName("cpw.mods.ironchest.common.tileentity.chest." + chestClass);
-						if(clazz != null && clazz.isInstance(tileEntity)) 
-							RenderUtils.drawBlockESP(tileEntity.getPos(), 0.7F, 0.7F, 0.7F);
-					}
-				} catch (ClassNotFoundException e) {}
+				if(shouldRenderIronChest) {
+					try {
+						for(String chestClass : chestClasses) {
+							Class clazz = Class.forName("cpw.mods.ironchest.common.tileentity.chest." + chestClass);
+							if(clazz != null && clazz.isInstance(tileEntity)) 
+								RenderUtils.drawBlockESP(tileEntity.getPos(), 0.7F, 0.7F, 0.7F);
+						}
+					} catch (ClassNotFoundException e) { shouldRenderIronChest = false; }
+				}
 			}
 		}
 		

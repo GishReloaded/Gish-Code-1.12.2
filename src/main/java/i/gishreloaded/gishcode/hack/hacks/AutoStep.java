@@ -2,30 +2,17 @@ package i.gishreloaded.gishcode.hack.hacks;
 
 import i.gishreloaded.gishcode.hack.Hack;
 import i.gishreloaded.gishcode.hack.HackCategory;
-
-import i.gishreloaded.gishcode.utils.Utils;
-import i.gishreloaded.gishcode.utils.visual.ChatUtils;
-import i.gishreloaded.gishcode.value.BooleanValue;
 import i.gishreloaded.gishcode.value.Mode;
-import i.gishreloaded.gishcode.value.ModeValue;
-import i.gishreloaded.gishcode.value.NumberValue;
+import i.gishreloaded.gishcode.value.types.DoubleValue;
+import i.gishreloaded.gishcode.value.types.ModeValue;
 import i.gishreloaded.gishcode.wrappers.Wrapper;
-import net.minecraft.block.BlockAir;
 import net.minecraft.client.entity.EntityPlayerSP;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.util.math.Vec3d;
-import net.minecraftforge.event.entity.ProjectileImpactEvent;
-import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
 
 public class AutoStep extends Hack{
-
 	
 	public ModeValue mode;
-	public NumberValue height;
+	public DoubleValue height;
 	public float tempHeight;
 	public int ticks = 0;
 	
@@ -33,7 +20,7 @@ public class AutoStep extends Hack{
 		super("AutoStep", HackCategory.PLAYER);
 		
 		this.mode = new ModeValue("Mode", new Mode("Simple", true), new Mode("AAC", false));
-		height = new NumberValue("Height", 0.5D, 0D, 10D);
+		height = new DoubleValue("Height", 0.5D, 0D, 10D);
 		
 		this.addValue(mode, height);
 	}

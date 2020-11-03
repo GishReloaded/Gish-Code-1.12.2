@@ -5,7 +5,7 @@ import i.gishreloaded.gishcode.hack.HackCategory;
 
 import i.gishreloaded.gishcode.utils.Utils;
 import i.gishreloaded.gishcode.value.Mode;
-import i.gishreloaded.gishcode.value.ModeValue;
+import i.gishreloaded.gishcode.value.types.ModeValue;
 import i.gishreloaded.gishcode.wrappers.Wrapper;
 import net.minecraft.init.MobEffects;
 import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;

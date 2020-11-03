@@ -13,8 +13,8 @@ import i.gishreloaded.gishcode.hack.Hack;
 import i.gishreloaded.gishcode.hack.hacks.*;
 import i.gishreloaded.gishcode.utils.visual.ChatUtils;
 import i.gishreloaded.gishcode.value.Mode;
-import i.gishreloaded.gishcode.value.ModeValue;
 import i.gishreloaded.gishcode.value.Value;
+import i.gishreloaded.gishcode.value.types.ModeValue;
 import i.gishreloaded.gishcode.wrappers.Wrapper;
 import net.minecraft.client.gui.GuiChat;
 import net.minecraftforge.client.event.GuiContainerEvent;
@@ -22,7 +22,9 @@ import net.minecraftforge.client.event.GuiOpenEvent;
 import net.minecraftforge.client.event.EntityViewRenderEvent;
 import net.minecraftforge.client.event.MouseEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
+import net.minecraftforge.client.event.RenderPlayerEvent;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
+import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.ProjectileImpactEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
@@ -96,21 +98,19 @@ public class HackManager {
 		addHack(new AutoTotem());
 		addHack(new AutoShield());
 		addHack(new Rage());
-		addHack(new Suicide());
-		addHack(new SelfDamage());
 		addHack(new HitBox());
 		addHack(new AntiAfk());
 		addHack(new TestHack());
 		addHack(new FastBreak());
 		addHack(new Disconnect());
 		addHack(new GhostMode());
-		addHack(new SelfKick());
 		addHack(new PortalGodMode());
 		addHack(new PickupFilter());
 		addHack(new PacketFilter());
 		addHack(new FakeCreative());
 		addHack(new ArmorHUD());
 		addHack(new HUD());
+		addHack(new Console());
 		addHack(new ClickGui());
 	}
 	
@@ -123,7 +123,7 @@ public class HackManager {
             this.guiManager = new GuiManager();
             this.guiScreen = new ClickGuiScreen();
             ClickGuiScreen.clickGui = this.guiManager;
-            this.guiManager.Init();
+            this.guiManager.Init(180, 100);
     		this.guiManager.setTheme(new DarkTheme());
         }
         return this.guiManager;
@@ -258,12 +258,20 @@ public class HackManager {
 	}
 	
 	public static void onProjectileImpact(ProjectileImpactEvent event) {
-			for(Hack hack : getHacks()) {
-	    		if(hack.isToggled()) {
-	    			hack.onProjectileImpact(event);
-	    		}
+		for(Hack hack : getHacks()) {
+	    	if(hack.isToggled()) {
+	    		hack.onProjectileImpact(event);
 	    	}
-		}
+	    }
+	}
+	
+	public static void onEntityJoinWorldEvent(EntityJoinWorldEvent event) {
+		for(Hack hack : getHacks()) {
+    		if(hack.isToggled()) {
+    			hack.onEntityJoinWorldEvent(event);
+    		}
+    	}
+	}
 	
     public static void onItemPickup(EntityItemPickupEvent event) {
 		for(Hack hack : getHacks()) {
@@ -295,6 +303,15 @@ public class HackManager {
     		}
     	}
     }
+    
+    public static void onRenderPlayer(RenderPlayerEvent event) {
+    	for(Hack hack : getHacks()) {
+    		if(hack.isToggled()) {
+    			hack.onRenderPlayer(event);
+    		}
+    	}
+    }
+    
     public static void onRenderWorldLast(RenderWorldLastEvent event) {
     	for(Hack hack : getHacks()) {
     		if(hack.isToggled()) {
@@ -302,6 +319,7 @@ public class HackManager {
     		}
     	}
     }
+    
     public static void onRenderGameOverlay(RenderGameOverlayEvent.Text event) {
     	for(Hack hack : getHacks()) {
     		if(hack.isToggled()) {

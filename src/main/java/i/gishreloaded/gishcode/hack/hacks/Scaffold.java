@@ -12,7 +12,7 @@ import i.gishreloaded.gishcode.utils.TimerUtils;
 import i.gishreloaded.gishcode.utils.Utils;
 import i.gishreloaded.gishcode.utils.visual.RenderUtils;
 import i.gishreloaded.gishcode.value.Mode;
-import i.gishreloaded.gishcode.value.ModeValue;
+import i.gishreloaded.gishcode.value.types.ModeValue;
 import i.gishreloaded.gishcode.wrappers.Wrapper;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockSand;

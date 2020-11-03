@@ -7,34 +7,29 @@ import com.mojang.authlib.GameProfile;
 
 import i.gishreloaded.gishcode.hack.Hack;
 import i.gishreloaded.gishcode.hack.HackCategory;
-import i.gishreloaded.gishcode.managers.HackManager;
 import i.gishreloaded.gishcode.utils.BlockUtils;
 import i.gishreloaded.gishcode.utils.EntityBot;
-
 import i.gishreloaded.gishcode.utils.Utils;
 import i.gishreloaded.gishcode.utils.system.Connection.Side;
-import i.gishreloaded.gishcode.utils.visual.ChatUtils;
-import i.gishreloaded.gishcode.value.BooleanValue;
-import i.gishreloaded.gishcode.value.NumberValue;
+import i.gishreloaded.gishcode.value.types.BooleanValue;
+import i.gishreloaded.gishcode.value.types.IntegerValue;
 import i.gishreloaded.gishcode.wrappers.Wrapper;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.network.NetworkPlayerInfo;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityArmorStand;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.network.play.server.SPacketSpawnPlayer;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.RayTraceResult;
 import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
 
 public class AntiBot extends Hack{
 	
 	public static ArrayList<EntityBot> bots = new ArrayList<EntityBot>();
 	
-	public NumberValue level;
-	public NumberValue tick;
+	public IntegerValue level;
+	public IntegerValue tick;
 	
 	public BooleanValue ifInAir;
 	public BooleanValue ifGround;
@@ -50,8 +45,8 @@ public class AntiBot extends Hack{
 	public AntiBot() {
 		super("AntiBot", HackCategory.COMBAT);
 		
-		level = new NumberValue("AILevel", 0.0D, 0.0D, 6.0D);
-		tick = new NumberValue("TicksExisted", 0.0D, 0.0D, 999.0D);
+		level = new IntegerValue("AILevel", 0, 0, 6);
+		tick = new IntegerValue("TicksExisted", 0, 0, 999);
 		
 		ifInvisible = new BooleanValue("Invisible", false);
 		ifInAir = new BooleanValue("InAir", false);
@@ -104,7 +99,7 @@ public class AntiBot extends Hack{
 	
 	@Override
 	public void onClientTick(ClientTickEvent event) {
-		if (tick.getValue().intValue() > 0.0) {
+		if (tick.getValue() > 0.0) {
 			bots.clear();
         }
 		for(Object object : Utils.getEntityList()) {
@@ -116,7 +111,7 @@ public class AntiBot extends Hack{
 						&& entity != Wrapper.INSTANCE.player()) {
 					EntityPlayer bot = (EntityPlayer)entity;
 					if(!isBotBase(bot)) {
-						int ailevel = level.getValue().intValue();
+						int ailevel = level.getValue();
 						boolean isAi = ailevel > 0.0;
 						if(isAi && botPercentage(bot) > ailevel) {
 							addBot(bot);
@@ -162,7 +157,7 @@ public class AntiBot extends Hack{
 	
 	boolean botCondition(EntityPlayer bot) {
 		int percentage = 0;
-		if (tick.getValue().intValue() > 0.0 && bot.ticksExisted < tick.getValue().intValue()) {
+		if (tick.getValue() > 0.0 && bot.ticksExisted < tick.getValue()) {
 			return true;
         }
 		if (ifInAir.getValue()
@@ -207,7 +202,7 @@ public class AntiBot extends Hack{
 	
 	int botPercentage(EntityPlayer bot) {
 		int percentage = 0;
-		if (tick.getValue().intValue() > 0.0 && bot.ticksExisted < tick.getValue().intValue()) {
+		if (tick.getValue() > 0.0 && bot.ticksExisted < tick.getValue()) {
 			percentage++;
         }
 		if (ifInAir.getValue()

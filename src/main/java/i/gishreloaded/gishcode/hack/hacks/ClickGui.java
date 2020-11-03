@@ -1,19 +1,16 @@
 package i.gishreloaded.gishcode.hack.hacks;
 
-import java.awt.Color;
-
 import org.lwjgl.input.Keyboard;
 
 import i.gishreloaded.gishcode.Main;
 import i.gishreloaded.gishcode.hack.Hack;
 import i.gishreloaded.gishcode.hack.HackCategory;
-import i.gishreloaded.gishcode.utils.Utils;
 import i.gishreloaded.gishcode.utils.visual.ColorUtils;
 import i.gishreloaded.gishcode.utils.visual.RenderUtils;
-import i.gishreloaded.gishcode.value.BooleanValue;
 import i.gishreloaded.gishcode.value.Mode;
-import i.gishreloaded.gishcode.value.ModeValue;
-import i.gishreloaded.gishcode.value.NumberValue;
+import i.gishreloaded.gishcode.value.types.BooleanValue;
+import i.gishreloaded.gishcode.value.types.IntegerValue;
+import i.gishreloaded.gishcode.value.types.ModeValue;
 import i.gishreloaded.gishcode.wrappers.Wrapper;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraftforge.client.event.RenderGameOverlayEvent.Text;
@@ -26,10 +23,10 @@ public class ClickGui extends Hack{
 	public static BooleanValue shadow;
 	public static BooleanValue tooltip;
 	
-	public static NumberValue red;
-	public static NumberValue green;
-	public static NumberValue blue;
-	public static NumberValue alpha;
+	public static IntegerValue red;
+	public static IntegerValue green;
+	public static IntegerValue blue;
+	public static IntegerValue alpha;
 	
 	private static int color;
 	public static boolean isLight = false;
@@ -44,10 +41,10 @@ public class ClickGui extends Hack{
 		this.tooltip = new BooleanValue("Tooltip", true);
 		this.shadow = new BooleanValue("Shadow", true);
 		this.rainbow = new BooleanValue("Rainbow", true);
-		this.red = new NumberValue("Red", 255D, 0D, 255D);
-		this.green = new NumberValue("Green", 255D, 0D, 255D);
-		this.blue = new NumberValue("Blue", 255D, 0D, 255D);
-		this.alpha = new NumberValue("Alpha", 255D, 0D, 255D);
+		this.red = new IntegerValue("Red", 255, 0, 255);
+		this.green = new IntegerValue("Green", 255, 0, 255);
+		this.blue = new IntegerValue("Blue", 255, 0, 255);
+		this.alpha = new IntegerValue("Alpha", 255, 0, 255);
 		
 		this.addValue(theme, tooltip, shadow, rainbow, red, green, blue, alpha);
 		this.setColor();
@@ -63,10 +60,10 @@ public class ClickGui extends Hack{
 	 }
 	
 	 public static void setColor() {
-		color = ColorUtils.color(red.getValue().intValue(),
-				green.getValue().intValue(),
-				blue.getValue().intValue(),
-				alpha.getValue().intValue());
+		color = ColorUtils.color(red.getValue(),
+				green.getValue(),
+				blue.getValue(),
+				alpha.getValue());
 	}
 	
 	@Override

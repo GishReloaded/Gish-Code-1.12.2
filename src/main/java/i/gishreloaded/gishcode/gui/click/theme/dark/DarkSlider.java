@@ -29,12 +29,14 @@ public class DarkSlider extends ComponentRenderer {
         int mainColorInv = ClickGui.isLight ? ColorUtils.color(0, 0, 0, 255) : ColorUtils.color(255, 255, 255, 255);
         int strColor = ClickGui.isLight ? ColorUtils.color(0.3f, 0.3f, 0.3f, 1.0f) : ColorUtils.color(0.5f, 0.5f, 0.5f, 1.0f);
         
+        String value = slider.getRenderValue();
+        
         //GLUtils.glColor(ColorUtils.color(1.0f, 1.0f, 1.0f, 1.0f));
         
         theme.fontRenderer.drawString(slider.getText(), slider.getX() + 4, slider.getY() + 2, 
         		strColor);
         
-        theme.fontRenderer.drawString(slider.getValue() + "", slider.getX() + slider.getDimension().width - theme.fontRenderer.getStringWidth(slider.getValue() + "") - 2, slider.getY() + 2, 
+        theme.fontRenderer.drawString(value, slider.getX() + slider.getDimension().width - theme.fontRenderer.getStringWidth(value) - 2, slider.getY() + 2, 
         		mainColorInv);
         
         RenderUtils.drawRect(slider.getX(), slider.getY() + slider.getDimension().height / 2 + 3, slider.getX() + (width) + 3, (slider.getY() + slider.getDimension().height / 2) + 6, 

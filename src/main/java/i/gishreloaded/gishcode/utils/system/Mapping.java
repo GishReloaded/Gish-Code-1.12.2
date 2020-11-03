@@ -20,6 +20,8 @@ public class Mapping {
 	public static String curBlockDamageMP = isNotObfuscated() ? "curBlockDamageMP" : "field_78770_f";
 	public static String isHittingBlock = isNotObfuscated() ? "isHittingBlock" : "field_78778_j";
 	public static String onUpdateWalkingPlayer = isNotObfuscated() ? "onUpdateWalkingPlayer" : "func_175161_p";
+	public static String fire = isNotObfuscated() ? "fire" : "field_190534_ay";
+	public static String isImmuneToFire = isNotObfuscated() ? "isImmuneToFire" : "field_70178_ae";
 
     public static boolean isNotObfuscated() {
         try { return Minecraft.class.getDeclaredField("instance") != null;

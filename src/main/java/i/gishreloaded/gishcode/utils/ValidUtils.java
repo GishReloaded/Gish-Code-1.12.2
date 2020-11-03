@@ -56,7 +56,7 @@ public class ValidUtils {
 		return true;
 	}
     
-    public static boolean isBot(EntityLivingBase entity) {
+	public static boolean isBot(EntityLivingBase entity) {
     	if(entity instanceof EntityPlayer) {
     		EntityPlayer player = (EntityPlayer)entity;
     		Hack hack = HackManager.getHack("AntiBot");
