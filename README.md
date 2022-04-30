@@ -12,4 +12,4 @@ This is a hacked modification for Minecraft Forge 1.12.2 [{ _deadcode } (Discord
 - Using `DLL` for inject in Minecraft Forge Client with help any injector
 
   [JavaInjector]: https://github.com/TheQmaks/JavaInjector
-  [{ _deadcode } (Discord Server)]: https://discord.gg/f7nFjMp
+  [{ _deadcode } (Discord Server)]: https://discord.com/invite/zc6Ebr4YRU
